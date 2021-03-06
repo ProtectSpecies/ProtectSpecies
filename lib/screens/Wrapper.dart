@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutterapp/screens/authenticate/authenticate.dart';
-import 'package:flutterapp/screens/home/Wrapper_of_main_screens.dart';
+import 'package:flutterapp/screens/home/main_pages_wrapper.dart';
 import 'package:provider/provider.dart';
 import 'package:flutterapp/models/fUser.dart';
 
@@ -15,7 +15,8 @@ class Wrapper extends StatelessWidget {
     if (user == null){
       return Authenticate();
     } else {
-      return WrapperHomeScreen();
+      //return WrapperHomeScreen();
+      return MainPages();
     }
 
   }

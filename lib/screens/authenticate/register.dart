@@ -25,9 +25,9 @@ class _RegisterState extends State<Register> {
       home: Scaffold(
         backgroundColor: Colors.greenAccent[100],
         appBar: AppBar(
-          backgroundColor: Colors.brown[400],
-          elevation: 0.0,
-          title: Text("Sign up to Animal Identifier"),
+            backgroundColor: Colors.redAccent,
+            elevation: 0.0,
+            title: Text("Sign up to Animal Identifier"),
             actions: <Widget>[
               TextButton.icon(
                 icon: Icon(Icons.arrow_forward_ios_rounded),

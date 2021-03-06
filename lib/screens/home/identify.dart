@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 
 class Identify extends StatefulWidget {
-
-  final Function toggleView;
-  Identify({this.toggleView});
-
   @override
   _IdentifyState createState() => _IdentifyState();
 }
@@ -14,16 +10,20 @@ class _IdentifyState extends State<Identify> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        backgroundColor: Colors.greenAccent[100],
-        appBar: AppBar(
-          backgroundColor: Colors.brown[400],
-          elevation: 0.0,
-          title: Text("Identify Page"),
-          centerTitle: true,
+        floatingActionButton: FloatingActionButton(
+          onPressed: ()  {},
+          backgroundColor: Colors.lightBlue,
+            child: Icon(Icons.camera_alt_outlined)
         ),
-        body: Container(
-          margin: EdgeInsets.all(120),
-          child:TextButton.icon(onPressed: () {return widget.toggleView();} , icon: Icon(Icons.home), label: Text("Home Screen")),
+        backgroundColor: Colors.white,
+        body: Center(
+          child: Container(
+            child: Text(
+                "Identify",
+                textScaleFactor: 2.0,
+                style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+          ),
         ),
       ),
     );
