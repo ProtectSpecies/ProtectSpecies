@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
 
           /// Waiting for initialization to complete
 
-          return null;
+          return Container(width: 0.0, height: 0.0);
         },
       );
   }
