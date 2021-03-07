@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutterapp/screens/home/home.dart';
 import 'package:flutterapp/screens/home/identify.dart';
-import 'package:flutterapp/screens/profile.dart';
+import 'file:///C:/Users/ASUS/AndroidStudioProjects/flutter_app/flutter_app/lib/screens/home/profile.dart';
 import 'package:flutterapp/services/auth.dart';
 
 
