@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutterapp/screens/home/home.dart';
 import 'package:flutterapp/screens/home/identify.dart';
+import 'package:flutterapp/screens/profile.dart';
 import 'package:flutterapp/services/auth.dart';
 
 
@@ -30,10 +31,7 @@ class _MyHomeState extends State<MyHome> {
   List<Widget> _widgetOptions = <Widget>[
     Home(),
     Identify(),
-    Text(
-      'Profile',
-      style: optionStyle,
-    ),
+    Profile(),
     Text(
       'Settings',
       style: optionStyle,
