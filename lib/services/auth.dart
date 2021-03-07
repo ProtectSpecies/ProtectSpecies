@@ -38,7 +38,6 @@ class AuthanticateServ {
     try{
       UserCredential result = await _auth.signInAnonymously();
       User user = result.user;
-      print("Signed in");
       //return user;
       return _fUserFromUserClass(user);
     } catch(e){
@@ -49,9 +48,31 @@ class AuthanticateServ {
 
 
 
-  /// sign in with email & password ///
-
   /// register with email & password ///
+
+  Future registerWithEmail(String email,String password) async {
+    try{
+       UserCredential result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
+       User user = result.user;
+       return _fUserFromUserClass(user);
+    } catch(e){
+      print(e.toString());
+      return null;
+    }
+  }
+
+/// sign in with email & password ///
+
+  Future signInWithEmail(String email,String password) async {
+    try{
+      UserCredential result = await _auth.signInWithEmailAndPassword(email: email, password: password);
+      User user = result.user;
+      return _fUserFromUserClass(user);
+    } catch(e){
+      print(e.toString());
+      return null;
+    }
+  }
 
 
 

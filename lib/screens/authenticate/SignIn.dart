@@ -3,8 +3,8 @@ import 'package:flutterapp/services/auth.dart';
 
 class SignIn extends StatefulWidget {
 
-  final Function toggleView;
-  SignIn({this.toggleView});
+  final Function changeView;
+  SignIn({this.changeView});
 
   @override
   _SignInState createState() => _SignInState();
@@ -13,7 +13,9 @@ class SignIn extends StatefulWidget {
 class _SignInState extends State<SignIn> {
 
   final AuthanticateServ _auth =  AuthanticateServ();
+  final _formKey = GlobalKey<FormState>();
 
+  String error = "";
   String email = '';
   String password = '';
 
@@ -21,7 +23,7 @@ class _SignInState extends State<SignIn> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-          backgroundColor: Colors.greenAccent[100],
+          backgroundColor: Colors.white,
           appBar: AppBar(
               backgroundColor: Colors.redAccent,
             elevation: 0.0,
@@ -30,7 +32,7 @@ class _SignInState extends State<SignIn> {
                 TextButton.icon(
                   icon: Icon(Icons.arrow_forward_ios_rounded),
                   onPressed: () {
-                    return widget.toggleView();
+                    return widget.changeView();
                   },
                   label: Text("Register"),
                 ),
@@ -39,30 +41,40 @@ class _SignInState extends State<SignIn> {
           body: Container(
               padding: EdgeInsets.symmetric(vertical: 50.0, horizontal: 50.0),
               child: Form(
+                key: _formKey,
                   child: Column(
                   children: <Widget>[
                     SizedBox(height: 15.0),
                     TextFormField(
-                  onChanged: (val) {
-                      setState(() => email = val);
+                      validator: (val) => val.isEmpty ? "Enter an email" : null,
+                      onChanged: (val) {
+                        setState(() => email = val);
                       },
                     ),
                     SizedBox(height: 15.0),
                     TextFormField(
-                    obscureText: true,
-                    onChanged: (val) {
-                    setState(() => password = val);
+                      obscureText: true,
+                      validator: (val) => val.length<6 ? "Your password should contain at least 6 characters !" : null,
+                      onChanged: (val) {
+                      setState(() => password = val);
                       },
                     ),
                     SizedBox(height: 15.0),
                     ElevatedButton(
-                    child: Text(
+                      child: Text(
                         'Sign In',
                         style: TextStyle(color: Colors.white),
                       ),
                     onPressed: () async {
-                      print(email);
-                      print(password);
+                      if (_formKey.currentState.validate()) {
+                        print("valid");
+                        dynamic result = await _auth.signInWithEmail(email, password);
+                        if (result==null) {
+                          setState(() {
+                            error = "Problem with signing in!";
+                          });
+                        }
+                      }
                         }
                       ),
                     ElevatedButton(
@@ -74,6 +86,14 @@ class _SignInState extends State<SignIn> {
                           _auth.signInAnon();
                         }
                     ),
+                    SizedBox(height: 12.0),
+                    Text(
+                      error,
+                      style: TextStyle(
+                        color: Colors.red,
+                        fontSize: 14.0,
+                      ),
+                    )
                     ],
                 ),
             )
