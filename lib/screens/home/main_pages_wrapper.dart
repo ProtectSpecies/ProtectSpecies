@@ -4,8 +4,6 @@ import 'package:flutterapp/screens/home/identify.dart';
 import 'package:flutterapp/screens/home/profile.dart';
 import 'package:flutterapp/services/auth.dart';
 
-
-
 class MainPages extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -22,15 +20,14 @@ class MyHome extends StatefulWidget {
 }
 
 class _MyHomeState extends State<MyHome> {
-
-  final AuthanticateServ _auth =  AuthanticateServ();
+  final AuthanticateServ _auth = AuthanticateServ();
 
   int _selectedIndex = 0;
   static const TextStyle optionStyle =
-  TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   List<Widget> _widgetOptions = <Widget>[
     Home(),
-    Identify(),
+    Page1Camera(),
     Profile(),
     Text(
       'Settings',
@@ -49,7 +46,7 @@ class _MyHomeState extends State<MyHome> {
     return Scaffold(
       appBar: AppBar(
           backgroundColor: Colors.redAccent,
-          title:  Text('AnimalApp'),
+          title: Text('AnimalApp'),
           actions: <Widget>[
             TextButton.icon(
               icon: Icon(Icons.person),
@@ -58,8 +55,7 @@ class _MyHomeState extends State<MyHome> {
               },
               label: Text("Log Out"),
             ),
-          ]
-      ),
+          ]),
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
