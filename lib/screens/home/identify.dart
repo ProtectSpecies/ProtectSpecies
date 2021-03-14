@@ -9,6 +9,7 @@ class Page1Camera extends StatefulWidget {
 }
 
 class _Page1CameraState extends State<Page1Camera> {
+  bool inProcess = false;
   File selectedFile;
   final picker = ImagePicker();
 
@@ -28,6 +29,9 @@ class _Page1CameraState extends State<Page1Camera> {
   }
 
   Future getImageCamera() async {
+    this.setState(() {
+      inProcess = true;
+    });
     final image = await picker.getImage(source: ImageSource.camera);
     if (image != null) {
       File resizedImage = await ImageCropper.cropImage(
@@ -44,11 +48,19 @@ class _Page1CameraState extends State<Page1Camera> {
               backgroundColor: Colors.white30));
       this.setState(() {
         selectedFile = resizedImage;
+        inProcess = false;
+      });
+    } else {
+      this.setState(() {
+        inProcess = false;
       });
     }
   }
 
   Future getImageDevice() async {
+    this.setState(() {
+      inProcess = true;
+    });
     final image = await ImagePicker().getImage(source: ImageSource.gallery);
     if (image != null) {
       File resizedImage = await ImageCropper.cropImage(
@@ -65,6 +77,7 @@ class _Page1CameraState extends State<Page1Camera> {
               backgroundColor: Colors.white30));
       this.setState(() {
         selectedFile = resizedImage;
+        inProcess = false;
       });
     }
   }
@@ -72,26 +85,35 @@ class _Page1CameraState extends State<Page1Camera> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          getImageWidget(),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              MaterialButton(
-                color: Colors.blue,
-                child: Text('Camera'),
-                onPressed: getImageCamera,
-              ),
-              MaterialButton(
-                  color: Colors.orange,
-                  child: Text('Device'),
-                  onPressed: getImageDevice)
-            ],
-          )
-        ],
-      ),
+      body: Stack(children: [
+        Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            getImageWidget(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                MaterialButton(
+                  color: Colors.blue,
+                  child: Text('Camera'),
+                  onPressed: getImageCamera,
+                ),
+                MaterialButton(
+                    color: Colors.orange,
+                    child: Text('Device'),
+                    onPressed: getImageDevice)
+              ],
+            )
+          ],
+        ),
+        (inProcess)
+            ? Container(
+                color: Colors.white,
+                height: MediaQuery.of(context).size.height * 0.94,
+                child: Center(child: CircularProgressIndicator()),
+              )
+            : Center()
+      ]),
     );
   }
 }
