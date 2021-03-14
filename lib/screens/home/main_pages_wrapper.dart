@@ -45,9 +45,7 @@ class _MyHomeState extends State<MyHome> {
       appBar: AppBar(
           backgroundColor: Colors.red,
           title: Text('AnimalApp'),
-          actions: <Widget>[
-                                //TODO change this
-          ]),
+      ),
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
