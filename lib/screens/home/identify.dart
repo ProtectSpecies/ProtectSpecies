@@ -10,6 +10,7 @@ class Page1Camera extends StatefulWidget {
 
 class _Page1CameraState extends State<Page1Camera> {
   File selectedFile;
+  final picker = ImagePicker();
 
   Widget getImageWidget() {
     if (selectedFile != null) {
@@ -26,8 +27,29 @@ class _Page1CameraState extends State<Page1Camera> {
     }
   }
 
-  Future getImage() async {
-    final image = await ImagePicker().getImage(source: ImageSource.camera);
+  Future getImageCamera() async {
+    final image = await picker.getImage(source: ImageSource.camera);
+    if (image != null) {
+      File resizedImage = await ImageCropper.cropImage(
+          sourcePath: image.path,
+          aspectRatio: CropAspectRatio(ratioX: 1, ratioY: 1),
+          compressQuality: 100,
+          maxHeight: 700,
+          maxWidth: 700,
+          compressFormat: ImageCompressFormat.jpg,
+          androidUiSettings: AndroidUiSettings(
+              toolbarColor: Colors.deepOrangeAccent,
+              toolbarTitle: 'AnimalPicker',
+              statusBarColor: Colors.deepPurpleAccent,
+              backgroundColor: Colors.white30));
+      this.setState(() {
+        selectedFile = resizedImage;
+      });
+    }
+  }
+
+  Future getImageDevice() async {
+    final image = await ImagePicker().getImage(source: ImageSource.gallery);
     if (image != null) {
       File resizedImage = await ImageCropper.cropImage(
           sourcePath: image.path,
@@ -60,10 +82,12 @@ class _Page1CameraState extends State<Page1Camera> {
               MaterialButton(
                 color: Colors.blue,
                 child: Text('Camera'),
-                onPressed: getImage,
+                onPressed: getImageCamera,
               ),
               MaterialButton(
-                  color: Colors.orange, child: Text('Device'), onPressed: null)
+                  color: Colors.orange,
+                  child: Text('Device'),
+                  onPressed: getImageDevice)
             ],
           )
         ],

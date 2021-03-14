@@ -11,30 +11,29 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
+      /// Initialize FlutterFire
 
-        /// Initialize FlutterFire
+      future: Firebase.initializeApp(),
+      builder: (context, snapshot) {
+        // Check for errors
+        if (snapshot.hasError) {
+          print("Something went wrong");
+        }
 
-        future: Firebase.initializeApp(),
-        builder: (context, snapshot) {
-          // Check for errors
-          if (snapshot.hasError) {
-            print("Something went wrong");
-          }
+        /// Once complete, show your application
 
-          /// Once complete, show your application
+        if (snapshot.connectionState == ConnectionState.done) {
+          return StreamProvider<FbUser>.value(
+            value: AuthanticateServ().user,
+            initialData: null,
+            child: Wrapper(),
+          );
+        }
 
-          if (snapshot.connectionState == ConnectionState.done) {
-            return StreamProvider<FbUser>.value(
-                value: AuthanticateServ().user,
-                initialData: null,
-               child: Wrapper(),
-            );
-          }
+        /// Waiting for initialization to complete
 
-          /// Waiting for initialization to complete
-
-          return Container(width: 0.0, height: 0.0);
-        },
-      );
+        return Container(width: 0.0, height: 0.0);
+      },
+    );
   }
 }
