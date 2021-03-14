@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:image_cropper/image_cropper.dart';
@@ -22,19 +21,16 @@ class _Page1CameraState extends State<Page1Camera> { //TODO: Link image URL in C
   Future<void> saveImages(_image, DocumentReference reference) async {
 
     uploadFile(File _image) async {
-      String url;
       FirebaseStorage storage = FirebaseStorage.instance;
       Reference ref = storage.ref().child("image" + DateTime.now().toString());
       UploadTask uploadTask = ref.putFile(_image);
-      uploadTask.whenComplete(() async {
-        url = await ref.getDownloadURL();
-        return url;
-      });
+
+      var url = await (await uploadTask).ref.getDownloadURL();
+      return url;
 
     }
 
     String imageURL = await uploadFile(_image);
-    print(imageURL);
     reference.set({"imageURL": imageURL});
 
   }
