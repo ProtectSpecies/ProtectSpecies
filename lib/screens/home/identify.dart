@@ -19,20 +19,23 @@ class _Page1CameraState extends State<Page1Camera> { //TODO: Link image URL in C
   File _selectedFile;
   final picker = ImagePicker();
 
-  Future<void> saveImages(_image, DocumentReference ref) async {
+  Future<void> saveImages(_image, DocumentReference reference) async {
 
-    Future<String> uploadFile(File _image) async {
+    uploadFile(File _image) async {
+      String url;
       FirebaseStorage storage = FirebaseStorage.instance;
-      Reference refer = storage.ref().child("image" + DateTime.now().toString());
-      UploadTask uploadTask = refer.putFile(_image);
-      uploadTask.then((res) {
-        var url = res.ref.getDownloadURL();
-        return url.toString();
+      Reference ref = storage.ref().child("image" + DateTime.now().toString());
+      UploadTask uploadTask = ref.putFile(_image);
+      uploadTask.whenComplete(() async {
+        url = await ref.getDownloadURL();
+        return url;
       });
+
     }
 
     String imageURL = await uploadFile(_image);
-    ref.set({"imageURL": imageURL});
+    print(imageURL);
+    reference.set({"imageURL": imageURL});
 
   }
 
