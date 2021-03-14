@@ -25,7 +25,7 @@ class _SignInState extends State<SignIn> {
       home: Scaffold(
           backgroundColor: Colors.white,
           appBar: AppBar(
-              backgroundColor: Colors.redAccent,
+              backgroundColor: Colors.red,
             elevation: 0.0,
             title: Text("Sign in to Animal Identifier"),
               actions: <Widget>[

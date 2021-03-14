@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutterapp/screens/home/home.dart';
 import 'package:flutterapp/screens/home/identify.dart';
 import 'package:flutterapp/screens/home/profile.dart';
+import 'package:flutterapp/screens/home/settings.dart';
 import 'package:flutterapp/services/auth.dart';
 
 class MainPages extends StatelessWidget {
@@ -29,10 +30,7 @@ class _MyHomeState extends State<MyHome> {
     Home(),
     Page1Camera(),
     Profile(),
-    Text(
-      'Settings',
-      style: optionStyle,
-    ),
+    Settings(),
   ];
 
   void _onItemTapped(int index) {
@@ -45,16 +43,10 @@ class _MyHomeState extends State<MyHome> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          backgroundColor: Colors.redAccent,
+          backgroundColor: Colors.red,
           title: Text('AnimalApp'),
           actions: <Widget>[
-            TextButton.icon(
-              icon: Icon(Icons.person),
-              onPressed: () async {
-                await _auth.signOut();
-              },
-              label: Text("Log Out"),
-            ),
+                                //TODO change this
           ]),
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
@@ -86,6 +78,45 @@ class _MyHomeState extends State<MyHome> {
         selectedItemColor: Colors.amber[800],
         onTap: _onItemTapped,
       ),
+        drawer : Drawer(
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: <Widget>[
+              DrawerHeader(
+                child: Center(
+                    child: Text(
+                      'Settings',
+                      textScaleFactor: 2.0,
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    )
+                ),
+                decoration: BoxDecoration(
+                  color: Colors.red,
+                ),
+              ),
+              ListTile(
+                title: Text('Item 1'),
+                onTap: () {},
+              ),
+              ListTile(
+                title: Text('Item 2'),
+                onTap: () {},
+              ),
+              ListTile(
+                  title: Text('Item 3'),
+                  onTap: () {}
+              ),
+              SizedBox(height:370.0),
+              TextButton.icon(
+                icon: Icon(Icons.person),
+                onPressed: () async {
+                  await _auth.signOut();
+                },
+                label: Text("Log Out"),
+              ),
+            ],
+          ),
+        )
     );
   }
 }
