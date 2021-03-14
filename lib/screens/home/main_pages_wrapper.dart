@@ -104,7 +104,7 @@ class _MyHomeState extends State<MyHome> {
                   title: Text('Item 3'),
                   onTap: () {}
               ),
-              SizedBox(height:370.0),
+              SizedBox(height:350.0),
               TextButton.icon(
                 icon: Icon(Icons.person),
                 onPressed: () async {
