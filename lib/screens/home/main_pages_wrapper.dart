@@ -22,6 +22,7 @@ class MyHome extends StatefulWidget {
 
 class _MyHomeState extends State<MyHome> {
   final AuthanticateServ _auth = AuthanticateServ();
+  GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
 
   int _selectedIndex = 0;
   static const TextStyle optionStyle =
@@ -30,7 +31,6 @@ class _MyHomeState extends State<MyHome> {
     Home(),
     Page1Camera(),
     Profile(),
-    Settings(),
   ];
 
   void _onItemTapped(int index) {
@@ -42,9 +42,16 @@ class _MyHomeState extends State<MyHome> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+        key: _drawerKey,
+        appBar: AppBar(
           backgroundColor: Colors.red,
           title: Text('AnimalApp'),
+          actions: <Widget> [
+            IconButton(
+              icon: Icon(Icons.settings),
+              onPressed: () => _drawerKey.currentState.openEndDrawer(),
+            ),
+          ]
       ),
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
@@ -54,29 +61,20 @@ class _MyHomeState extends State<MyHome> {
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Home',
-            backgroundColor: Colors.red,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.camera_alt_outlined),
             label: 'Identify',
-            backgroundColor: Colors.lightBlueAccent,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.account_circle),
             label: 'Profile',
-            backgroundColor: Colors.purple,
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: 'Settings',
-            backgroundColor: Colors.pink,
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.amber[800],
         onTap: _onItemTapped,
       ),
-        drawer : Drawer(
+        endDrawer : Drawer(
           child: ListView(
             padding: EdgeInsets.zero,
             children: <Widget>[
@@ -104,7 +102,7 @@ class _MyHomeState extends State<MyHome> {
                   title: Text('Item 3'),
                   onTap: () {}
               ),
-              SizedBox(height:350.0),
+              SizedBox(height:370.0),
               TextButton.icon(
                 icon: Icon(Icons.person),
                 onPressed: () async {
