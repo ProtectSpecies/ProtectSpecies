@@ -13,7 +13,7 @@ class Page1Camera extends StatefulWidget {
 
 
 class _Page1CameraState extends State<Page1Camera> { //TODO: Link image URL in Cloud Firestore
-
+  bool inProcess = false;
   DocumentReference imageRef = FirebaseFirestore.instance.collection('imageData').doc();
   File _selectedFile;
   final picker = ImagePicker();
@@ -55,6 +55,9 @@ class _Page1CameraState extends State<Page1Camera> { //TODO: Link image URL in C
   }
 
   Future getImageCamera() async {
+    this.setState(() {
+      inProcess = true;
+    });
     final image = await picker.getImage(source: ImageSource.camera);
     if (image != null) {
       File resizedImage = await ImageCropper.cropImage(
@@ -69,8 +72,13 @@ class _Page1CameraState extends State<Page1Camera> { //TODO: Link image URL in C
               toolbarTitle: 'AnimalPicker',
               statusBarColor: Colors.deepPurpleAccent,
               backgroundColor: Colors.white30));
-      setState(() {
+      this.setState(() {
         _selectedFile = resizedImage;
+        inProcess = false;
+      });
+    } else {
+      this.setState(() {
+        inProcess = false;
       });
     }
 
@@ -78,6 +86,9 @@ class _Page1CameraState extends State<Page1Camera> { //TODO: Link image URL in C
   }
 
   Future getImageDevice() async {
+    this.setState(() {
+      inProcess = true;
+    });
     final image = await ImagePicker().getImage(source: ImageSource.gallery);
     if (image != null) {
       File resizedImage = await ImageCropper.cropImage(
@@ -94,6 +105,7 @@ class _Page1CameraState extends State<Page1Camera> { //TODO: Link image URL in C
               backgroundColor: Colors.white30));
       setState(() {
         _selectedFile = resizedImage;
+        inProcess = false;
       });
     }
   }
@@ -101,31 +113,42 @@ class _Page1CameraState extends State<Page1Camera> { //TODO: Link image URL in C
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          getImageWidget(),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              MaterialButton(
-                color: Colors.blue,
-                child: Text('Camera'),
-                onPressed: getImageCamera,
-              ),
-              MaterialButton(
-                  color: Colors.orange,
-                  child: Text('Device'),
-                  onPressed: getImageDevice),
-              MaterialButton(
-                color: Colors.purple,
-                child: Text('Upload Image'),
-                onPressed: saveImagesWidget,
-              ),
-            ],
-          )
-        ],
-      ),
+      body: Stack(children: [
+        Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            getImageWidget(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                MaterialButton(
+                  color: Colors.blue,
+                  child: Text('Camera'),
+                  onPressed: getImageCamera,
+                ),
+                MaterialButton(
+                    color: Colors.orange,
+                    child: Text('Device'),
+                    onPressed: getImageDevice
+                ),
+                MaterialButton(
+                  color: Colors.purple,
+                  child: Text('Upload Image'),
+                  onPressed: saveImagesWidget,
+                ),
+              ],
+            )
+          ],
+        ),
+        (inProcess)
+            ? Container(
+          color: Colors.white,
+          height: MediaQuery.of(context).size.height * 0.94,
+          child: Center(child: CircularProgressIndicator()),
+        )
+            : Center()
+      ]),
+
     );
   }
 }
