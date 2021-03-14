@@ -1,39 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:image_cropper/image_cropper.dart';
-
 
 class Page1Camera extends StatefulWidget {
   @override
   _Page1CameraState createState() => _Page1CameraState();
 }
 
+class _Page1CameraState extends State<Page1Camera> {
+  //TODO: Link image URL in Cloud Firestore
 
-class _Page1CameraState extends State<Page1Camera> { //TODO: Link image URL in Cloud Firestore
-
-  DocumentReference imageRef = FirebaseFirestore.instance.collection('imageData').doc();
+  DocumentReference imageRef =
+      FirebaseFirestore.instance.collection('imageData').doc();
   File _selectedFile;
   final picker = ImagePicker();
 
-  Future<void> saveImages(_image, DocumentReference ref) async {
-
-    Future<String> uploadFile(File _image) async {
+  Future<void> saveImages(_image, DocumentReference reference) async {
+    uploadFile(File _image) async {
       FirebaseStorage storage = FirebaseStorage.instance;
-      Reference refer = storage.ref().child("image" + DateTime.now().toString());
-      UploadTask uploadTask = refer.putFile(_image);
-      uploadTask.then((res) {
-        var url = res.ref.getDownloadURL();
-        return url.toString();
-      });
+      Reference ref = storage.ref().child("image" + DateTime.now().toString());
+      UploadTask uploadTask = ref.putFile(_image);
+
+      var url = await (await uploadTask).ref.getDownloadURL();
+      return url;
     }
 
     String imageURL = await uploadFile(_image);
-    ref.set({"imageURL": imageURL});
-
+    reference.set({"imageURL": imageURL});
   }
 
   Widget saveImagesWidget() {
@@ -74,8 +70,6 @@ class _Page1CameraState extends State<Page1Camera> { //TODO: Link image URL in C
         _selectedFile = resizedImage;
       });
     }
-
-
   }
 
   Future getImageDevice() async {
