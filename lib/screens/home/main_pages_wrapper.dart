@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutterapp/screens/home/home.dart';
 import 'package:flutterapp/screens/home/identify.dart';
 import 'package:flutterapp/screens/home/profile.dart';
-import 'package:flutterapp/screens/home/settings.dart';
 import 'package:flutterapp/services/auth.dart';
 
 class MainPages extends StatelessWidget {
@@ -25,8 +24,7 @@ class _MyHomeState extends State<MyHome> {
   GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
 
   int _selectedIndex = 0;
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+
   List<Widget> _widgetOptions = <Widget>[
     Home(),
     Page1Camera(),
