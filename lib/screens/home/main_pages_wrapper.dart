@@ -20,6 +20,12 @@ class MyHome extends StatefulWidget {
 }
 
 class _MyHomeState extends State<MyHome> {
+  bool isloading = false;
+
+  void initState() {
+    super.initState();
+  }
+
   final AuthanticateServ _auth = AuthanticateServ();
   GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
 
@@ -42,65 +48,61 @@ class _MyHomeState extends State<MyHome> {
     return Scaffold(
         key: _drawerKey,
         appBar: AppBar(
-          backgroundColor: Colors.green[900],
-          flexibleSpace: FlexibleSpaceBar(
-            titlePadding: EdgeInsets.all(20.0),
-          ),
-          title: Text(
-              'AnimalApp',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 30.0,
-                fontWeight: FontWeight.bold,
-              )
+            backgroundColor: Colors.green[900],
+            flexibleSpace: FlexibleSpaceBar(
+              titlePadding: EdgeInsets.all(20.0),
             ),
-          actions: <Widget> [
-            IconButton(
-              icon: Icon(Icons.settings),
-              onPressed: () => _drawerKey.currentState.openEndDrawer(),
-            ),
-          ]
-      ),
-      body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
-      ),
-      bottomNavigationBar: Theme(
-        data: Theme.of(context).copyWith(
+            title: Text('AnimalApp',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 30.0,
+                  fontWeight: FontWeight.bold,
+                )),
+            actions: <Widget>[
+              IconButton(
+                icon: Icon(Icons.settings),
+                onPressed: () => _drawerKey.currentState.openEndDrawer(),
+              ),
+            ]),
+        body: Center(
+          child: _widgetOptions.elementAt(_selectedIndex),
+        ),
+        bottomNavigationBar: Theme(
+          data: Theme.of(context).copyWith(
             canvasColor: Colors.green[900],
-            ),
-       child: BottomNavigationBar(
-         selectedItemColor: Colors.black,
-         unselectedItemColor: Colors.white,
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.camera_alt_outlined),
-            label: 'Identify',
+          child: BottomNavigationBar(
+            selectedItemColor: Colors.black,
+            unselectedItemColor: Colors.white,
+            currentIndex: _selectedIndex,
+            onTap: _onItemTapped,
+            items: const <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home),
+                label: 'Home',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.camera_alt_outlined),
+                label: 'Identify',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.account_circle),
+                label: 'Profile',
+              ),
+            ],
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.account_circle),
-            label: 'Profile',
-          ),
-        ],
-      ),
-      ),
-        endDrawer : Drawer(
+        ),
+        endDrawer: Drawer(
           child: ListView(
             padding: EdgeInsets.zero,
             children: <Widget>[
               DrawerHeader(
                 child: Center(
                     child: Text(
-                      'Settings',
-                      textScaleFactor: 2.0,
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    )
-                ),
+                  'Settings',
+                  textScaleFactor: 2.0,
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                )),
                 decoration: BoxDecoration(
                   color: Colors.green[900],
                 ),
@@ -113,11 +115,8 @@ class _MyHomeState extends State<MyHome> {
                 title: Text('Item 2'),
                 onTap: () {},
               ),
-              ListTile(
-                  title: Text('Item 3'),
-                  onTap: () {}
-              ),
-              SizedBox(height:370.0),
+              ListTile(title: Text('Item 3'), onTap: () {}),
+              SizedBox(height: 370.0),
               TextButton.icon(
                 icon: Icon(Icons.person),
                 onPressed: () async {
@@ -127,7 +126,6 @@ class _MyHomeState extends State<MyHome> {
               ),
             ],
           ),
-        )
-    );
+        ));
   }
 }
