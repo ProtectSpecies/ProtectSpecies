@@ -1,5 +1,5 @@
-0 African Elephant
-1 Amur Leopard
-2 Arctic Fox
-3 Chimpanzee
-4 Orangutan
+ African Elephant
+ Amur Leopard
+ Arctic Fox
+ Chimpanzee
+ Orangutan
