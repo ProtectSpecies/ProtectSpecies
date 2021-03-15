@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -49,8 +50,17 @@ class _Page1CameraState extends State<Page1Camera> { //TODO: Link image URL in C
       );
     } else {
       return Container(
-        child: Text('CameraPage'),
-      );
+        padding: EdgeInsets.all(40),
+        child: Text(
+              "Camera Page",
+              style: TextStyle(
+              color: Colors.green[900],
+              fontSize: 30.0,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        );
+
     }
   }
 
@@ -113,7 +123,20 @@ class _Page1CameraState extends State<Page1Camera> { //TODO: Link image URL in C
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(children: [
+      body: Stack(
+        children:[
+          Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [Color(0xFF9CCC65), Color(0xFF7CB342), Color(0xFF558B2F), Color(0xFF33691E)],
+                stops: [0.1, 0.4, 0.7, 0.9],
+              ),
+            ),
+            height: double.infinity,
+            width: double.infinity,
+          ),
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -122,17 +145,17 @@ class _Page1CameraState extends State<Page1Camera> { //TODO: Link image URL in C
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 MaterialButton(
-                  color: Colors.blue,
+                  color: Colors.green[900],
                   child: Text('Camera'),
                   onPressed: getImageCamera,
                 ),
                 MaterialButton(
-                    color: Colors.orange,
+                    color: Colors.green[900],
                     child: Text('Device'),
                     onPressed: getImageDevice
                 ),
                 MaterialButton(
-                  color: Colors.purple,
+                  color: Colors.green[900],
                   child: Text('Upload Image'),
                   onPressed: saveImagesWidget,
                 ),
