@@ -42,8 +42,18 @@ class _MyHomeState extends State<MyHome> {
     return Scaffold(
         key: _drawerKey,
         appBar: AppBar(
-          backgroundColor: Colors.red,
-          title: Text('AnimalApp'),
+          backgroundColor: Colors.green[900],
+          flexibleSpace: FlexibleSpaceBar(
+            titlePadding: EdgeInsets.all(20.0),
+          ),
+          title: Text(
+              'AnimalApp',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 30.0,
+                fontWeight: FontWeight.bold,
+              )
+            ),
           actions: <Widget> [
             IconButton(
               icon: Icon(Icons.settings),
@@ -54,7 +64,15 @@ class _MyHomeState extends State<MyHome> {
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
-      bottomNavigationBar: BottomNavigationBar(
+      bottomNavigationBar: Theme(
+        data: Theme.of(context).copyWith(
+            canvasColor: Colors.green[900],
+            ),
+       child: BottomNavigationBar(
+         selectedItemColor: Colors.black,
+         unselectedItemColor: Colors.white,
+        currentIndex: _selectedIndex,
+        onTap: _onItemTapped,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
@@ -69,8 +87,7 @@ class _MyHomeState extends State<MyHome> {
             label: 'Profile',
           ),
         ],
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
+      ),
       ),
         endDrawer : Drawer(
           child: ListView(
@@ -85,7 +102,7 @@ class _MyHomeState extends State<MyHome> {
                     )
                 ),
                 decoration: BoxDecoration(
-                  color: Colors.red,
+                  color: Colors.green[900],
                 ),
               ),
               ListTile(
