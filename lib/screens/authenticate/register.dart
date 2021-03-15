@@ -13,11 +13,9 @@ class Register extends StatefulWidget {
 
 class _RegisterState extends State<Register> {
 
-  final AuthanticateServ _auth =  AuthanticateServ();
-  final _formKey = GlobalKey<FormState>();
+  final AuthanticateServ _auth = AuthanticateServ();
 
-
-  String error = "";
+  String error = '';
   String email = '';
   String password = '';
 
@@ -25,71 +23,179 @@ class _RegisterState extends State<Register> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
-        backgroundColor: Colors.white,
-        appBar: AppBar(
-            backgroundColor: Colors.red,
-            elevation: 0.0,
-            title: Text("Sign up to Animal Identifier"),
-            actions: <Widget>[
-              TextButton.icon(
-                icon: Icon(Icons.arrow_forward_ios_rounded),
-                onPressed: () {
-                  return widget.changeView();
-                },
-                label: Text("Sign in"),
+        body: Stack(
+          children: <Widget>[
+            Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [Color(0xFF9CCC65), Color(0xFF7CB342), Color(0xFF558B2F), Color(0xFF33691E)],
+                  stops: [0.1, 0.4, 0.7, 0.9],
+                ),
               ),
-          ]
-        ),
-        body: Container(
-            padding: EdgeInsets.symmetric(vertical: 50.0, horizontal: 50.0),
-            child: Form(
-              key: _formKey,
+              height: double.infinity,
+              width: double.infinity,
+            ),
+            Container(
+              height: double.infinity,
+              padding: EdgeInsets.fromLTRB(40.0,00.0,40.0,0.0),
               child: Column(
-                children: <Widget>[
-                  SizedBox(height: 15.0),
-                  TextFormField(
-                    validator: (val) => val.isEmpty ? "Enter an email" : null,
-                    onChanged: (val) {
-                      setState(() => email = val);
-                    },
-                  ),
-                  SizedBox(height: 15.0),
-                  TextFormField(
-                    obscureText: true,
-                    validator: (val) => val.length<6 ? "Your password should contain at least 6 characters !" : null,
-                    onChanged: (val) {
-                      setState(() => password = val);
-                    },
-                  ),
-                  SizedBox(height: 15.0),
-                  ElevatedButton(
-                      child: Text(
-                        'Register',
-                        style: TextStyle(color: Colors.white),
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text(
+                      'WELCOME TO PROTECT SPECIES',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.green[900],
+                        fontSize: 30.0,
+                        fontWeight: FontWeight.bold,
                       ),
-                      onPressed: () async {
-                        if (_formKey.currentState.validate()) {
-                          dynamic result = await _auth.registerWithEmail(email, password);
-                          if (result==null) {
+                    ),
+                    SizedBox(height: 70.0),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          'Create an Account',
+                          style: TextStyle(
+                            color: Colors.green[900],
+                            fontSize: 25.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(height: 30.0),
+                        Container(
+                          alignment: Alignment.centerLeft,
+                          decoration: BoxDecoration(
+                            color: Color(0xFF33691E),
+                            borderRadius: BorderRadius.circular(10.0),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black12,
+                                blurRadius: 6.0,
+                                offset: Offset(0, 2),
+                              ),
+                            ],
+                          ),
+                          height: 60.0,
+                          child: TextField(
+                            onChanged: (val) {
+                              setState(() => email = val);
+                            },
+                            keyboardType: TextInputType.emailAddress,
+                            style: TextStyle(color: Colors.white,),
+                            decoration: InputDecoration(
+                              border: InputBorder.none,
+                              contentPadding: EdgeInsets.only(top: 14.0),
+                              prefixIcon: Icon(Icons.email_rounded, color: Colors.white,),
+                              hintText: 'Email',
+                              hintStyle: TextStyle(color: Colors.white54,),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+
+                    SizedBox(height: 20.0),
+
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        SizedBox(height: 10.0),
+                        Container(
+                          alignment: Alignment.centerLeft,
+                          decoration: BoxDecoration(
+                            color: Color(0xFF33691E),
+                            borderRadius: BorderRadius.circular(10.0),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black12,
+                                blurRadius: 6.0,
+                                offset: Offset(0, 2),
+                              ),
+                            ],
+                          ),
+                          height: 60.0,
+                          child: TextField(
+                            onChanged: (val) {
+                              setState(() => password = val);
+                            },
+                            obscureText: true,
+                            decoration: InputDecoration(
+                              border: InputBorder.none,
+                              contentPadding: EdgeInsets.only(top: 14.0),
+                              prefixIcon: Icon(Icons.lock_outlined, color: Colors.white,),
+                              hintText: 'Password',
+                              hintStyle: TextStyle(color: Colors.white54,),
+                            ),
+                            style: TextStyle(color: Colors.white,),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 30.0),
+                    ElevatedButton(
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(Colors.green[900]),
+                          elevation: MaterialStateProperty.all<double>(20.0),
+                        ),
+                        child: Text(
+                          'Register',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        onPressed: () async {
+                          dynamic result = await _auth.registerWithEmail(
+                              email, password);
+                          if (result == null) {
                             setState(() {
                               error = "please enter a valid email";
                             });
                           }
                         }
-                      }
-                  ),
-                  SizedBox(height: 12.0),
-                  Text(
-                    error,
-                    style: TextStyle(
-                      color: Colors.red,
-                      fontSize: 14.0,
                     ),
-                  )
-                ],
+                    SizedBox(height: 12),
+                    Text(
+                      error,
+                      style: TextStyle(
+                        color: Colors.red,
+                        fontSize: 15.0,
+                      ),
+                    ),
+                    SizedBox(height: 30,),
+                    GestureDetector(
+                      onTap: () {
+                        return widget.changeView();
+                      },
+                      child: RichText(
+                        text: TextSpan(
+                          children: [
+                            TextSpan(
+                              text: 'Already have an account? ',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18.0,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                            TextSpan(
+                              text: 'Sign In',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            )
+            ],
         ),
       ),
     );

@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutterapp/services/auth.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -8,7 +7,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  final AuthanticateServ _auth = AuthanticateServ();
+
 
   @override
   Widget build(BuildContext context) {
