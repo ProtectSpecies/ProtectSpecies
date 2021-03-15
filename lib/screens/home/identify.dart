@@ -5,6 +5,8 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:image_cropper/image_cropper.dart';
+import 'package:tflite/tflite.dart';
+import '/models/tflite.dart';
 
 class Page1Camera extends StatefulWidget {
   @override
@@ -14,9 +16,10 @@ class Page1Camera extends StatefulWidget {
 class _Page1CameraState extends State<Page1Camera> {
   //TODO: Link image URL in Cloud Firestore
   bool inProcess = false;
+  var _output;
   DocumentReference imageRef =
       FirebaseFirestore.instance.collection('imageData').doc();
-  File _selectedFile;
+  File selectedFile;
   final picker = ImagePicker();
 
   Future<void> saveImages(_image, DocumentReference reference) async {
@@ -34,13 +37,13 @@ class _Page1CameraState extends State<Page1Camera> {
   }
 
   Widget saveImagesWidget() {
-    saveImages(_selectedFile, imageRef);
+    saveImages(selectedFile, imageRef);
   }
 
   Widget getImageWidget() {
-    if (_selectedFile != null) {
+    if (selectedFile != null) {
       return Image.file(
-        _selectedFile,
+        selectedFile,
         width: 250,
         height: 250,
         fit: BoxFit.cover,
@@ -49,15 +52,14 @@ class _Page1CameraState extends State<Page1Camera> {
       return Container(
         padding: EdgeInsets.all(40),
         child: Text(
-              "Camera Page",
-              style: TextStyle(
-              color: Colors.green[900],
-              fontSize: 30.0,
-              fontWeight: FontWeight.bold,
-            ),
+          "Camera Page",
+          style: TextStyle(
+            color: Colors.green[900],
+            fontSize: 30.0,
+            fontWeight: FontWeight.bold,
           ),
-        );
-
+        ),
+      );
     }
   }
 
@@ -79,8 +81,10 @@ class _Page1CameraState extends State<Page1Camera> {
               toolbarTitle: 'AnimalPicker',
               statusBarColor: Colors.deepPurpleAccent,
               backgroundColor: Colors.white30));
+
       this.setState(() {
-        _selectedFile = resizedImage;
+        runModel(resizedImage);
+        selectedFile = resizedImage;
         inProcess = false;
       });
     } else {
@@ -109,33 +113,55 @@ class _Page1CameraState extends State<Page1Camera> {
               statusBarColor: Colors.deepPurpleAccent,
               backgroundColor: Colors.white30));
       setState(() {
-        _selectedFile = resizedImage;
+        runModel(resizedImage);
+        selectedFile = resizedImage;
         inProcess = false;
       });
     }
   }
 
+  runModel(File image) async {
+    var output = await Tflite.runModelOnImage(
+      path: image.path,
+      numResults: 5,
+      imageMean: 127.5,
+      imageStd: 127.5,
+      threshold: 0.5,
+    );
+    this.setState(() {
+      _output = output;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children:[
-          Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [Color(0xFF9CCC65), Color(0xFF7CB342), Color(0xFF558B2F), Color(0xFF33691E)],
-                stops: [0.1, 0.4, 0.7, 0.9],
-              ),
+      body: Stack(children: [
+        Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                Color(0xFF9CCC65),
+                Color(0xFF7CB342),
+                Color(0xFF558B2F),
+                Color(0xFF33691E)
+              ],
+              stops: [0.1, 0.4, 0.7, 0.9],
             ),
-            height: double.infinity,
-            width: double.infinity,
           ),
+          height: double.infinity,
+          width: double.infinity,
+        ),
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             getImageWidget(),
+            SizedBox(
+              height: 16,
+            ),
+            _output == null ? Text("") : Text("${_output[0]["label"]}"),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [

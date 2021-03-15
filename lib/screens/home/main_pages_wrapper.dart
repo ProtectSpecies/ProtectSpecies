@@ -3,6 +3,7 @@ import 'package:flutterapp/screens/home/home.dart';
 import 'package:flutterapp/screens/home/identify.dart';
 import 'package:flutterapp/screens/home/profile.dart';
 import 'package:flutterapp/services/auth.dart';
+import 'package:tflite/tflite.dart';
 
 class MainPages extends StatelessWidget {
   @override
@@ -22,8 +23,21 @@ class MyHome extends StatefulWidget {
 class _MyHomeState extends State<MyHome> {
   bool isloading = false;
 
+  loadModel() async {
+    await Tflite.loadModel(
+      model: "assets/model_unquant.tflite",
+      labels: "assets/labels.txt",
+    );
+  }
+
   void initState() {
     super.initState();
+    isloading = true;
+    loadModel().then((value) {
+      setState(() {
+        isloading = false;
+      });
+    });
   }
 
   final AuthanticateServ _auth = AuthanticateServ();
