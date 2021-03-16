@@ -139,7 +139,7 @@ class _SignInState extends State<SignIn> {
                           ),
                         ],
                       ),
-                      SizedBox(height: 30.0),
+                      SizedBox(height: 20.0),
                       ElevatedButton(
                           style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all<Color>(Colors.green[900]),
@@ -179,7 +179,25 @@ class _SignInState extends State<SignIn> {
                             _auth.signInAnon();
                           }
                       ),
-                      SizedBox(height: 30),
+
+                      SizedBox(height: 20),
+
+                      ElevatedButton(
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all<Color>(Colors.blue[900]),
+                            elevation: MaterialStateProperty.all<double>(20.0),
+                          ),
+                          child: Text(
+                            'Sign In with Google',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          onPressed: () async {
+                            _auth.signInWithGoogle();
+                          }
+                      ),
+
+                      SizedBox(height: 20),
+
                       GestureDetector(
                           onTap: () {
                             return widget.changeView();
