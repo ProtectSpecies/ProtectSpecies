@@ -61,7 +61,7 @@ class _MyHomeState extends State<MyHome> {
   Widget build(BuildContext context) {
     return Scaffold(
         key: _drawerKey,
-        appBar: AppBar(
+        appBar: AppBar(    //TODO Change title style
             backgroundColor: Colors.green[900],
             flexibleSpace: FlexibleSpaceBar(
               titlePadding: EdgeInsets.all(20.0),

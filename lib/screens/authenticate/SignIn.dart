@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutterapp/services/auth.dart';
+import 'package:flutter_signin_button/flutter_signin_button.dart';
 
 class SignIn extends StatefulWidget {
 
@@ -19,7 +20,7 @@ class _SignInState extends State<SignIn> {
   String password = '';
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) {         //TODO Add Signing in with Google
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
@@ -182,17 +183,16 @@ class _SignInState extends State<SignIn> {
 
                       SizedBox(height: 20),
 
-                      ElevatedButton(
-                          style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all<Color>(Colors.blue[900]),
-                            elevation: MaterialStateProperty.all<double>(20.0),
-                          ),
-                          child: Text(
-                            'Sign In with Google',
-                            style: TextStyle(color: Colors.white),
-                          ),
+                      SignInButton(
+                        Buttons.Google,
+                        text: "Sign in with Google",
                           onPressed: () async {
-                            _auth.signInWithGoogle();
+                            dynamic result = await _auth.signInWithGoogle();
+                            if (result==null) {
+                              setState(() {
+                                error = "Problem with signing in!";
+                              });
+                            }
                           }
                       ),
 
