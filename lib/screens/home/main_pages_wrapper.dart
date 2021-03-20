@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutterapp/screens/home/home.dart';
 import 'package:flutterapp/screens/home/identify.dart';
+
 import 'package:flutterapp/screens/home/profile.dart';
 import 'package:flutterapp/services/auth.dart';
 import 'package:tflite/tflite.dart';
+
+int selectedIndex2 = 1;
 
 class MainPages extends StatelessWidget {
   @override
@@ -21,6 +24,47 @@ class MyHome extends StatefulWidget {
 }
 
 class _MyHomeState extends State<MyHome> {
+  void pageChanged(int index) {
+    setState(() {
+      selectedIndex = index;
+      selectedIndex2 = index;
+
+      print(selectedIndex.toString() + 'up');
+    });
+  }
+
+  PageController pageController = PageController(
+    initialPage: 1,
+    keepPage: true,
+  );
+  int selectedIndex = 1;
+
+  Widget buildPageView() {
+    return PageView(
+      controller: pageController,
+      onPageChanged: (index) {
+        pageChanged(index);
+      },
+      children: <Widget>[
+        Page1Camera(),
+        Home(),
+        Profile(),
+      ],
+    );
+  }
+
+  void bottomTapped(int index) {
+    setState(() {
+      selectedIndex = index;
+      selectedIndex2 = index;
+      pageController.jumpToPage(index);
+
+      print(selectedIndex.toString() + 'bottom');
+      // pageController.animateToPage(index,
+      //     duration: Duration(milliseconds: 500), curve: Curves.ease);
+    });
+  }
+
   bool isloading = false;
 
   loadModel() async {
@@ -43,17 +87,15 @@ class _MyHomeState extends State<MyHome> {
   final AuthanticateServ _auth = AuthanticateServ();
   GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
 
-  int _selectedIndex = 0;
-
   List<Widget> _widgetOptions = <Widget>[
-    Home(),
     Page1Camera(),
+    Home(),
     Profile(),
   ];
 
   void _onItemTapped(int index) {
     setState(() {
-      _selectedIndex = index;
+      selectedIndex = index;
     });
   }
 
@@ -61,7 +103,8 @@ class _MyHomeState extends State<MyHome> {
   Widget build(BuildContext context) {
     return Scaffold(
         key: _drawerKey,
-        appBar: AppBar(    //TODO Change title style
+        appBar: AppBar(
+            //TODO Change title style
             backgroundColor: Colors.green[900],
             flexibleSpace: FlexibleSpaceBar(
               titlePadding: EdgeInsets.all(20.0),
@@ -78,9 +121,7 @@ class _MyHomeState extends State<MyHome> {
                 onPressed: () => _drawerKey.currentState.openEndDrawer(),
               ),
             ]),
-        body: Center(
-          child: _widgetOptions.elementAt(_selectedIndex),
-        ),
+        body: buildPageView(),
         bottomNavigationBar: Theme(
           data: Theme.of(context).copyWith(
             canvasColor: Colors.green[900],
@@ -88,16 +129,18 @@ class _MyHomeState extends State<MyHome> {
           child: BottomNavigationBar(
             selectedItemColor: Colors.black,
             unselectedItemColor: Colors.white,
-            currentIndex: _selectedIndex,
-            onTap: _onItemTapped,
+            currentIndex: selectedIndex,
+            onTap: (index) {
+              bottomTapped(index);
+            },
             items: const <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
-                icon: Icon(Icons.home),
-                label: 'Home',
-              ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.camera_alt_outlined),
                 label: 'Identify',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home),
+                label: 'Home',
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.account_circle),

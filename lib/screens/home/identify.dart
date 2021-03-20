@@ -5,8 +5,13 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:image_cropper/image_cropper.dart';
+import 'package:path/path.dart';
 import 'package:tflite/tflite.dart';
 import '/models/tflite.dart';
+import 'home.dart';
+import 'main_pages_wrapper.dart';
+
+BuildContext context;
 
 class Page1Camera extends StatefulWidget {
   @override
@@ -14,6 +19,11 @@ class Page1Camera extends StatefulWidget {
 }
 
 class _Page1CameraState extends State<Page1Camera> {
+  int index = 0;
+  Route newRoute = MaterialPageRoute(builder: (BuildContext context) {
+    return Page1Camera();
+  });
+
   //TODO: Link image URL in Cloud Firestore
   bool inProcess = false;
   var _output;
@@ -40,7 +50,7 @@ class _Page1CameraState extends State<Page1Camera> {
     saveImages(selectedFile, imageRef);
   }
 
-  Widget getImageWidget() {
+  Widget getImageWidget(BuildContext context) {
     if (selectedFile != null) {
       return Image.file(
         selectedFile,
@@ -49,17 +59,39 @@ class _Page1CameraState extends State<Page1Camera> {
         fit: BoxFit.cover,
       );
     } else {
-      return Container(
-        padding: EdgeInsets.all(40),
-        child: Text(
-          "Camera Page",
-          style: TextStyle(
-            color: Colors.green[900],
-            fontSize: 30.0,
-            fontWeight: FontWeight.bold,
+      setState(() {
+        index = index + 1;
+        print(index.toString() + 'İLK MREHABAAAAAAAAAA');
+        return Container(
+          height: double.infinity,
+          color: Colors.black,
+          child: Center(
+            child: CircularProgressIndicator(),
           ),
-        ),
-      );
+        );
+      });
+      if (index > 1) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: (_) => MyHome()));
+          selectedIndex2 = 1;
+        });
+        index = 0;
+
+        return Container(
+          height: double.infinity,
+          color: Colors.black,
+          child: Center(
+            child: CircularProgressIndicator(),
+          ),
+        );
+      } else {
+        print(index.toString() + 'MERHABAAAAAAAAAAAA');
+        getImageCamera();
+        return Container(
+          color: Colors.black,
+        );
+      }
     }
   }
 
@@ -134,7 +166,7 @@ class _Page1CameraState extends State<Page1Camera> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(context) {
     return Scaffold(
       body: Stack(children: [
         Container(
@@ -154,42 +186,49 @@ class _Page1CameraState extends State<Page1Camera> {
           height: double.infinity,
           width: double.infinity,
         ),
-        Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            getImageWidget(),
-            SizedBox(
-              height: 16,
-            ),
-            _output == null ? Text("") : Text("${_output[0]["label"]}"),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                MaterialButton(
-                  color: Colors.green[900],
-                  child: Text('Camera'),
-                  onPressed: getImageCamera,
-                ),
-                MaterialButton(
-                    color: Colors.green[900],
-                    child: Text('Device'),
-                    onPressed: getImageDevice),
-                MaterialButton(
-                  color: Colors.green[900],
-                  child: Text('Upload Image'),
-                  onPressed: saveImagesWidget,
-                ),
-              ],
-            )
-          ],
-        ),
-        (inProcess)
-            ? Container(
-                color: Colors.white,
-                height: MediaQuery.of(context).size.height * 0.94,
-                child: Center(child: CircularProgressIndicator()),
+        selectedIndex2 == 0
+            ? Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  getImageWidget(context),
+                  SizedBox(
+                    height: 16,
+                  ),
+                  _output == null ? Text("") : Text("${_output[0]["label"]}"),
+                  selectedFile != null
+                      ? Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            MaterialButton(
+                              color: Colors.green[900],
+                              child: Text('Camera'),
+                              onPressed: getImageCamera,
+                            ),
+                            MaterialButton(
+                                color: Colors.green[900],
+                                child: Text('Device'),
+                                onPressed: getImageDevice),
+                            MaterialButton(
+                              color: Colors.green[900],
+                              child: Text('Upload Image'),
+                              onPressed: saveImagesWidget,
+                            ),
+                          ],
+                        )
+                      : Container(
+                          child: Center(
+                            child: CircularProgressIndicator(),
+                          ),
+                        )
+                ],
               )
-            : Center()
+            : (inProcess)
+                ? Container(
+                    color: Colors.white,
+                    height: MediaQuery.of(context).size.height * 0.94,
+                    child: Center(child: CircularProgressIndicator()),
+                  )
+                : Center()
       ]),
     );
   }
