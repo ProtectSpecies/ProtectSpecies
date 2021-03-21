@@ -10,6 +10,8 @@ import 'package:tflite/tflite.dart';
 import '/models/tflite.dart';
 import 'home.dart';
 import 'main_pages_wrapper.dart';
+import 'package:share/share.dart';
+
 
 BuildContext context;
 
@@ -24,7 +26,6 @@ class _Page1CameraState extends State<Page1Camera> {
     return Page1Camera();
   });
 
-  //TODO: Link image URL in Cloud Firestore
   bool inProcess = false;
   var _output;
   DocumentReference imageRef =
@@ -46,8 +47,14 @@ class _Page1CameraState extends State<Page1Camera> {
     reference.set({"imageURL": imageURL});
   }
 
+  // ignore: missing_return
   Widget saveImagesWidget() {
     saveImages(selectedFile, imageRef);
+  }
+
+  // ignore: missing_return
+  Widget shareImageWidget() {
+    Share.shareFiles([selectedFile.path]);
   }
 
   Widget getImageWidget(BuildContext context) {
@@ -215,7 +222,7 @@ class _Page1CameraState extends State<Page1Camera> {
                             IconButton(
                                 iconSize: 60,
                                 color: Colors.pink,
-                                onPressed: () {},
+                                onPressed: saveImagesWidget,
                                 icon: Icon(
                                   Icons.send,
                                   color: Colors.white,
@@ -223,7 +230,7 @@ class _Page1CameraState extends State<Page1Camera> {
                             IconButton(
                                 iconSize: 60,
                                 color: Colors.pink,
-                                onPressed: () {},
+                                onPressed: shareImageWidget,
                                 icon: Icon(
                                   Icons.share,
                                   color: Colors.white,
