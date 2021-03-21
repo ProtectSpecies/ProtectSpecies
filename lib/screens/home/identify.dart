@@ -12,7 +12,6 @@ import 'home.dart';
 import 'main_pages_wrapper.dart';
 import 'package:share/share.dart';
 
-
 BuildContext context;
 
 class Page1Camera extends StatefulWidget {
@@ -214,7 +213,12 @@ class _Page1CameraState extends State<Page1Camera> {
                             IconButton(
                                 iconSize: 60,
                                 color: Colors.pink,
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.of(context).pushReplacement(
+                                      MaterialPageRoute(builder: (context) {
+                                    return MyHome();
+                                  }));
+                                },
                                 icon: Icon(
                                   Icons.close,
                                   color: Colors.white,
