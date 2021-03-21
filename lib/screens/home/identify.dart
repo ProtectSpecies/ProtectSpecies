@@ -52,12 +52,10 @@ class _Page1CameraState extends State<Page1Camera> {
 
   Widget getImageWidget(BuildContext context) {
     if (selectedFile != null) {
-      return Image.file(
-        selectedFile,
-        width: 250,
-        height: 250,
-        fit: BoxFit.cover,
-      );
+      return Image.file(selectedFile,
+          // width: 400,
+          // height: 700,
+          fit: BoxFit.fitHeight);
     } else {
       setState(() {
         index = index + 1;
@@ -103,10 +101,10 @@ class _Page1CameraState extends State<Page1Camera> {
     if (image != null) {
       File resizedImage = await ImageCropper.cropImage(
           sourcePath: image.path,
-          aspectRatio: CropAspectRatio(ratioX: 1, ratioY: 1),
+          aspectRatio: CropAspectRatio(ratioX: 13, ratioY: 17.5),
           compressQuality: 100,
-          maxHeight: 700,
-          maxWidth: 700,
+          maxHeight: 1200,
+          maxWidth: 1200,
           compressFormat: ImageCompressFormat.jpg,
           androidUiSettings: AndroidUiSettings(
               toolbarColor: Colors.deepOrangeAccent,
@@ -134,10 +132,10 @@ class _Page1CameraState extends State<Page1Camera> {
     if (image != null) {
       File resizedImage = await ImageCropper.cropImage(
           sourcePath: image.path,
-          aspectRatio: CropAspectRatio(ratioX: 1, ratioY: 1),
+          aspectRatio: CropAspectRatio(ratioX: 13, ratioY: 17.5),
           compressQuality: 100,
-          maxHeight: 700,
-          maxWidth: 700,
+          maxHeight: 1200,
+          maxWidth: 1200,
           compressFormat: ImageCompressFormat.jpg,
           androidUiSettings: AndroidUiSettings(
               toolbarColor: Colors.deepOrangeAccent,
@@ -170,19 +168,20 @@ class _Page1CameraState extends State<Page1Camera> {
     return Scaffold(
       body: Stack(children: [
         Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-                Color(0xFF9CCC65),
-                Color(0xFF7CB342),
-                Color(0xFF558B2F),
-                Color(0xFF33691E)
-              ],
-              stops: [0.1, 0.4, 0.7, 0.9],
-            ),
-          ),
+          // decoration: BoxDecoration(
+          //   gradient: LinearGradient(
+          //     begin: Alignment.topCenter,
+          //     end: Alignment.bottomCenter,
+          //     colors: [
+          //       Color(0xFF9CCC65),
+          //       Color(0xFF7CB342),
+          //       Color(0xFF558B2F),
+          //       Color(0xFF33691E)
+          //     ],
+          //     stops: [0.1, 0.4, 0.7, 0.9],
+          //   ),
+          // ),
+          color: Colors.black,
           height: double.infinity,
           width: double.infinity,
         ),
@@ -192,34 +191,89 @@ class _Page1CameraState extends State<Page1Camera> {
                 children: [
                   getImageWidget(context),
                   SizedBox(
-                    height: 16,
+                    height: 23,
                   ),
-                  _output == null ? Text("") : Text("${_output[0]["label"]}"),
+                  _output == null
+                      ? Text("")
+                      : Text("${_output[0]["label"]}",
+                          style: TextStyle(color: Colors.white)),
+                  SizedBox(
+                    height: 23,
+                  ),
                   selectedFile != null
-                      ? Row(
+                      ? (Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            MaterialButton(
-                              color: Colors.green[900],
-                              child: Text('Camera'),
-                              onPressed: getImageCamera,
-                            ),
-                            MaterialButton(
-                                color: Colors.green[900],
-                                child: Text('Device'),
-                                onPressed: getImageDevice),
-                            MaterialButton(
-                              color: Colors.green[900],
-                              child: Text('Upload Image'),
-                              onPressed: saveImagesWidget,
-                            ),
+                            IconButton(
+                                iconSize: 60,
+                                color: Colors.pink,
+                                onPressed: () {},
+                                icon: Icon(
+                                  Icons.close,
+                                  color: Colors.white,
+                                )),
+                            IconButton(
+                                iconSize: 60,
+                                color: Colors.pink,
+                                onPressed: () {},
+                                icon: Icon(
+                                  Icons.send,
+                                  color: Colors.white,
+                                )),
+                            IconButton(
+                                iconSize: 60,
+                                color: Colors.pink,
+                                onPressed: () {},
+                                icon: Icon(
+                                  Icons.share,
+                                  color: Colors.white,
+                                ))
+                            //   MaterialButton(
+                            //     color: Colors.green[900],
+                            //     child: Text('Camera'),
+                            //     onPressed: getImageCamera,
+                            //   ),
+                            //   MaterialButton(
+                            //       color: Colors.green[900],
+                            //       child: Text('Device'),
+                            //       onPressed: getImageDevice),
+                            //   MaterialButton(
+                            //     color: Colors.green[900],
+                            //     child: Text('Upload Image'),
+                            //     onPressed: saveImagesWidget,
+                            //   ),
                           ],
-                        )
+                        ))
                       : Container(
                           child: Center(
                             child: CircularProgressIndicator(),
                           ),
+                        ),
+                  SizedBox(
+                    height: 1,
+                  ),
+                  selectedFile != null
+                      ? Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Text(
+                              'Cancel',
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 17),
+                            ),
+                            Text(
+                              'Send Us',
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 17),
+                            ),
+                            Text(
+                              'Share',
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 17),
+                            )
+                          ],
                         )
+                      : Container()
                 ],
               )
             : (inProcess)

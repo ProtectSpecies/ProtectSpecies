@@ -103,52 +103,56 @@ class _MyHomeState extends State<MyHome> {
   Widget build(BuildContext context) {
     return Scaffold(
         key: _drawerKey,
-        appBar: AppBar(
-            //TODO Change title style
-            backgroundColor: Colors.green[900],
-            flexibleSpace: FlexibleSpaceBar(
-              titlePadding: EdgeInsets.all(20.0),
-            ),
-            title: Text('AnimalApp',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 30.0,
-                  fontWeight: FontWeight.bold,
-                )),
-            actions: <Widget>[
-              IconButton(
-                icon: Icon(Icons.settings),
-                onPressed: () => _drawerKey.currentState.openEndDrawer(),
-              ),
-            ]),
+        appBar: (selectedIndex != 0)
+            ? AppBar(
+                //TODO Change title style
+                backgroundColor: Colors.green[900],
+                flexibleSpace: FlexibleSpaceBar(
+                  titlePadding: EdgeInsets.all(20.0),
+                ),
+                title: Text('AnimalApp',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 30.0,
+                      fontWeight: FontWeight.bold,
+                    )),
+                actions: <Widget>[
+                    IconButton(
+                      icon: Icon(Icons.settings),
+                      onPressed: () => _drawerKey.currentState.openEndDrawer(),
+                    ),
+                  ])
+            : null,
         body: buildPageView(),
-        bottomNavigationBar: Theme(
-          data: Theme.of(context).copyWith(
-            canvasColor: Colors.green[900],
-          ),
-          child: BottomNavigationBar(
-            selectedItemColor: Colors.black,
-            unselectedItemColor: Colors.white,
-            currentIndex: selectedIndex,
-            onTap: (index) {
-              bottomTapped(index);
-            },
-            items: const <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
-                icon: Icon(Icons.camera_alt_outlined),
-                label: 'Identify',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.home),
-                label: 'Home',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.account_circle),
-                label: 'Profile',
-              ),
-            ],
-          ),
-        ),
+        bottomNavigationBar: (selectedIndex != 0)
+            ? Theme(
+                data: Theme.of(context).copyWith(
+                  canvasColor: Colors.green[900],
+                ),
+                child: BottomNavigationBar(
+                  selectedItemColor: Colors.black,
+                  unselectedItemColor: Colors.white,
+                  currentIndex: selectedIndex,
+                  onTap: (index) {
+                    bottomTapped(index);
+                  },
+                  items: const <BottomNavigationBarItem>[
+                    BottomNavigationBarItem(
+                      icon: Icon(Icons.camera_alt_outlined),
+                      label: 'Identify',
+                    ),
+                    BottomNavigationBarItem(
+                      icon: Icon(Icons.home),
+                      label: 'Home',
+                    ),
+                    BottomNavigationBarItem(
+                      icon: Icon(Icons.account_circle),
+                      label: 'Profile',
+                    ),
+                  ],
+                ),
+              )
+            : null,
         endDrawer: Drawer(
           child: ListView(
             padding: EdgeInsets.zero,
