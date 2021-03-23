@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutterapp/services/alertdialog.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:image_cropper/image_cropper.dart';
@@ -218,6 +219,7 @@ class _Page1CameraState extends State<Page1Camera> {
                                       MaterialPageRoute(builder: (context) {
                                     return MyHome();
                                   }));
+                                  selectedIndex2 = 1;
                                 },
                                 icon: Icon(
                                   Icons.close,
@@ -226,7 +228,11 @@ class _Page1CameraState extends State<Page1Camera> {
                             IconButton(
                                 iconSize: 60,
                                 color: Colors.pink,
-                                onPressed: saveImagesWidget,
+                                onPressed: () {
+                                  myAlertDialog(context).then((onValue) {
+                                    print(onValue);
+                                  });
+                                },
                                 icon: Icon(
                                   Icons.send,
                                   color: Colors.white,
@@ -234,7 +240,10 @@ class _Page1CameraState extends State<Page1Camera> {
                             IconButton(
                                 iconSize: 60,
                                 color: Colors.pink,
-                                onPressed: shareImageWidget,
+                                onPressed: () {
+                                  mySecondAlertDialog(
+                                      context, saveImagesWidget());
+                                },
                                 icon: Icon(
                                   Icons.share,
                                   color: Colors.white,
