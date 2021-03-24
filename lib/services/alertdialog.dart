@@ -8,12 +8,24 @@ Future<String> myAlertDialog(BuildContext context) {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text('your name'),
-          content: TextField(
+          title: Text(
+            'Thank you for taking steps to protect animals.' +
+                ' Our artificial intelligence mechanism has detected the animal you photographed as a .',
+            style: TextStyle(
+              fontSize: 15,
+            ),
+          ),
+          content: TextFormField(
             controller: customController,
           ),
           actions: [
-            MaterialButton(child: Text('No'), elevation: 5, onPressed: () {}),
+            MaterialButton(
+                child: Text('No'),
+                elevation: 5,
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  selectedIndex2 = 1;
+                }),
             MaterialButton(
                 child: Text('Yes'),
                 elevation: 5,
@@ -43,36 +55,4 @@ Route _createRoute() {
       );
     },
   );
-}
-
-Future mySecondAlertDialog(BuildContext context, void func) {
-  TextEditingController customController = TextEditingController();
-  return showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: Text('your name'),
-          content: Text('deneme'),
-          actions: [
-            MaterialButton(
-                child: Text('No'),
-                elevation: 5,
-                onPressed: () {
-                  Navigator.of(context)
-                      .pushReplacement(MaterialPageRoute(builder: (context) {
-                    return MyHome();
-                  }));
-                  selectedIndex2 = 1;
-                }),
-            MaterialButton(
-                child: Text('Yes'),
-                elevation: 5,
-                onPressed: () {
-                  func;
-                  Navigator.of(context).pushReplacement(_createRoute());
-                  selectedIndex2 = 1;
-                }),
-          ],
-        );
-      });
 }

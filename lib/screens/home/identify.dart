@@ -32,6 +32,7 @@ class _Page1CameraState extends State<Page1Camera> {
       FirebaseFirestore.instance.collection('imageData').doc();
   File selectedFile;
   final picker = ImagePicker();
+  int screenchanger = 0;
 
   Future<void> saveImages(_image, DocumentReference reference) async {
     uploadFile(File _image) async {
@@ -59,10 +60,12 @@ class _Page1CameraState extends State<Page1Camera> {
 
   Widget getImageWidget(BuildContext context) {
     if (selectedFile != null) {
-      return Image.file(selectedFile,
-          // width: 400,
-          // height: 700,
-          fit: BoxFit.fitHeight);
+      return Image.file(
+        selectedFile,
+        width: 400,
+        height: 426,
+        fit: BoxFit.cover,
+      );
     } else {
       setState(() {
         index = index + 1;
@@ -110,8 +113,8 @@ class _Page1CameraState extends State<Page1Camera> {
           sourcePath: image.path,
           aspectRatio: CropAspectRatio(ratioX: 13, ratioY: 17.5),
           compressQuality: 100,
-          maxHeight: 1200,
-          maxWidth: 1200,
+          maxHeight: 700,
+          maxWidth: 700,
           compressFormat: ImageCompressFormat.jpg,
           androidUiSettings: AndroidUiSettings(
               toolbarColor: Colors.deepOrangeAccent,
@@ -131,30 +134,98 @@ class _Page1CameraState extends State<Page1Camera> {
     }
   }
 
-  Future getImageDevice() async {
-    this.setState(() {
-      inProcess = true;
-    });
-    final image = await ImagePicker().getImage(source: ImageSource.gallery);
-    if (image != null) {
-      File resizedImage = await ImageCropper.cropImage(
-          sourcePath: image.path,
-          aspectRatio: CropAspectRatio(ratioX: 13, ratioY: 17.5),
-          compressQuality: 100,
-          maxHeight: 1200,
-          maxWidth: 1200,
-          compressFormat: ImageCompressFormat.jpg,
-          androidUiSettings: AndroidUiSettings(
-              toolbarColor: Colors.deepOrangeAccent,
-              toolbarTitle: 'AnimalPicker',
-              statusBarColor: Colors.deepPurpleAccent,
-              backgroundColor: Colors.white30));
-      setState(() {
-        runModel(resizedImage);
-        selectedFile = resizedImage;
-        inProcess = false;
-      });
-    }
+  // Future getImageDevice() async {
+  //   this.setState(() {
+  //     inProcess = true;
+  //   });
+  //   final image = await ImagePicker().getImage(source: ImageSource.gallery);
+  //   if (image != null) {
+  //     File resizedImage = await ImageCropper.cropImage(
+  //         sourcePath: image.path,
+  //         aspectRatio: CropAspectRatio(ratioX: 13, ratioY: 17.5),
+  //         compressQuality: 100,
+  //         maxHeight: 1200,
+  //         maxWidth: 1200,
+  //         compressFormat: ImageCompressFormat.jpg,
+  //         androidUiSettings: AndroidUiSettings(
+  //             toolbarColor: Colors.deepOrangeAccent,
+  //             toolbarTitle: 'AnimalPicker',
+  //             statusBarColor: Colors.deepPurpleAccent,
+  //             backgroundColor: Colors.white30));
+  //     setState(() {
+  //       runModel(resizedImage);
+  //       selectedFile = resizedImage;
+  //       inProcess = false;
+  //     });
+  //   }
+  // }
+  Widget coloredText() {
+    return RichText(
+      text: TextSpan(
+        text: 'Thank you for taking steps to protect animals. :)' +
+            ' Our artificial intelligence mechanism has detected' +
+            ' the animal you photographed as a',
+        style: TextStyle(color: Colors.black),
+        children: <TextSpan>[
+          TextSpan(
+            text: '${_output[0]["label"]}.',
+            style: TextStyle(
+              color: Colors.red,
+            ),
+          ),
+          TextSpan(
+              text: ' Since our mechanism is still in development, there is a possibility of making mistakes,' +
+                  ' so if you think the animal in the photo you took is correct, you can pass this information' +
+                  ' to us by pressing the yes button.However, if you think that the animal you found is not a'),
+          TextSpan(
+            text: ' ${_output[0]["label"]}',
+            style: TextStyle(
+              color: Colors.red,
+            ),
+          ),
+          TextSpan(
+              text: ' write your predictions in the comment section, and you will greatly contribute to ' +
+                  'our goal of improving our mechanism and protecting endangered animals.'),
+        ],
+      ),
+    );
+  }
+
+  Future mySecondAlertDialog(
+    BuildContext context,
+  ) {
+    TextEditingController customController = TextEditingController();
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('Information'),
+            content: Text('With this feature, you send us the information' +
+                ' of the photo you took and post the photo in your profile, so that other' +
+                ' people can see the animals you have found and your contribution' +
+                ' to their rescue.If you want to do this, press yes.'),
+            actions: [
+              MaterialButton(
+                  child: Text('No'),
+                  elevation: 5,
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                    selectedIndex2 = 1;
+                  }),
+              MaterialButton(
+                  child: Text('Yes'),
+                  elevation: 5,
+                  onPressed: () {
+                    saveImagesWidget();
+                    Navigator.of(context)
+                        .pushReplacement(MaterialPageRoute(builder: (context) {
+                      return MyHome();
+                    }));
+                    selectedIndex2 = 1;
+                  }),
+            ],
+          );
+        });
   }
 
   runModel(File image) async {
@@ -168,6 +239,62 @@ class _Page1CameraState extends State<Page1Camera> {
     this.setState(() {
       _output = output;
     });
+  }
+
+  Future<String> myAlertDialog(BuildContext context) {
+    TextEditingController customController = TextEditingController();
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: coloredText(),
+            content: TextField(
+              controller: customController,
+              decoration: InputDecoration(
+                  hintStyle: TextStyle(fontSize: 10),
+                  hintText:
+                      'You can write the correct animal name or any feedback.'),
+            ),
+            actions: [
+              MaterialButton(
+                  child: Text('No'),
+                  elevation: 5,
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                    selectedIndex2 = 1;
+                  }),
+              MaterialButton(
+                  child: Text('Yes'),
+                  elevation: 5,
+                  onPressed: () {
+                    saveImagesWidget();
+
+                    Navigator.of(context).pop(customController.text.toString());
+                    Navigator.of(context).pushReplacement(_createRoute());
+                    selectedIndex2 = 1;
+                  }),
+            ],
+          );
+        });
+  }
+
+  Route _createRoute() {
+    return PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) => MyHome(),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        var begin = Offset(0.0, 1.0);
+        var end = Offset.zero;
+        var curve = Curves.ease;
+
+        var tween =
+            Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+        return SlideTransition(
+          position: animation.drive(tween),
+          child: child,
+        );
+      },
+    );
   }
 
   @override
@@ -242,26 +369,13 @@ class _Page1CameraState extends State<Page1Camera> {
                                 color: Colors.pink,
                                 onPressed: () {
                                   mySecondAlertDialog(
-                                      context, saveImagesWidget());
+                                    context,
+                                  );
                                 },
                                 icon: Icon(
                                   Icons.share,
                                   color: Colors.white,
                                 ))
-                            //   MaterialButton(
-                            //     color: Colors.green[900],
-                            //     child: Text('Camera'),
-                            //     onPressed: getImageCamera,
-                            //   ),
-                            //   MaterialButton(
-                            //       color: Colors.green[900],
-                            //       child: Text('Device'),
-                            //       onPressed: getImageDevice),
-                            //   MaterialButton(
-                            //     color: Colors.green[900],
-                            //     child: Text('Upload Image'),
-                            //     onPressed: saveImagesWidget,
-                            //   ),
                           ],
                         ))
                       : Container(
