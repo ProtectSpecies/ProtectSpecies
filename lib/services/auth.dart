@@ -62,7 +62,6 @@ class AuthanticateServ {
          'email': user.email,
        };
        FirebaseFirestore.instance.collection('accounts').doc(user.uid).set(account);
-       //TODO: Configure for Google sign-in
        return _fUserFromUserClass(user);
     } catch(e){
       print(e.toString());
@@ -98,8 +97,15 @@ class AuthanticateServ {
       idToken: googleAuth.idToken,
     );
 
+    var account = {
+      'email': googleUser.email,
+    };
+
     // Once signed in, return the UserCredential
-    return await FirebaseAuth.instance.signInWithCredential(credential);
+    var logincred = await FirebaseAuth.instance.signInWithCredential(credential);
+    FirebaseFirestore.instance.collection('accounts').doc(FirebaseAuth.instance.currentUser.uid).set(account);
+
+    return logincred;
   }
 
 
