@@ -12,6 +12,7 @@ import '/models/tflite.dart';
 import 'home.dart';
 import 'main_pages_wrapper.dart';
 import 'package:share/share.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 BuildContext context;
 
@@ -29,13 +30,14 @@ class _Page1CameraState extends State<Page1Camera> {
   bool inProcess = false;
   var _output;
   DocumentReference imageRef =
-      FirebaseFirestore.instance.collection('imageData').doc();
+      FirebaseFirestore.instance.collection('accounts').doc(FirebaseAuth.instance.currentUser.uid).collection('images').doc();
   File selectedFile;
   final picker = ImagePicker();
   int screenchanger = 0;
 
   Future<void> saveImages(_image, DocumentReference reference) async {
     uploadFile(File _image) async {
+      print(FirebaseAuth.instance.currentUser.uid);
       FirebaseStorage storage = FirebaseStorage.instance;
       Reference ref = storage.ref().child("image" + DateTime.now().toString());
       UploadTask uploadTask = ref.putFile(_image);
@@ -45,7 +47,8 @@ class _Page1CameraState extends State<Page1Camera> {
     }
 
     String imageURL = await uploadFile(_image);
-    reference.set({"imageURL": imageURL});
+    reference.set({"imageURL": imageURL,
+                      "type": _output[0]["label"]});
   }
 
   // ignore: missing_return

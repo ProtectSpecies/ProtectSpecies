@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutterapp/models/fUser.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 
 
@@ -57,6 +58,11 @@ class AuthanticateServ {
     try{
        UserCredential result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
        User user = result.user;
+       var account = {
+         'email': user.email,
+       };
+       FirebaseFirestore.instance.collection('accounts').doc(user.uid).set(account);
+       //TODO: Configure for Google sign-in
        return _fUserFromUserClass(user);
     } catch(e){
       print(e.toString());
