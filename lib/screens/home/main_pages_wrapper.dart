@@ -1,12 +1,53 @@
 import 'package:flutter/material.dart';
 import 'package:flutterapp/screens/home/home.dart';
 import 'package:flutterapp/screens/home/identify.dart';
-
 import 'package:flutterapp/screens/home/profile.dart';
 import 'package:flutterapp/services/auth.dart';
 import 'package:tflite/tflite.dart';
 
-int selectedIndex2 = 1;
+
+Widget settingsDrawer(){
+
+  final AuthanticateServ _auth = AuthanticateServ();
+
+  return Drawer(
+    child: ListView(
+      padding: EdgeInsets.zero,
+      children: <Widget>[
+        DrawerHeader(
+          child: Center(
+              child: Text(
+                'Settings',
+                textScaleFactor: 2.0,
+                style: TextStyle(fontWeight: FontWeight.bold),
+              )),
+          decoration: BoxDecoration(
+            color: Color(0xFF103A3E),
+          ),
+        ),
+        ListTile(
+          title: Text('Item 1'),
+          onTap: () {},
+        ),
+        ListTile(
+          title: Text('Item 2'),
+          onTap: () {},
+        ),
+        ListTile(title: Text('Item 3'), onTap: () {}),
+        SizedBox(height: 300.0),
+        TextButton.icon(
+          icon: Icon(Icons.person),
+          onPressed: () async {
+            await _auth.signOut();
+          },
+          label: Text("Log Out"),
+        ),
+      ],
+    ),
+  );
+}
+
+
 
 class MainPages extends StatelessWidget {
   @override
@@ -17,6 +58,9 @@ class MainPages extends StatelessWidget {
     );
   }
 }
+
+
+int selectedIndex2 = 1;
 
 class MyHome extends StatefulWidget {
   @override
@@ -84,50 +128,15 @@ class _MyHomeState extends State<MyHome> {
     });
   }
 
-  final AuthanticateServ _auth = AuthanticateServ();
-  GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
-
-  List<Widget> _widgetOptions = <Widget>[
-    Page1Camera(),
-    Home(),
-    Profile(),
-  ];
-
-  void _onItemTapped(int index) {
-    setState(() {
-      selectedIndex = index;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        key: _drawerKey,
-        appBar: (selectedIndex != 0)
-            ? AppBar(
-                //TODO Change title style
-                backgroundColor: Colors.green[900],
-                flexibleSpace: FlexibleSpaceBar(
-                  titlePadding: EdgeInsets.all(20.0),
-                ),
-                title: Text('AnimalApp',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 30.0,
-                      fontWeight: FontWeight.bold,
-                    )),
-                actions: <Widget>[
-                    IconButton(
-                      icon: Icon(Icons.settings),
-                      onPressed: () => _drawerKey.currentState.openEndDrawer(),
-                    ),
-                  ])
-            : null,
         body: buildPageView(),
         bottomNavigationBar: (selectedIndex != 0)
             ? Theme(
                 data: Theme.of(context).copyWith(
-                  canvasColor: Colors.green[900],
+                  canvasColor: Color(0xFF103A3E),
                 ),
                 child: BottomNavigationBar(
                   selectedItemColor: Colors.black,
@@ -153,40 +162,6 @@ class _MyHomeState extends State<MyHome> {
                 ),
               )
             : null,
-        endDrawer: Drawer(
-          child: ListView(
-            padding: EdgeInsets.zero,
-            children: <Widget>[
-              DrawerHeader(
-                child: Center(
-                    child: Text(
-                  'Settings',
-                  textScaleFactor: 2.0,
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                )),
-                decoration: BoxDecoration(
-                  color: Colors.green[900],
-                ),
-              ),
-              ListTile(
-                title: Text('Item 1'),
-                onTap: () {},
-              ),
-              ListTile(
-                title: Text('Item 2'),
-                onTap: () {},
-              ),
-              ListTile(title: Text('Item 3'), onTap: () {}),
-              SizedBox(height: 370.0),
-              TextButton.icon(
-                icon: Icon(Icons.person),
-                onPressed: () async {
-                  await _auth.signOut();
-                },
-                label: Text("Log Out"),
-              ),
-            ],
-          ),
-        ));
+    );
   }
 }

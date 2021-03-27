@@ -32,8 +32,11 @@ class _RegisterState extends State<Register> {
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
-                  colors: [Color(0xFF9CCC65), Color(0xFF7CB342), Color(0xFF558B2F), Color(0xFF33691E)],
-                  stops: [0.1, 0.4, 0.7, 0.9],
+                  colors: [Color(0xFFBDE2C8),
+                    Color(0xFF93C8AC),
+                    Color(0xFF65AB8C),
+                    Color(0xFF54997A)],
+                  stops: [0.1, 0.3, 0.7, 0.9],
                 ),
               ),
               height: double.infinity,
@@ -49,7 +52,7 @@ class _RegisterState extends State<Register> {
                       'WELCOME TO PROTECT SPECIES',
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        color: Colors.green[900],
+                        color:Color(0xFF103A3E),
                         fontSize: 30.0,
                         fontWeight: FontWeight.bold,
                       ),
@@ -61,7 +64,7 @@ class _RegisterState extends State<Register> {
                         Text(
                           'Create an Account',
                           style: TextStyle(
-                            color: Colors.green[900],
+                            color: Color(0xFF103A3E),
                             fontSize: 25.0,
                             fontWeight: FontWeight.bold,
                           ),
@@ -70,7 +73,7 @@ class _RegisterState extends State<Register> {
                         Container(
                           alignment: Alignment.centerLeft,
                           decoration: BoxDecoration(
-                            color: Color(0xFF33691E),
+                            color: Color(0xFF103A3E),
                             borderRadius: BorderRadius.circular(10.0),
                             boxShadow: [
                               BoxShadow(
@@ -108,7 +111,7 @@ class _RegisterState extends State<Register> {
                         Container(
                           alignment: Alignment.centerLeft,
                           decoration: BoxDecoration(
-                            color: Color(0xFF33691E),
+                            color: Color(0xFF103A3E),
                             borderRadius: BorderRadius.circular(10.0),
                             boxShadow: [
                               BoxShadow(
@@ -139,7 +142,7 @@ class _RegisterState extends State<Register> {
                     SizedBox(height: 30.0),
                     ElevatedButton(
                         style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(Colors.green[900]),
+                          backgroundColor: MaterialStateProperty.all<Color>(Color(0xFF103A3E)),
                           elevation: MaterialStateProperty.all<double>(20.0),
                         ),
                         child: Text(
