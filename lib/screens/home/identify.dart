@@ -13,6 +13,7 @@ import 'home.dart';
 import 'main_pages_wrapper.dart';
 import 'package:share/share.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:geolocator/geolocator.dart';
 
 BuildContext context;
 
@@ -26,6 +27,48 @@ class _Page1CameraState extends State<Page1Camera> {
   Route newRoute = MaterialPageRoute(builder: (BuildContext context) {
     return Page1Camera();
   });
+
+  /// Determine the current position of the device.
+  ///
+  /// When the location services are not enabled or permissions
+  /// are denied the `Future` will return an error.
+  Future<Position> _determinePosition() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    // Test if location services are enabled.
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      // Location services are not enabled don't continue
+      // accessing the position and request users of the
+      // App to enable the location services.
+      return Future.error('Location services are disabled.');
+    }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.deniedForever) {
+        // Permissions are denied forever, handle appropriately.
+        return Future.error(
+            'Location permissions are permanently denied, we cannot request permissions.');
+      }
+
+      if (permission == LocationPermission.denied) {
+        // Permissions are denied, next time you could try
+        // requesting permissions again (this is also where
+        // Android's shouldShowRequestPermissionRationale
+        // returned true. According to Android guidelines
+        // your App should show an explanatory UI now.
+        return Future.error(
+            'Location permissions are denied');
+      }
+    }
+
+    // When we reach here, permissions are granted and we can
+    // continue accessing the position of the device.
+    return await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+  }
 
   bool inProcess = false;
   dynamic _output = [
@@ -42,8 +85,10 @@ class _Page1CameraState extends State<Page1Camera> {
   int screenchanger = 0;
 
   Future<void> saveImages(_image, DocumentReference reference) async {
+
+    Position position = await _determinePosition();
+
     uploadFile(File _image) async {
-      print(FirebaseAuth.instance.currentUser.uid);
       FirebaseStorage storage = FirebaseStorage.instance;
       Reference ref = storage.ref().child("image" + DateTime.now().toString());
       UploadTask uploadTask = ref.putFile(_image);
@@ -55,7 +100,9 @@ class _Page1CameraState extends State<Page1Camera> {
     String imageURL = await uploadFile(_image);
     reference.set({
       "imageURL": imageURL,
-      "type": _output != null ? _output[0]["label"] : ''
+      "type": _output != null ? _output[0]["label"] : '',
+      "latitude": position.latitude,
+      "longitude": position.longitude
     });
   }
 
