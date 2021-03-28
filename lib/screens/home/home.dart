@@ -1,7 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutterapp/screens/home/identify.dart';
 import 'package:flutterapp/screens/home/main_pages_wrapper.dart';
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter_progress_button/flutter_progress_button.dart';
+
 
 
 class CustomContainerShaper extends CustomClipper<Path> {
@@ -36,6 +40,52 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
 
   GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
+
+  int _currentIndex=0;
+
+  List cardList=[
+
+    Image.asset(
+      "images/endangered_species_group.jpg",
+      width: 350,
+      height: 200,
+      fit: BoxFit.cover,
+    ),
+
+    Container(
+      padding: const EdgeInsets.all(20),
+      child: Text(
+          'aa',
+          softWrap: true,
+          style: TextStyle(
+            //fontFamily: 'RobotoMono',
+              fontSize: 18
+          )
+      ),
+    ),
+    Image.asset(
+      "images/endangered_species_group.jpg",
+      width: 400,
+      height: 250,
+      fit: BoxFit.cover,
+    ),
+
+    Container(
+      padding: const EdgeInsets.all(20),
+      child: Text(
+          'aa',
+          softWrap: true,
+          style: TextStyle(
+            //fontFamily: 'RobotoMono',
+              fontSize: 18
+          )
+      ),
+    ),
+  ];
+
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +132,9 @@ class _HomeState extends State<Home> {
                                     color: Colors.white,
                                     fontSize: 35.0,
                                     fontWeight: FontWeight.bold,
-                                  )
+                                    fontFamily: 'RobotoMono-Bold',
+                                  ),
+
                               ),
                               Spacer(),
                               IconButton(
@@ -100,62 +152,78 @@ class _HomeState extends State<Home> {
                   ),
                 ),
               ),
-              SizedBox(height: 40),
+              SizedBox(height: 80),
 
+              CarouselSlider(
+                options: CarouselOptions(
+                  height: 250.0,
+                  autoPlay: true,
+                  autoPlayInterval: Duration(seconds: 3),
+                  //autoPlayAnimationDuration: Duration(milliseconds: 800),
+                  autoPlayCurve: Curves.fastOutSlowIn,
+                  onPageChanged: (index, reason) {
+                    setState(() {
+                      _currentIndex = index;
+                    });
+                  },
+                ),
+                items: cardList.map((card){
+                  return Builder(
+                      builder:(BuildContext context){
+                        return  Container(
+                          height: MediaQuery.of(context).size.height*0.30,
+                          width: MediaQuery.of(context).size.width,
+                          child: Card(
+                            color: Color(0xFF103A3E),
+                            child: card,
+                          ),
+                        );
+                      }
+                  );
+                }).toList(),
+              ),
+
+              SizedBox(height: 50),
 
               /*
-              Container(
-                padding: EdgeInsets.fromLTRB(150,80,150,40),
-                decoration: BoxDecoration(
-                    color: Color(0xFF24666B),
-                    borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(40.0),
-                        bottomRight: Radius.circular(40.0),
-                        topLeft: Radius.circular(40.0),
-                        bottomLeft: Radius.circular(40.0)
-                    )
-                ),
 
-                child: Text(
-                  "he",
-                  textAlign: TextAlign.start,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20.0,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              SizedBox(height: 25),
-              Container(
-                padding: EdgeInsets.fromLTRB(150,80,150,40),
-                decoration: BoxDecoration(
-                    color: Color(0xFF24666B),
-                    borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(40.0),
-                        bottomRight: Radius.circular(40.0),
-                        topLeft: Radius.circular(40.0),
-                        bottomLeft: Radius.circular(40.0)
-                    )
-                ),
+              ProgressButton(
+                defaultWidget: Row(
+                  children: [
 
-                child: Text("hello"),
-              ),
-              SizedBox(height: 25),
-              Container(
-                padding: EdgeInsets.fromLTRB(150,80,150,40),
-                decoration: BoxDecoration(
-                    color: Color(0xFF24666B),
-                    borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(40.0),
-                        bottomRight: Radius.circular(40.0),
-                        topLeft: Radius.circular(40.0),
-                        bottomLeft: Radius.circular(40.0)
-                    )
-                ),
+                    SizedBox(width: 35),
 
-                child: Text("hello"),
+                    Text(
+                        'Scan Now',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20
+                        )
+                    ),
+
+                    SizedBox(width: 20),
+
+                    Icon(
+                        Icons.camera,
+                        color: Colors.white
+                    ),
+                  ],
+                ),
+                color: Color(0xFF103A3E),
+                progressWidget: const CircularProgressIndicator(),
+                width: 196,
+                height: 45,
+                borderRadius: 45/2,
+                onPressed: () async {
+                  int score = await Future.delayed(
+                      const Duration(milliseconds: 1500), () => 42);
+                  return Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Page1Camera()),
+                  );
+                },
               ),
+
               */
 
             ],
