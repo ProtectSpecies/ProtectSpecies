@@ -23,6 +23,25 @@ class Page1Camera extends StatefulWidget {
 }
 
 class _Page1CameraState extends State<Page1Camera> {
+  planetCard() {
+    return new Container(
+      height: 124.0,
+      margin: new EdgeInsets.only(left: 46.0),
+      decoration: new BoxDecoration(
+        color: new Color(0xFF333366),
+        shape: BoxShape.rectangle,
+        borderRadius: new BorderRadius.circular(8.0),
+        boxShadow: <BoxShadow>[
+          new BoxShadow(
+            color: Colors.white,
+            blurRadius: 10.0,
+            offset: new Offset(0.0, 10.0),
+          ),
+        ],
+      ),
+    );
+  }
+
   int index = 0;
   Route newRoute = MaterialPageRoute(builder: (BuildContext context) {
     return Page1Camera();
@@ -60,14 +79,14 @@ class _Page1CameraState extends State<Page1Camera> {
         // Android's shouldShowRequestPermissionRationale
         // returned true. According to Android guidelines
         // your App should show an explanatory UI now.
-        return Future.error(
-            'Location permissions are denied');
+        return Future.error('Location permissions are denied');
       }
     }
 
     // When we reach here, permissions are granted and we can
     // continue accessing the position of the device.
-    return await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    return await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
   }
 
   bool inProcess = false;
@@ -85,7 +104,6 @@ class _Page1CameraState extends State<Page1Camera> {
   int screenchanger = 0;
 
   Future<void> saveImages(_image, DocumentReference reference) async {
-
     Position position = await _determinePosition();
 
     uploadFile(File _image) async {
@@ -392,26 +410,124 @@ class _Page1CameraState extends State<Page1Camera> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   getImageWidget(context),
-                  SizedBox(
-                    height: 23,
-                  ),
-                  Text(_output.length != null ? "${_output[0]["label"]}" : '',
-                      style: TextStyle(color: Colors.white)),
-                  SizedBox(
-                    height: 23,
-                  ),
+                  // SizedBox(
+                  //   height: 23,
+                  // // ),
+                  // Text(_output.length != null ? "${_output[0]["label"]}" : '',
+                  //     style: TextStyle(color: Colors.white)),
+                  // SizedBox(
+                  //   height: 23,
+                  // ),
                   selectedFile != null
                       ? (Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: output2 == 5
                               ? [
-                                  Container(
-                                    color: Colors.white,
-                                    child: Text(
-                                      'Herhangi bir Hayvan Fotoğrafı Çekilmemiş, Bu sayfa düzenlecek',
-                                      style: TextStyle(fontSize: 9),
-                                    ),
-                                  )
+                                  Stack(
+                                    alignment: Alignment.center,
+                                    children: [
+                                      Container(
+                                        alignment: Alignment.center,
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.45,
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                1,
+                                        color: Color(0xFF103A3E),
+                                      ),
+                                      Container(
+                                        alignment: Alignment.center,
+                                        child: Padding(
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                "Hmm... This doesn't look like a endangered animal.\n Please take another photo and try again.",
+                                                style: TextStyle(fontSize: 17),
+                                              ),
+                                              SizedBox(
+                                                height: 60,
+                                              ),
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
+                                                children: [
+                                                  FloatingActionButton(
+                                                      backgroundColor:
+                                                          Color(0xFF103A3E),
+                                                      child: Icon(
+                                                        Icons.home,
+                                                        size: 35,
+                                                      ),
+                                                      onPressed: () {
+                                                        Navigator.of(context)
+                                                            .pushReplacement(
+                                                                MaterialPageRoute(
+                                                                    builder:
+                                                                        (context) {
+                                                          return MyHome();
+                                                        }));
+                                                        selectedIndex2 = 1;
+                                                      }),
+                                                  FloatingActionButton(
+                                                      backgroundColor:
+                                                          Color(0xFF103A3E),
+                                                      onPressed: () {
+                                                        Navigator.of(context)
+                                                            .pushReplacement(
+                                                                MaterialPageRoute(
+                                                                    builder:
+                                                                        (context) {
+                                                          return Page1Camera();
+                                                        }));
+                                                      },
+                                                      child: Icon(
+                                                        Icons
+                                                            .camera_alt_rounded,
+                                                        size: 35,
+                                                        color: Colors.redAccent,
+                                                      )),
+                                                ],
+                                              )
+                                            ],
+                                          ),
+                                          padding: EdgeInsets.fromLTRB(
+                                              30, 30, 30, 30),
+                                        ),
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.45,
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.6,
+                                        margin: new EdgeInsets.only(left: 0.0),
+                                        decoration: new BoxDecoration(
+                                          color: new Color(0xFF65AB8C),
+                                          shape: BoxShape.rectangle,
+                                          borderRadius:
+                                              new BorderRadius.circular(8.0),
+                                          boxShadow: <BoxShadow>[
+                                            new BoxShadow(
+                                              // color: Colors.white,
+                                              blurRadius: 10.0,
+                                              offset: new Offset(0.0, 10.0),
+                                            ),
+                                          ],
+                                        ),
+                                      )
+                                    ],
+                                  ),
+
+                                  // Container(
+                                  //   color: Colors.white,
+                                  //   child: Text(
+                                  //     'Herhangi bir Hayvan Fotoğrafı Çekilmemiş, Bu sayfa düzenlecek',
+                                  //     style: TextStyle(fontSize: 9),
+                                  //   ),
+                                  // )
                                 ]
                               : [
                                   IconButton(
