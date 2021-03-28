@@ -124,8 +124,8 @@ class _Page1CameraState extends State<Page1Camera> {
           sourcePath: image.path,
           aspectRatio: CropAspectRatio(ratioX: 13, ratioY: 17.5),
           compressQuality: 100,
-          maxHeight: 700,
-          maxWidth: 700,
+          maxHeight: 1200,
+          maxWidth: 1200,
           compressFormat: ImageCompressFormat.jpg,
           androidUiSettings: AndroidUiSettings(
               toolbarColor: Colors.deepOrangeAccent,
@@ -175,7 +175,7 @@ class _Page1CameraState extends State<Page1Camera> {
       text: TextSpan(
         text: 'Thank you for taking steps to protect animals. :)' +
             ' Our artificial intelligence mechanism has detected' +
-            ' the animal you photographed as a',
+            ' the animal you photographed as a ',
         style: TextStyle(color: Colors.black),
         children: <TextSpan>[
           TextSpan(
@@ -248,15 +248,16 @@ class _Page1CameraState extends State<Page1Camera> {
       threshold: 0.5,
     );
     this.setState(() {
-      print(output.length);
+      print(output);
       print('DENEMEEEE');
       if (output.length == 1) {
-        _output = output;
+        if (output[0]['confidence'] > 0.74) {
+          _output = output;
+        } else {
+          output2 = 5;
+        }
       } else {
         output2 = 5;
-        print(_output);
-        print(output2);
-        print('OBJECT');
       }
     });
   }
@@ -347,7 +348,7 @@ class _Page1CameraState extends State<Page1Camera> {
                   SizedBox(
                     height: 23,
                   ),
-                  Text(_output.length != 3 ? "${_output[0]["label"]}" : '',
+                  Text(_output.length != null ? "${_output[0]["label"]}" : '',
                       style: TextStyle(color: Colors.white)),
                   SizedBox(
                     height: 23,
@@ -360,7 +361,9 @@ class _Page1CameraState extends State<Page1Camera> {
                                   Container(
                                     color: Colors.white,
                                     child: Text(
-                                        'Hayvan Fotoğrafı Çekilmemiş, Düzenlenecek'),
+                                      'Herhangi bir Hayvan Fotoğrafı Çekilmemiş, Bu sayfa düzenlecek',
+                                      style: TextStyle(fontSize: 9),
+                                    ),
                                   )
                                 ]
                               : [
