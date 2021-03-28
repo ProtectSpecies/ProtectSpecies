@@ -65,6 +65,18 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - images/endangered_species_group.jpg
+    - images/African_Elephant.jpg
+    - images/amur_leopard
+    - images/arctic_fox
+    - images/cheetah
+    - images/chimpanzee
+    - images/hyena
+    - images/jaguar
+    - images/orangutan
+    - images/panda
+    - images/snow_leopard
+    - images/tiger.jpg
+    - images/Marco_Polo_Sheap
     - assets/
     # - images/a_dot_ham.jpeg
 

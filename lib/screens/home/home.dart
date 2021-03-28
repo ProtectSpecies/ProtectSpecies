@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutterapp/screens/home/AboutUs.dart';
 import 'package:flutterapp/screens/home/identify.dart';
 import 'package:flutterapp/screens/home/main_pages_wrapper.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -45,42 +46,323 @@ class _HomeState extends State<Home> {
 
   List cardList=[
 
-    Image.asset(
-      "images/endangered_species_group.jpg",
-      width: 350,
-      height: 200,
-      fit: BoxFit.cover,
+    Column(
+      children: [
+        Image.asset(
+          "images/arctic_fox",
+          width: 260,
+          height: 218,
+          //fit: BoxFit.cover,
+        ),
+        SizedBox(height: 3),
+        Text(
+          "Arctic Fox",
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 18.0,
+            fontWeight: FontWeight.bold,
+            fontFamily: 'RobotoMono-Bold',
+          ),
+        ),
+      ],
     ),
 
-    Container(
-      padding: const EdgeInsets.all(20),
-      child: Text(
-          'aa',
-          softWrap: true,
+
+    Column(
+      children: [
+        Image.asset(
+          "images/tiger.jpg",
+          width: 260,
+          height: 210,
+          //fit: BoxFit.cover,
+        ),
+        SizedBox(height: 3),
+        Text(
+          "Tiger",
           style: TextStyle(
-            //fontFamily: 'RobotoMono',
-              fontSize: 18
-          )
-      ),
-    ),
-    Image.asset(
-      "images/endangered_species_group.jpg",
-      width: 400,
-      height: 250,
-      fit: BoxFit.cover,
+            color: Colors.white,
+            fontSize: 18.0,
+            fontWeight: FontWeight.bold,
+            fontFamily: 'RobotoMono-Bold',
+          ),
+        ),
+      ],
     ),
 
-    Container(
-      padding: const EdgeInsets.all(20),
-      child: Text(
-          'aa',
-          softWrap: true,
+
+
+
+    Column(
+      children: [
+        Image.asset(
+          "images/snow_leopard",
+          width: 600,
+          height: 210,
+          //fit: BoxFit.cover,
+        ),
+
+        SizedBox(height: 3),
+        Text(
+          "Snow Leopard",
           style: TextStyle(
-            //fontFamily: 'RobotoMono',
-              fontSize: 18
-          )
-      ),
+            color: Colors.white,
+            fontSize: 18.0,
+            fontWeight: FontWeight.bold,
+            fontFamily: 'RobotoMono-Bold',
+          ),
+        ),
+      ],
     ),
+
+
+
+
+
+    Column(
+      children: [
+        Image.asset(
+          "images/panda",
+          width: 260,
+          height: 210,
+          //fit: BoxFit.cover,
+        ),
+
+        SizedBox(height: 3),
+        Text(
+          "Panda",
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 18.0,
+            fontWeight: FontWeight.bold,
+            fontFamily: 'RobotoMono-Bold',
+          ),
+        ),
+      ],
+    ),
+
+
+
+
+
+
+
+    Column(
+      children: [
+        Image.asset(
+          "images/orangutan",
+          width: 260,
+          height: 210,
+          //fit: BoxFit.cover,
+        ),
+
+
+        SizedBox(height: 3),
+        Text(
+          "Orangutan",
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 18.0,
+            fontWeight: FontWeight.bold,
+            fontFamily: 'RobotoMono-Bold',
+          ),
+        ),
+      ],
+    ),
+
+
+
+
+
+
+    Column(
+      children: [
+
+        Image.asset(
+          "images/Marco_Polo_Sheap",
+          width: 260,
+          height: 210,
+          //fit: BoxFit.cover,
+        ),
+
+
+        SizedBox(height: 3),
+        Text(
+          "Marco Polo Sheap",
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 18.0,
+            fontWeight: FontWeight.bold,
+            fontFamily: 'RobotoMono-Bold',
+          ),
+        ),
+      ],
+    ),
+
+
+
+
+
+
+
+    Column(
+      children: [
+        Image.asset(
+          "images/jaguar",
+          width: 260,
+          height: 210,
+          //fit: BoxFit.cover,
+        ),
+
+        SizedBox(height: 3),
+        Text(
+          "Jaguar",
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 18.0,
+            fontWeight: FontWeight.bold,
+            fontFamily: 'RobotoMono-Bold',
+          ),
+        ),
+      ],
+    ),
+
+
+
+
+
+
+
+
+    Column(
+      children: [
+        Image.asset(
+          "images/hyena",
+          width: 260,
+          height: 210,
+          //fit: BoxFit.cover,
+        ),
+        SizedBox(height: 3),
+        Text(
+          "Hyena",
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 18.0,
+            fontWeight: FontWeight.bold,
+            fontFamily: 'RobotoMono-Bold',
+          ),
+        ),
+      ],
+    ),
+
+
+
+
+
+
+
+
+
+    Column(
+      children: [
+        Image.asset(
+          "images/chimpanzee",
+          width: 260,
+          height: 210,
+          //fit: BoxFit.cover,
+        ),
+        SizedBox(height: 3),
+        Text(
+          "Chimpanzee",
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 18.0,
+            fontWeight: FontWeight.bold,
+            fontFamily: 'RobotoMono-Bold',
+          ),
+        ),
+      ],
+    ),
+
+
+
+
+
+
+
+
+
+    Column(
+      children: [
+        Image.asset(
+          "images/cheetah",
+          width: 260,
+          height: 210,
+          //fit: BoxFit.cover,
+        ),
+        SizedBox(height: 3),
+        Text(
+          "Cheetah",
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 18.0,
+            fontWeight: FontWeight.bold,
+            fontFamily: 'RobotoMono-Bold',
+          ),
+        ),
+      ],
+    ),
+
+
+
+
+
+
+
+    Column(
+      children: [
+        Image.asset(
+          "images/amur_leopard",
+          width: 260,
+          height: 210,
+          //fit: BoxFit.cover,
+        ),
+        SizedBox(height: 3),
+        Text(
+          "Amur Leopard",
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 18.0,
+            fontWeight: FontWeight.bold,
+            fontFamily: 'RobotoMono-Bold',
+          ),
+        ),
+      ],
+    ),
+
+
+
+
+    Column(
+      children: [
+        Image.asset(
+          "images/African_Elephant.jpg",
+          width: 260,
+          height: 210,
+          //fit: BoxFit.cover,
+        ),
+        SizedBox(height: 3),
+        Text(
+          "African Elephant",
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 18.0,
+            fontWeight: FontWeight.bold,
+            fontFamily: 'RobotoMono-Bold',
+          ),
+        ),
+      ],
+    ),
+
   ];
 
 
@@ -119,9 +401,7 @@ class _HomeState extends State<Home> {
                   color: Color(0xFF103A3E),
                   child: Column(
                       children: <Widget>[
-                        SizedBox(
-                          height: 60.0,
-                        ),
+                        SizedBox(height: 60.0,),
                         Padding(
                           padding: const EdgeInsets.fromLTRB(20,10,10,40),
                           child: Row(
@@ -152,12 +432,12 @@ class _HomeState extends State<Home> {
                   ),
                 ),
               ),
-              SizedBox(height: 80),
+              SizedBox(height: 35),
 
               CarouselSlider(
                 options: CarouselOptions(
                   height: 250.0,
-                  autoPlay: true,
+                  autoPlay: false,
                   autoPlayInterval: Duration(seconds: 3),
                   //autoPlayAnimationDuration: Duration(milliseconds: 800),
                   autoPlayCurve: Curves.fastOutSlowIn,
@@ -183,49 +463,50 @@ class _HomeState extends State<Home> {
                 }).toList(),
               ),
 
-              SizedBox(height: 50),
+              SizedBox(height: 30),
 
-              /*
 
-              ProgressButton(
-                defaultWidget: Row(
+              ElevatedButton(
+
+                style: ButtonStyle(
+                  //padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.fromLTRB(20, 20, 25,0)),
+                  backgroundColor: MaterialStateProperty.all<Color>(Colors.black12),
+                ),
+
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
 
-                    SizedBox(width: 35),
+                      Image.asset(
+                        "images/endangered_species_group.jpg",
+                        width: 230,
+                        height: 175,
+                        fit: BoxFit.cover,
+                      ),
+
+                    SizedBox(width: 30),
 
                     Text(
-                        'Scan Now',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20
-                        )
-                    ),
-
-                    SizedBox(width: 20),
-
-                    Icon(
-                        Icons.camera,
-                        color: Colors.white
-                    ),
+                      "About Us",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 25.0,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'RobotoMono-Bold',
+                      ),
+                    )
                   ],
+
                 ),
-                color: Color(0xFF103A3E),
-                progressWidget: const CircularProgressIndicator(),
-                width: 196,
-                height: 45,
-                borderRadius: 45/2,
                 onPressed: () async {
                   int score = await Future.delayed(
                       const Duration(milliseconds: 1500), () => 42);
                   return Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => Page1Camera()),
+                    context,
+                    MaterialPageRoute(builder: (context) => AboutUs()),
                   );
                 },
               ),
-
-              */
-
             ],
           ),
         ],
