@@ -13,6 +13,7 @@ import 'home.dart';
 import 'main_pages_wrapper.dart';
 import 'package:share/share.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:geolocator/geolocator.dart';
 
 BuildContext context;
 
@@ -27,17 +28,67 @@ class _Page1CameraState extends State<Page1Camera> {
     return Page1Camera();
   });
 
+  /// Determine the current position of the device.
+  ///
+  /// When the location services are not enabled or permissions
+  /// are denied the `Future` will return an error.
+  Future<Position> _determinePosition() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    // Test if location services are enabled.
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      // Location services are not enabled don't continue
+      // accessing the position and request users of the
+      // App to enable the location services.
+      return Future.error('Location services are disabled.');
+    }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.deniedForever) {
+        // Permissions are denied forever, handle appropriately.
+        return Future.error(
+            'Location permissions are permanently denied, we cannot request permissions.');
+      }
+
+      if (permission == LocationPermission.denied) {
+        // Permissions are denied, next time you could try
+        // requesting permissions again (this is also where
+        // Android's shouldShowRequestPermissionRationale
+        // returned true. According to Android guidelines
+        // your App should show an explanatory UI now.
+        return Future.error(
+            'Location permissions are denied');
+      }
+    }
+
+    // When we reach here, permissions are granted and we can
+    // continue accessing the position of the device.
+    return await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+  }
+
   bool inProcess = false;
-  var _output;
-  DocumentReference imageRef =
-      FirebaseFirestore.instance.collection('accounts').doc(FirebaseAuth.instance.currentUser.uid).collection('images').doc();
+  dynamic _output = [
+    {'index': 1, 'label': ''}
+  ];
+  int output2 = 3;
+  DocumentReference imageRef = FirebaseFirestore.instance
+      .collection('accounts')
+      .doc(FirebaseAuth.instance.currentUser.uid)
+      .collection('images')
+      .doc();
   File selectedFile;
   final picker = ImagePicker();
   int screenchanger = 0;
 
   Future<void> saveImages(_image, DocumentReference reference) async {
+
+    Position position = await _determinePosition();
+
     uploadFile(File _image) async {
-      print(FirebaseAuth.instance.currentUser.uid);
       FirebaseStorage storage = FirebaseStorage.instance;
       Reference ref = storage.ref().child("image" + DateTime.now().toString());
       UploadTask uploadTask = ref.putFile(_image);
@@ -47,8 +98,12 @@ class _Page1CameraState extends State<Page1Camera> {
     }
 
     String imageURL = await uploadFile(_image);
-    reference.set({"imageURL": imageURL,
-                      "type": _output[0]["label"]});
+    reference.set({
+      "imageURL": imageURL,
+      "type": _output != null ? _output[0]["label"] : '',
+      "latitude": position.latitude,
+      "longitude": position.longitude
+    });
   }
 
   // ignore: missing_return
@@ -171,7 +226,7 @@ class _Page1CameraState extends State<Page1Camera> {
         style: TextStyle(color: Colors.black),
         children: <TextSpan>[
           TextSpan(
-            text: '${_output[0]["label"]}.',
+            text: _output != null ? '${_output[0]["label"]}.' : '',
             style: TextStyle(
               color: Colors.red,
             ),
@@ -181,7 +236,7 @@ class _Page1CameraState extends State<Page1Camera> {
                   ' so if you think the animal in the photo you took is correct, you can pass this information' +
                   ' to us by pressing the yes button.However, if you think that the animal you found is not a'),
           TextSpan(
-            text: ' ${_output[0]["label"]}',
+            text: _output != null ? ' ${_output[0]["label"]}' : '',
             style: TextStyle(
               color: Colors.red,
             ),
@@ -240,7 +295,16 @@ class _Page1CameraState extends State<Page1Camera> {
       threshold: 0.5,
     );
     this.setState(() {
-      _output = output;
+      print(output.length);
+      print('DENEMEEEE');
+      if (output.length == 1) {
+        _output = output;
+      } else {
+        output2 = 5;
+        print(_output);
+        print(output2);
+        print('OBJECT');
+      }
     });
   }
 
@@ -330,56 +394,63 @@ class _Page1CameraState extends State<Page1Camera> {
                   SizedBox(
                     height: 23,
                   ),
-                  _output == null
-                      ? Text("")
-                      : Text("${_output[0]["label"]}",
-                          style: TextStyle(color: Colors.white)),
+                  Text(_output.length != 3 ? "${_output[0]["label"]}" : '',
+                      style: TextStyle(color: Colors.white)),
                   SizedBox(
                     height: 23,
                   ),
                   selectedFile != null
                       ? (Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            IconButton(
-                                iconSize: 60,
-                                color: Colors.pink,
-                                onPressed: () {
-                                  Navigator.of(context).pushReplacement(
-                                      MaterialPageRoute(builder: (context) {
-                                    return MyHome();
-                                  }));
-                                  selectedIndex2 = 1;
-                                },
-                                icon: Icon(
-                                  Icons.close,
-                                  color: Colors.white,
-                                )),
-                            IconButton(
-                                iconSize: 60,
-                                color: Colors.pink,
-                                onPressed: () {
-                                  myAlertDialog(context).then((onValue) {
-                                    print(onValue);
-                                  });
-                                },
-                                icon: Icon(
-                                  Icons.send,
-                                  color: Colors.white,
-                                )),
-                            IconButton(
-                                iconSize: 60,
-                                color: Colors.pink,
-                                onPressed: () {
-                                  mySecondAlertDialog(
-                                    context,
-                                  );
-                                },
-                                icon: Icon(
-                                  Icons.share,
-                                  color: Colors.white,
-                                ))
-                          ],
+                          children: output2 == 5
+                              ? [
+                                  Container(
+                                    color: Colors.white,
+                                    child: Text(
+                                        'Hayvan Fotoğrafı Çekilmemiş, Düzenlenecek'),
+                                  )
+                                ]
+                              : [
+                                  IconButton(
+                                      iconSize: 60,
+                                      color: Colors.pink,
+                                      onPressed: () {
+                                        Navigator.of(context).pushReplacement(
+                                            MaterialPageRoute(
+                                                builder: (context) {
+                                          return MyHome();
+                                        }));
+                                        selectedIndex2 = 1;
+                                      },
+                                      icon: Icon(
+                                        Icons.close,
+                                        color: Colors.white,
+                                      )),
+                                  IconButton(
+                                      iconSize: 60,
+                                      color: Colors.pink,
+                                      onPressed: () {
+                                        myAlertDialog(context).then((onValue) {
+                                          print(onValue);
+                                        });
+                                      },
+                                      icon: Icon(
+                                        Icons.send,
+                                        color: Colors.white,
+                                      )),
+                                  IconButton(
+                                      iconSize: 60,
+                                      color: Colors.pink,
+                                      onPressed: () {
+                                        mySecondAlertDialog(
+                                          context,
+                                        );
+                                      },
+                                      icon: Icon(
+                                        Icons.share,
+                                        color: Colors.white,
+                                      ))
+                                ],
                         ))
                       : Container(
                           child: Center(
@@ -392,23 +463,25 @@ class _Page1CameraState extends State<Page1Camera> {
                   selectedFile != null
                       ? Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Text(
-                              'Cancel',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 17),
-                            ),
-                            Text(
-                              'Send Us',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 17),
-                            ),
-                            Text(
-                              'Share',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 17),
-                            )
-                          ],
+                          children: output2 == 5
+                              ? [Text('')]
+                              : [
+                                  Text(
+                                    'Cancel',
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 17),
+                                  ),
+                                  Text(
+                                    'Send Us',
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 17),
+                                  ),
+                                  Text(
+                                    'Share',
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 17),
+                                  )
+                                ],
                         )
                       : Container()
                 ],

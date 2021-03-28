@@ -11,8 +11,8 @@ class TfLiteModel extends StatefulWidget {
 class _TfLiteModelState extends State<TfLiteModel> {
   loadModel() async {
     await Tflite.loadModel(
-      model: "assets/model_unquant.tflite",
-      labels: "assets/labels.txt",
+      model: "assets/tflitemodel.tflite",
+      labels: "assets/tflitelabels.txt",
     );
   }
 

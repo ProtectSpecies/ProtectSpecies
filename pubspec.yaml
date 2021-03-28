@@ -38,6 +38,7 @@ dependencies:
   flutter_progress_button: '^0.6.2'
 
 
+  geolocator: ^7.0.1
 
 
 
