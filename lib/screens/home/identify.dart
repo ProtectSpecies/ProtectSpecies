@@ -89,7 +89,7 @@ class _Page1CameraState extends State<Page1Camera> {
 
     uploadFile(File _image) async {
       FirebaseStorage storage = FirebaseStorage.instance;
-      Reference ref = storage.ref().child("image" + DateTime.now().toString());
+      Reference ref = storage.ref().child(FirebaseAuth.instance.currentUser.uid).child("image" + DateTime.now().toString());
       UploadTask uploadTask = ref.putFile(_image);
 
       var url = await (await uploadTask).ref.getDownloadURL();
