@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutterapp/screens/home/main_pages_wrapper.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 
 
@@ -119,7 +120,7 @@ class _ProfileState extends State<Profile> {
                 ),
                 SizedBox(height: 10.0),
                 Text(
-                  "Nature Lover",
+                  FirebaseAuth.instance.currentUser.displayName,
                   style: TextStyle(
                     color: Colors.white,
                     letterSpacing: 2.0,
@@ -134,7 +135,7 @@ class _ProfileState extends State<Profile> {
                       Icons.email,
                     ),
                     SizedBox(width: 10.0),
-                    Text("nature_lover@protectspecies.com",
+                    Text(FirebaseAuth.instance.currentUser.email,
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 15.0,
