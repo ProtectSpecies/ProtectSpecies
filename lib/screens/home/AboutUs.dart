@@ -42,7 +42,9 @@ class AboutUs extends StatelessWidget {
 
     Widget aboutUsText4() {
       return Text(
-          'Well, you may have a question in your mind, what will happen to this photo and location information we have sent');
+        'Well, you may have a question in your mind, what will happen to this photo and location information we have sent.',
+        style: TextStyle(fontSize: 17),
+      );
     }
 
     Widget aboutUsText5() {
@@ -53,7 +55,10 @@ class AboutUs extends StatelessWidget {
     }
 
     Widget aboutUsText6() {
-      return Text('Our purposes while developing this application;');
+      return Text(
+        'Our purposes while developing this application;',
+        style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+      );
     }
 
     Widget aboutUsText7() {
@@ -87,7 +92,7 @@ class AboutUs extends StatelessWidget {
     Widget aboutUsText11() {
       return Text(
         "Thank you for helping to protect animals.",
-        style: TextStyle(fontSize: 17),
+        style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
       );
     }
 
@@ -115,43 +120,43 @@ class AboutUs extends StatelessWidget {
                             ),
                             aboutUsText2(),
                             SizedBox(
-                              height: 7,
+                              height: 9,
                             ),
                             aboutUsText2_1(),
                             SizedBox(
-                              height: 7,
+                              height: 9,
                             ),
                             aboutUsText3(),
                             SizedBox(
-                              height: 7,
+                              height: 9,
                             ),
                             aboutUsText4(),
                             SizedBox(
-                              height: 7,
+                              height: 9,
                             ),
                             aboutUsText5(),
                             SizedBox(
-                              height: 7,
+                              height: 9,
                             ),
                             aboutUsText6(),
                             SizedBox(
-                              height: 7,
+                              height: 9,
                             ),
                             aboutUsText7(),
                             SizedBox(
-                              height: 7,
+                              height: 9,
                             ),
                             aboutUsText8(),
                             SizedBox(
-                              height: 7,
+                              height: 9,
                             ),
                             aboutUsText9(),
                             SizedBox(
-                              height: 7,
+                              height: 9,
                             ),
                             aboutUsText10(),
                             SizedBox(
-                              height: 7,
+                              height: 20,
                             ),
                             aboutUsText11()
                           ],

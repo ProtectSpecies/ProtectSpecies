@@ -7,8 +7,6 @@ import 'package:flutterapp/screens/home/main_pages_wrapper.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_progress_button/flutter_progress_button.dart';
 
-
-
 class CustomContainerShaper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
@@ -16,8 +14,10 @@ class CustomContainerShaper extends CustomClipper<Path> {
 
     newPath.lineTo(0.0, size.height);
 
-    newPath.quadraticBezierTo(size.width * 0.25, size.height - 50.0,size.width * .5, size.height - 30.0);
-    newPath.quadraticBezierTo(size.width * .75,size.height - 10, size.width, size.height - 55.0);
+    newPath.quadraticBezierTo(size.width * 0.25, size.height - 50.0,
+        size.width * .5, size.height - 30.0);
+    newPath.quadraticBezierTo(
+        size.width * .75, size.height - 10, size.width, size.height - 55.0);
 
     newPath.lineTo(size.width, 0.0);
 
@@ -28,10 +28,7 @@ class CustomContainerShaper extends CustomClipper<Path> {
 
   @override
   bool shouldReclip(CustomClipper oldClipper) => true;
-
 }
-
-
 
 class Home extends StatefulWidget {
   @override
@@ -39,13 +36,11 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-
   GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
 
-  int _currentIndex=0;
+  int _currentIndex = 0;
 
-  List cardList=[
-
+  List cardList = [
     Column(
       children: [
         Image.asset(
@@ -66,8 +61,6 @@ class _HomeState extends State<Home> {
         ),
       ],
     ),
-
-
     Column(
       children: [
         Image.asset(
@@ -88,10 +81,6 @@ class _HomeState extends State<Home> {
         ),
       ],
     ),
-
-
-
-
     Column(
       children: [
         Image.asset(
@@ -100,7 +89,6 @@ class _HomeState extends State<Home> {
           height: 210,
           //fit: BoxFit.cover,
         ),
-
         SizedBox(height: 3),
         Text(
           "Snow Leopard",
@@ -113,11 +101,6 @@ class _HomeState extends State<Home> {
         ),
       ],
     ),
-
-
-
-
-
     Column(
       children: [
         Image.asset(
@@ -126,7 +109,6 @@ class _HomeState extends State<Home> {
           height: 210,
           //fit: BoxFit.cover,
         ),
-
         SizedBox(height: 3),
         Text(
           "Panda",
@@ -139,13 +121,6 @@ class _HomeState extends State<Home> {
         ),
       ],
     ),
-
-
-
-
-
-
-
     Column(
       children: [
         Image.asset(
@@ -154,8 +129,6 @@ class _HomeState extends State<Home> {
           height: 210,
           //fit: BoxFit.cover,
         ),
-
-
         SizedBox(height: 3),
         Text(
           "Orangutan",
@@ -168,23 +141,14 @@ class _HomeState extends State<Home> {
         ),
       ],
     ),
-
-
-
-
-
-
     Column(
       children: [
-
         Image.asset(
           "images/Marco_Polo_Sheap",
           width: 260,
           height: 210,
           //fit: BoxFit.cover,
         ),
-
-
         SizedBox(height: 3),
         Text(
           "Marco Polo Sheap",
@@ -197,13 +161,6 @@ class _HomeState extends State<Home> {
         ),
       ],
     ),
-
-
-
-
-
-
-
     Column(
       children: [
         Image.asset(
@@ -212,7 +169,6 @@ class _HomeState extends State<Home> {
           height: 210,
           //fit: BoxFit.cover,
         ),
-
         SizedBox(height: 3),
         Text(
           "Jaguar",
@@ -225,14 +181,6 @@ class _HomeState extends State<Home> {
         ),
       ],
     ),
-
-
-
-
-
-
-
-
     Column(
       children: [
         Image.asset(
@@ -253,15 +201,6 @@ class _HomeState extends State<Home> {
         ),
       ],
     ),
-
-
-
-
-
-
-
-
-
     Column(
       children: [
         Image.asset(
@@ -282,15 +221,6 @@ class _HomeState extends State<Home> {
         ),
       ],
     ),
-
-
-
-
-
-
-
-
-
     Column(
       children: [
         Image.asset(
@@ -311,13 +241,6 @@ class _HomeState extends State<Home> {
         ),
       ],
     ),
-
-
-
-
-
-
-
     Column(
       children: [
         Image.asset(
@@ -338,10 +261,6 @@ class _HomeState extends State<Home> {
         ),
       ],
     ),
-
-
-
-
     Column(
       children: [
         Image.asset(
@@ -362,12 +281,7 @@ class _HomeState extends State<Home> {
         ),
       ],
     ),
-
   ];
-
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -400,15 +314,18 @@ class _HomeState extends State<Home> {
                   height: 230,
                   color: Color(0xFF103A3E),
                   child: Column(
-                    //crossAxisAlignment: CrossAxisAlignment.start,
+                      //crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        SizedBox(height: 10.0,),
-
+                        SizedBox(
+                          height: 10.0,
+                        ),
                         Padding(
-                          padding: const EdgeInsets.fromLTRB(20,0,10,0),
+                          padding: const EdgeInsets.fromLTRB(20, 0, 10, 0),
                           child: Row(
                             children: <Widget>[
-                              SizedBox(width: 50.0,),
+                              SizedBox(
+                                width: 50.0,
+                              ),
                               Spacer(),
                               Image.asset(
                                 "images/logo.png",
@@ -434,17 +351,16 @@ class _HomeState extends State<Home> {
                                   color: Colors.white,
                                   size: 30,
                                 ),
-                                onPressed: () => _drawerKey.currentState.openEndDrawer(),
+                                onPressed: () =>
+                                    _drawerKey.currentState.openEndDrawer(),
                               ),
                             ],
                           ),
                         )
-                      ]
-                  ),
+                      ]),
                 ),
               ),
               SizedBox(height: 35),
-
               CarouselSlider(
                 options: CarouselOptions(
                   height: 250.0,
@@ -458,47 +374,38 @@ class _HomeState extends State<Home> {
                     });
                   },
                 ),
-                items: cardList.map((card){
-                  return Builder(
-                      builder:(BuildContext context){
-                        return  Container(
-                          height: MediaQuery.of(context).size.height*0.30,
-                          width: MediaQuery.of(context).size.width,
-                          child: Card(
-                            color: Color(0xFF103A3E),
-                            child: card,
-                          ),
-                        );
-                      }
-                  );
+                items: cardList.map((card) {
+                  return Builder(builder: (BuildContext context) {
+                    return Container(
+                      height: MediaQuery.of(context).size.height * 0.30,
+                      width: MediaQuery.of(context).size.width,
+                      child: Card(
+                        color: Color(0xFF103A3E),
+                        child: card,
+                      ),
+                    );
+                  });
                 }).toList(),
               ),
-
               SizedBox(height: 30),
-
-
               ElevatedButton(
-
                 style: ButtonStyle(
                   //padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.fromLTRB(20, 20, 25,0)),
-                  backgroundColor: MaterialStateProperty.all<Color>(Colors.black12),
+                  backgroundColor:
+                      MaterialStateProperty.all<Color>(Colors.black12),
                 ),
-
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-
-                      Image.asset(
-                        "images/endangered_species_group.jpg",
-                        width: 230,
-                        height: 175,
-                        fit: BoxFit.cover,
-                      ),
-
+                    Image.asset(
+                      "images/endangered_species_group.jpg",
+                      width: 230,
+                      height: 175,
+                      fit: BoxFit.cover,
+                    ),
                     SizedBox(width: 30),
-
                     Text(
-                      "About Us",
+                      "  About\nOur App",
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 25.0,
@@ -507,7 +414,6 @@ class _HomeState extends State<Home> {
                       ),
                     )
                   ],
-
                 ),
                 onPressed: () async {
                   int score = await Future.delayed(
@@ -522,7 +428,7 @@ class _HomeState extends State<Home> {
           ),
         ],
       ),
-        endDrawer: settingsDrawer(),
+      endDrawer: settingsDrawer(),
     );
   }
 }
