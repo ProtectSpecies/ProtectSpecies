@@ -400,12 +400,22 @@ class _HomeState extends State<Home> {
                   height: 230,
                   color: Color(0xFF103A3E),
                   child: Column(
+                    //crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        SizedBox(height: 60.0,),
+                        SizedBox(height: 10.0,),
+
                         Padding(
-                          padding: const EdgeInsets.fromLTRB(20,10,10,40),
+                          padding: const EdgeInsets.fromLTRB(20,0,10,0),
                           child: Row(
                             children: <Widget>[
+                              SizedBox(width: 50.0,),
+                              Spacer(),
+                              Image.asset(
+                                "images/logo.png",
+                                width: 220,
+                                height: 220,
+                              ),
+                              /*
                               Text(
                                   "Protect Species",
                                   style: TextStyle(
@@ -416,6 +426,7 @@ class _HomeState extends State<Home> {
                                   ),
 
                               ),
+                              */
                               Spacer(),
                               IconButton(
                                 icon: Icon(
@@ -437,7 +448,7 @@ class _HomeState extends State<Home> {
               CarouselSlider(
                 options: CarouselOptions(
                   height: 250.0,
-                  autoPlay: false,
+                  autoPlay: true,
                   autoPlayInterval: Duration(seconds: 3),
                   //autoPlayAnimationDuration: Duration(milliseconds: 800),
                   autoPlayCurve: Curves.fastOutSlowIn,

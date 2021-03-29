@@ -34,17 +34,24 @@ dependencies:
   flutter_signin_button: ^1.1.0
   share: '^2.0.1'
   flutter_swiper: ^1.1.6
-  carousel_slider: ^2.2.1
-  flutter_progress_button: '^0.6.2'
+  carousel_slider: 3.0.0
+  flutter_progress_button: '1.0.0'
+  flutter_launcher_icons: ^0.7.5
 
 
   geolocator: ^7.0.1
 
-
-
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: "1.0.2"
+
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "images/logo_transparent.png"
+  # flutter pub run flutter_launcher_icons:main -f pubspec.yaml
+
+
 
 dev_dependencies:
   flutter_test:
@@ -78,6 +85,8 @@ flutter:
     - images/snow_leopard
     - images/tiger.jpg
     - images/Marco_Polo_Sheap
+    - images/logo_transparent.png
+    - images/logo.png
     - assets/
     # - images/a_dot_ham.jpeg
 
