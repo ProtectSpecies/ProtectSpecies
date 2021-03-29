@@ -23,25 +23,6 @@ class Page1Camera extends StatefulWidget {
 }
 
 class _Page1CameraState extends State<Page1Camera> {
-  planetCard() {
-    return new Container(
-      height: 124.0,
-      margin: new EdgeInsets.only(left: 46.0),
-      decoration: new BoxDecoration(
-        color: new Color(0xFF333366),
-        shape: BoxShape.rectangle,
-        borderRadius: new BorderRadius.circular(8.0),
-        boxShadow: <BoxShadow>[
-          new BoxShadow(
-            color: Colors.white,
-            blurRadius: 10.0,
-            offset: new Offset(0.0, 10.0),
-          ),
-        ],
-      ),
-    );
-  }
-
   int index = 0;
   Route newRoute = MaterialPageRoute(builder: (BuildContext context) {
     return Page1Camera();
@@ -307,7 +288,7 @@ class _Page1CameraState extends State<Page1Camera> {
   runModel(File image) async {
     var output = await Tflite.runModelOnImage(
       path: image.path,
-      numResults: 5,
+      numResults: 12,
       imageMean: 127.5,
       imageStd: 127.5,
       threshold: 0.5,
@@ -316,7 +297,7 @@ class _Page1CameraState extends State<Page1Camera> {
       print(output);
       print('DENEMEEEE');
       if (output.length == 1) {
-        if (output[0]['confidence'] > 0.74) {
+        if (output[0]['confidence'] > 0) {
           _output = output;
         } else {
           output2 = 5;
@@ -410,6 +391,117 @@ class _Page1CameraState extends State<Page1Camera> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   getImageWidget(context),
+                  _output[0].length == 3
+                      ? Stack(alignment: Alignment.center, children: [
+                          Container(
+                            alignment: Alignment.center,
+                            height: MediaQuery.of(context).size.height * 0.45,
+                            width: MediaQuery.of(context).size.width * 1,
+                            color: Color(0xFF103A3E),
+                          ),
+                          Container(
+                            height: MediaQuery.of(context).size.height * 0.23,
+                            width: MediaQuery.of(context).size.width * 0.83,
+                            alignment: Alignment.center,
+                            margin: new EdgeInsets.only(left: 0.0),
+                            decoration: new BoxDecoration(
+                              color: new Color(0xFFBDE2C8),
+                              shape: BoxShape.rectangle,
+                              borderRadius: new BorderRadius.circular(8.0),
+                            ),
+                          ),
+                          Container(
+                            child: Column(
+                              children: [
+                                Text(
+                                    _output.length != null
+                                        ? "${_output[0]["label"]}"
+                                        : '',
+                                    style: TextStyle(
+                                        color: Colors.black, fontSize: 24)),
+                                SizedBox(
+                                  height: 23,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    FloatingActionButton(
+                                        backgroundColor: Color(0xFF103A3E),
+                                        onPressed: () {
+                                          Navigator.of(context).pushReplacement(
+                                              MaterialPageRoute(
+                                                  builder: (context) {
+                                            return MyHome();
+                                          }));
+                                          selectedIndex2 = 1;
+                                        },
+                                        child: Icon(
+                                          Icons.close,
+                                          color: Colors.white,
+                                          size: 40,
+                                        )),
+                                    FloatingActionButton(
+                                        backgroundColor: Color(0xFF103A3E),
+                                        onPressed: () {
+                                          myAlertDialog(context)
+                                              .then((onValue) {
+                                            print(onValue);
+                                          });
+                                        },
+                                        child: Icon(
+                                          Icons.send,
+                                          color: Colors.white,
+                                          size: 36,
+                                        )),
+                                    FloatingActionButton(
+                                        backgroundColor: Color(0xFF103A3E),
+                                        onPressed: () {
+                                          mySecondAlertDialog(
+                                            context,
+                                          );
+                                        },
+                                        child: Icon(
+                                          Icons.share,
+                                          color: Colors.white,
+                                          size: 36,
+                                        ))
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 5,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: output2 == 5
+                                      ? [Text('')]
+                                      : [
+                                          Text(
+                                            '    Cancel',
+                                            style: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 17),
+                                          ),
+                                          Text(
+                                            '    Send Us',
+                                            style: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 17),
+                                          ),
+                                          Text(
+                                            '  Share on\nyour profile',
+                                            style: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 17),
+                                          )
+                                        ],
+                                )
+                              ],
+                            ),
+                          )
+                        ])
+                      : Container(),
                   // SizedBox(
                   //   height: 23,
                   // // ),
@@ -444,8 +536,15 @@ class _Page1CameraState extends State<Page1Camera> {
                                                 CrossAxisAlignment.center,
                                             children: [
                                               Text(
-                                                "Hmm... This doesn't look like a endangered animal.\n Please take another photo and try again.",
-                                                style: TextStyle(fontSize: 17),
+                                                "Thanks for trying :), However this doesn't look like an endangered animal.",
+                                                style: TextStyle(fontSize: 18),
+                                              ),
+                                              SizedBox(
+                                                height: 5,
+                                              ),
+                                              Text(
+                                                "Please take another photo and try again.",
+                                                style: TextStyle(fontSize: 18),
                                               ),
                                               SizedBox(
                                                 height: 60,
@@ -490,12 +589,15 @@ class _Page1CameraState extends State<Page1Camera> {
                                                         size: 35,
                                                         color: Colors.redAccent,
                                                       )),
+                                                  SizedBox(
+                                                    width: 22,
+                                                  )
                                                 ],
                                               )
                                             ],
                                           ),
                                           padding: EdgeInsets.fromLTRB(
-                                              30, 30, 30, 30),
+                                              30, 30, 2, 30),
                                         ),
                                         height:
                                             MediaQuery.of(context).size.height *
@@ -529,47 +631,7 @@ class _Page1CameraState extends State<Page1Camera> {
                                   //   ),
                                   // )
                                 ]
-                              : [
-                                  IconButton(
-                                      iconSize: 60,
-                                      color: Colors.pink,
-                                      onPressed: () {
-                                        Navigator.of(context).pushReplacement(
-                                            MaterialPageRoute(
-                                                builder: (context) {
-                                          return MyHome();
-                                        }));
-                                        selectedIndex2 = 1;
-                                      },
-                                      icon: Icon(
-                                        Icons.close,
-                                        color: Colors.white,
-                                      )),
-                                  IconButton(
-                                      iconSize: 60,
-                                      color: Colors.pink,
-                                      onPressed: () {
-                                        myAlertDialog(context).then((onValue) {
-                                          print(onValue);
-                                        });
-                                      },
-                                      icon: Icon(
-                                        Icons.send,
-                                        color: Colors.white,
-                                      )),
-                                  IconButton(
-                                      iconSize: 60,
-                                      color: Colors.pink,
-                                      onPressed: () {
-                                        mySecondAlertDialog(
-                                          context,
-                                        );
-                                      },
-                                      icon: Icon(
-                                        Icons.share,
-                                        color: Colors.white,
-                                      ))
-                                ],
+                              : [],
                         ))
                       : Container(
                           child: Center(
@@ -579,30 +641,7 @@ class _Page1CameraState extends State<Page1Camera> {
                   SizedBox(
                     height: 1,
                   ),
-                  selectedFile != null
-                      ? Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: output2 == 5
-                              ? [Text('')]
-                              : [
-                                  Text(
-                                    'Cancel',
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 17),
-                                  ),
-                                  Text(
-                                    'Send Us',
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 17),
-                                  ),
-                                  Text(
-                                    'Share',
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 17),
-                                  )
-                                ],
-                        )
-                      : Container()
+                  selectedFile != null ? Row() : Container()
                 ],
               )
             : (inProcess)

@@ -5,9 +5,7 @@ import 'package:flutterapp/screens/home/profile.dart';
 import 'package:flutterapp/services/auth.dart';
 import 'package:tflite/tflite.dart';
 
-
-Widget settingsDrawer(){
-
+Widget settingsDrawer() {
   final AuthanticateServ _auth = AuthanticateServ();
 
   return Drawer(
@@ -17,10 +15,10 @@ Widget settingsDrawer(){
         DrawerHeader(
           child: Center(
               child: Text(
-                'Settings',
-                textScaleFactor: 2.0,
-                style: TextStyle(fontWeight: FontWeight.bold),
-              )),
+            'Settings',
+            textScaleFactor: 2.0,
+            style: TextStyle(fontWeight: FontWeight.bold),
+          )),
           decoration: BoxDecoration(
             color: Color(0xFF103A3E),
           ),
@@ -47,8 +45,6 @@ Widget settingsDrawer(){
   );
 }
 
-
-
 class MainPages extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -59,7 +55,6 @@ class MainPages extends StatelessWidget {
   }
 }
 
-
 int selectedIndex2 = 1;
 
 class MyHome extends StatefulWidget {
@@ -68,8 +63,6 @@ class MyHome extends StatefulWidget {
 }
 
 class _MyHomeState extends State<MyHome> {
-
-
   void pageChanged(int index) {
     setState(() {
       selectedIndex = index;
@@ -115,8 +108,8 @@ class _MyHomeState extends State<MyHome> {
 
   loadModel() async {
     await Tflite.loadModel(
-      model: "assets/tflitemodel.tflite",
-      labels: "assets/tflitelabels.txt",
+      model: "assets/modelv3.tflite",
+      labels: "assets/labels3.txt",
     );
   }
 
@@ -130,40 +123,39 @@ class _MyHomeState extends State<MyHome> {
     });
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: buildPageView(),
-        bottomNavigationBar: (selectedIndex != 0)
-            ? Theme(
-                data: Theme.of(context).copyWith(
-                  canvasColor: Color(0xFF103A3E),
-                ),
-                child: BottomNavigationBar(
-                  selectedItemColor: Colors.black,
-                  unselectedItemColor: Colors.white,
-                  currentIndex: selectedIndex,
-                  onTap: (index) {
-                    bottomTapped(index);
-                  },
-                  items: const <BottomNavigationBarItem>[
-                    BottomNavigationBarItem(
-                      icon: Icon(Icons.camera_alt_outlined),
-                      label: 'Identify',
-                    ),
-                    BottomNavigationBarItem(
-                      icon: Icon(Icons.home),
-                      label: 'Home',
-                    ),
-                    BottomNavigationBarItem(
-                      icon: Icon(Icons.account_circle),
-                      label: 'Profile',
-                    ),
-                  ],
-                ),
-              )
-            : null,
+      body: buildPageView(),
+      bottomNavigationBar: (selectedIndex != 0)
+          ? Theme(
+              data: Theme.of(context).copyWith(
+                canvasColor: Color(0xFF103A3E),
+              ),
+              child: BottomNavigationBar(
+                selectedItemColor: Colors.black,
+                unselectedItemColor: Colors.white,
+                currentIndex: selectedIndex,
+                onTap: (index) {
+                  bottomTapped(index);
+                },
+                items: const <BottomNavigationBarItem>[
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.camera_alt_outlined),
+                    label: 'Identify',
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.home),
+                    label: 'Home',
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.account_circle),
+                    label: 'Profile',
+                  ),
+                ],
+              ),
+            )
+          : null,
     );
   }
 }

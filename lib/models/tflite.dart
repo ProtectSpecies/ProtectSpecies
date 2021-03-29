@@ -11,15 +11,15 @@ class TfLiteModel extends StatefulWidget {
 class _TfLiteModelState extends State<TfLiteModel> {
   loadModel() async {
     await Tflite.loadModel(
-      model: "assets/tflitemodel.tflite",
-      labels: "assets/tflitelabels.txt",
+      model: "assets/modelv3.tflite",
+      labels: "assets/labels3.txt",
     );
   }
 
   runModel(File image) {
     Tflite.runModelOnImage(
       path: image.path,
-      numResults: 5,
+      numResults: 12,
       imageMean: 127.5,
       imageStd: 127.5,
       threshold: 0.5,
