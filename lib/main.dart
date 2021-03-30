@@ -4,7 +4,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutterapp/services/auth.dart';
 import 'package:provider/provider.dart';
 import 'package:flutterapp/models/fUser.dart';
-import '/models/tflite.dart';
 
 void main() => runApp(MyApp());
 

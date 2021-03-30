@@ -2,10 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutterapp/screens/home/AboutUs.dart';
-import 'package:flutterapp/screens/home/identify.dart';
 import 'package:flutterapp/screens/home/main_pages_wrapper.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter_progress_button/flutter_progress_button.dart';
 
 class CustomContainerShaper extends CustomClipper<Path> {
   @override

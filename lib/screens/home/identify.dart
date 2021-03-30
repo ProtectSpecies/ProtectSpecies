@@ -2,14 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutterapp/services/alertdialog.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:image_cropper/image_cropper.dart';
-import 'package:path/path.dart';
 import 'package:tflite/tflite.dart';
-import '/models/tflite.dart';
-import 'home.dart';
 import 'main_pages_wrapper.dart';
 import 'package:share/share.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -127,7 +123,6 @@ class _Page1CameraState extends State<Page1Camera> {
     } else {
       setState(() {
         index = index + 1;
-        print(index.toString() + 'İLK MREHABAAAAAAAAAA');
         return Container(
           height: double.infinity,
           color: Colors.black,
@@ -152,7 +147,6 @@ class _Page1CameraState extends State<Page1Camera> {
           ),
         );
       } else {
-        print(index.toString() + 'MERHABAAAAAAAAAAAA');
         getImageCamera();
         return Container(
           color: Colors.black,
