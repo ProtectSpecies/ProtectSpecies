@@ -36,22 +36,6 @@ class AuthanticateServ {
   }
 
 
-  /// sign in anon ///
-
-  Future signInAnon() async{
-    try{
-      UserCredential result = await _auth.signInAnonymously();
-      User user = result.user;
-      //return user;
-      return _fUserFromUserClass(user);
-    } catch(e){
-      print(e.toString());
-      return null;
-    }
-  }
-
-
-
   /// register with email & password ///
 
   Future registerWithEmail(String email,String password) async {
