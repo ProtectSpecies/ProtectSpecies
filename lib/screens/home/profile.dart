@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutterapp/screens/home/main_pages_wrapper.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutterapp/screens/home/updateProfile.dart';
 
 
 
@@ -99,51 +100,73 @@ class _ProfileState extends State<Profile> {
               ),
             ),
           ),
-          Padding(
-            padding: EdgeInsets.fromLTRB(30.0, 140.0, 30.0, 0.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                SizedBox(
-                  height: 150.0,
-                  child: Icon(
-                    Icons.person,
-                    size: 100.0,
-                  ),
-                ),
-                Text(
-                  "Name",
-                  style: TextStyle(
-                    color: Colors.black,
-                    letterSpacing: 2.0,
-                  ),
-                ),
-                SizedBox(height: 10.0),
-                Text(
-                  FirebaseAuth.instance.currentUser.displayName,
-                  style: TextStyle(
-                    color: Colors.white,
-                    letterSpacing: 2.0,
-                    fontSize: 28.0,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                SizedBox(height: 30.0),
-                Row(
-                  children: <Widget>[
-                    Icon(
-                      Icons.email,
+          SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.fromLTRB(30.0, 140.0, 30.0, 0.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  SizedBox(
+                    height: 150.0,
+                    child: Icon(
+                      Icons.person,
+                      size: 100.0,
                     ),
-                    SizedBox(width: 10.0),
-                    Text(FirebaseAuth.instance.currentUser.email,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 15.0,
-                          letterSpacing: 1.0,
-                        )),
-                  ],
-                ),
-              ],
+                  ),
+                  Text(
+                    "Name",
+                    style: TextStyle(
+                      fontSize: 17,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 2.0,
+                    ),
+                  ),
+                  SizedBox(height: 10.0),
+                  Text(
+                    FirebaseAuth.instance.currentUser.displayName,
+                    style: TextStyle(
+                      color: Colors.white,
+                      letterSpacing: 2.0,
+                      fontSize: 28.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(height: 30.0),
+                  Row(
+                    children: <Widget>[
+                      Icon(
+                        Icons.email,
+                      ),
+                      SizedBox(width: 10.0),
+                      Text(
+                          FirebaseAuth.instance.currentUser.email,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 15.0,
+                            letterSpacing: 1.0,
+                          )
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 30.0),
+                  ElevatedButton(
+                    child: Text(
+                      "Update Profile",
+                    ),
+                    style: ButtonStyle(
+                      //padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.fromLTRB(20, 20, 25,0)),
+                      backgroundColor: MaterialStateProperty.all<Color>(Colors.black12),
+                    ),
+                    onPressed: () async {
+                      return Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => UpdateProfile()),
+                      );
+                    },
+                  ),
+                ],
+              ),
             ),
           ),
         ]),
