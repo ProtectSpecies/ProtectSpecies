@@ -42,162 +42,159 @@ class _RegisterState extends State<Register> {
               height: double.infinity,
               width: double.infinity,
             ),
-            Container(
-              height: double.infinity,
-              padding: EdgeInsets.fromLTRB(40.0,00.0,40.0,0.0),
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Text(
-                      'WELCOME TO PROTECT SPECIES',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color:Color(0xFF103A3E),
-                        fontSize: 30.0,
-                        fontWeight: FontWeight.bold,
+            SingleChildScrollView(
+              child: Container(
+                height: 850,
+                padding: EdgeInsets.fromLTRB(40.0,00.0,40.0,0.0),
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Image.asset(
+                        "images/logo_transparent.png",
+                        width: 270,
+                        height: 270,
                       ),
-                    ),
-                    SizedBox(height: 70.0),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text(
-                          'Create an Account',
-                          style: TextStyle(
-                            color: Color(0xFF103A3E),
-                            fontSize: 25.0,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        SizedBox(height: 30.0),
-                        Container(
-                          alignment: Alignment.centerLeft,
-                          decoration: BoxDecoration(
-                            color: Color(0xFF103A3E),
-                            borderRadius: BorderRadius.circular(10.0),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black12,
-                                blurRadius: 6.0,
-                                offset: Offset(0, 2),
-                              ),
-                            ],
-                          ),
-                          height: 60.0,
-                          child: TextField(
-                            onChanged: (val) {
-                              setState(() => email = val);
-                            },
-                            keyboardType: TextInputType.emailAddress,
-                            style: TextStyle(color: Colors.white,),
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              contentPadding: EdgeInsets.only(top: 14.0),
-                              prefixIcon: Icon(Icons.email_rounded, color: Colors.white,),
-                              hintText: 'Email',
-                              hintStyle: TextStyle(color: Colors.white54,),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            'Create an Account',
+                            style: TextStyle(
+                              color: Color(0xFF103A3E),
+                              fontSize: 25.0,
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-
-                    SizedBox(height: 20.0),
-
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        SizedBox(height: 10.0),
-                        Container(
-                          alignment: Alignment.centerLeft,
-                          decoration: BoxDecoration(
-                            color: Color(0xFF103A3E),
-                            borderRadius: BorderRadius.circular(10.0),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black12,
-                                blurRadius: 6.0,
-                                offset: Offset(0, 2),
-                              ),
-                            ],
-                          ),
-                          height: 60.0,
-                          child: TextField(
-                            onChanged: (val) {
-                              setState(() => password = val);
-                            },
-                            obscureText: true,
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              contentPadding: EdgeInsets.only(top: 14.0),
-                              prefixIcon: Icon(Icons.lock_outlined, color: Colors.white,),
-                              hintText: 'Password',
-                              hintStyle: TextStyle(color: Colors.white54,),
+                          SizedBox(height: 30.0),
+                          Container(
+                            alignment: Alignment.centerLeft,
+                            decoration: BoxDecoration(
+                              color: Color(0xFF103A3E),
+                              borderRadius: BorderRadius.circular(10.0),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black12,
+                                  blurRadius: 6.0,
+                                  offset: Offset(0, 2),
+                                ),
+                              ],
                             ),
-                            style: TextStyle(color: Colors.white,),
+                            height: 60.0,
+                            child: TextField(
+                              onChanged: (val) {
+                                setState(() => email = val);
+                              },
+                              keyboardType: TextInputType.emailAddress,
+                              style: TextStyle(color: Colors.white,),
+                              decoration: InputDecoration(
+                                border: InputBorder.none,
+                                contentPadding: EdgeInsets.only(top: 14.0),
+                                prefixIcon: Icon(Icons.email_rounded, color: Colors.white,),
+                                hintText: 'Email',
+                                hintStyle: TextStyle(color: Colors.white54,),
+                              ),
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 30.0),
-                    ElevatedButton(
-                        style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(Color(0xFF103A3E)),
-                          elevation: MaterialStateProperty.all<double>(20.0),
-                        ),
-                        child: Text(
-                          'Register',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                        onPressed: () async {
-                          dynamic result = await _auth.registerWithEmail(
-                              email, password);
-                          if (result == null) {
-                            setState(() {
-                              error = "please enter a valid email";
-                            });
+                        ],
+                      ),
+
+                      SizedBox(height: 20.0),
+
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          SizedBox(height: 10.0),
+                          Container(
+                            alignment: Alignment.centerLeft,
+                            decoration: BoxDecoration(
+                              color: Color(0xFF103A3E),
+                              borderRadius: BorderRadius.circular(10.0),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black12,
+                                  blurRadius: 6.0,
+                                  offset: Offset(0, 2),
+                                ),
+                              ],
+                            ),
+                            height: 60.0,
+                            child: TextField(
+                              onChanged: (val) {
+                                setState(() => password = val);
+                              },
+                              obscureText: true,
+                              decoration: InputDecoration(
+                                border: InputBorder.none,
+                                contentPadding: EdgeInsets.only(top: 14.0),
+                                prefixIcon: Icon(Icons.lock_outlined, color: Colors.white,),
+                                hintText: 'Password',
+                                hintStyle: TextStyle(color: Colors.white54,),
+                              ),
+                              style: TextStyle(color: Colors.white,),
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 30.0),
+                      ElevatedButton(
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all<Color>(Color(0xFF103A3E)),
+                            elevation: MaterialStateProperty.all<double>(20.0),
+                          ),
+                          child: Text(
+                            'Register',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          onPressed: () async {
+                            dynamic result = await _auth.registerWithEmail(
+                                email, password);
+                            if (result == null) {
+                              setState(() {
+                                error = "please enter a valid email";
+                              });
+                            }
                           }
-                        }
-                    ),
-                    SizedBox(height: 12),
-                    Text(
-                      error,
-                      style: TextStyle(
-                        color: Colors.red,
-                        fontSize: 15.0,
                       ),
-                    ),
-                    SizedBox(height: 30,),
-                    GestureDetector(
-                      onTap: () {
-                        return widget.changeView();
-                      },
-                      child: RichText(
-                        text: TextSpan(
-                          children: [
-                            TextSpan(
-                              text: 'Already have an account? ',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18.0,
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                            TextSpan(
-                              text: 'Sign In',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18.0,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
+                      SizedBox(height: 12),
+                      Text(
+                        error,
+                        style: TextStyle(
+                          color: Colors.red,
+                          fontSize: 15.0,
                         ),
                       ),
-                    ),
-                  ],
+                      SizedBox(height: 30,),
+                      GestureDetector(
+                        onTap: () {
+                          return widget.changeView();
+                        },
+                        child: RichText(
+                          text: TextSpan(
+                            children: [
+                              TextSpan(
+                                text: 'Already have an account? ',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18.0,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                              TextSpan(
+                                text: 'Sign In',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
+            ),
             ],
         ),
       ),

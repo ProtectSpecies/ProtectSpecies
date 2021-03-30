@@ -98,7 +98,8 @@ class AboutUs extends StatelessWidget {
 
     return Scaffold(
       key: _drawerKey,
-      body: Stack(children: [
+      body: Stack(
+          children: [
         SingleChildScrollView(
           child: Container(
             child: SingleChildScrollView(
@@ -112,7 +113,12 @@ class AboutUs extends StatelessWidget {
                         child: Column(
                           children: [
                             SizedBox(
-                              height: 230,
+                              height: 150,
+                            ),
+                            Image.asset(
+                              "images/logo_transparent.png",
+                              width: 280,
+                              height: 250,
                             ),
                             aboutUsText1(),
                             SizedBox(
@@ -158,7 +164,10 @@ class AboutUs extends StatelessWidget {
                             SizedBox(
                               height: 20,
                             ),
-                            aboutUsText11()
+                            aboutUsText11(),
+                            SizedBox(
+                              height: 50,
+                            ),
                           ],
                         ),
                       ),
