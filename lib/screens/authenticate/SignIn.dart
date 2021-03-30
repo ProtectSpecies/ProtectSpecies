@@ -46,23 +46,13 @@ class _SignInState extends State<SignIn> {
                 height: 850,
                 padding: EdgeInsets.fromLTRB(40.0, 0.0, 40.0, 0.0),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
-                    /*
-                    Text(
-                      'WELCOME TO PROTECT SPECIES',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Color(0xFF103A3E),
-                        fontSize: 30.0,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                     */
+                    SizedBox(height: 15),
                     Image.asset(
                       "images/logo_transparent.png",
-                      width: 270,
-                      height: 270,
+                      width: 350,
+                      height: 350,
                     ),
 
                     Column(
