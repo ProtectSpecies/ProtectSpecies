@@ -2,10 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutterapp/screens/home/AboutUs.dart';
-import 'package:flutterapp/screens/home/identify.dart';
 import 'package:flutterapp/screens/home/main_pages_wrapper.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter_progress_button/flutter_progress_button.dart';
 
 class CustomContainerShaper extends CustomClipper<Path> {
   @override
@@ -47,7 +45,6 @@ class _HomeState extends State<Home> {
           "images/arctic_fox",
           width: 260,
           height: 218,
-          //fit: BoxFit.cover,
         ),
         SizedBox(height: 3),
         Text(
@@ -67,7 +64,6 @@ class _HomeState extends State<Home> {
           "images/tiger.jpg",
           width: 260,
           height: 210,
-          //fit: BoxFit.cover,
         ),
         SizedBox(height: 3),
         Text(
@@ -87,7 +83,6 @@ class _HomeState extends State<Home> {
           "images/snow_leopard",
           width: 600,
           height: 210,
-          //fit: BoxFit.cover,
         ),
         SizedBox(height: 3),
         Text(
@@ -107,7 +102,6 @@ class _HomeState extends State<Home> {
           "images/panda",
           width: 260,
           height: 210,
-          //fit: BoxFit.cover,
         ),
         SizedBox(height: 3),
         Text(
@@ -127,7 +121,6 @@ class _HomeState extends State<Home> {
           "images/orangutan",
           width: 260,
           height: 210,
-          //fit: BoxFit.cover,
         ),
         SizedBox(height: 3),
         Text(
@@ -147,7 +140,6 @@ class _HomeState extends State<Home> {
           "images/Marco_Polo_Sheap",
           width: 260,
           height: 210,
-          //fit: BoxFit.cover,
         ),
         SizedBox(height: 3),
         Text(
@@ -167,7 +159,6 @@ class _HomeState extends State<Home> {
           "images/jaguar",
           width: 260,
           height: 210,
-          //fit: BoxFit.cover,
         ),
         SizedBox(height: 3),
         Text(
@@ -187,7 +178,6 @@ class _HomeState extends State<Home> {
           "images/hyena",
           width: 260,
           height: 210,
-          //fit: BoxFit.cover,
         ),
         SizedBox(height: 3),
         Text(
@@ -207,7 +197,6 @@ class _HomeState extends State<Home> {
           "images/chimpanzee",
           width: 260,
           height: 210,
-          //fit: BoxFit.cover,
         ),
         SizedBox(height: 3),
         Text(
@@ -227,7 +216,6 @@ class _HomeState extends State<Home> {
           "images/cheetah",
           width: 260,
           height: 210,
-          //fit: BoxFit.cover,
         ),
         SizedBox(height: 3),
         Text(
@@ -247,7 +235,6 @@ class _HomeState extends State<Home> {
           "images/amur_leopard",
           width: 260,
           height: 210,
-          //fit: BoxFit.cover,
         ),
         SizedBox(height: 3),
         Text(
@@ -267,7 +254,6 @@ class _HomeState extends State<Home> {
           "images/African_Elephant.jpg",
           width: 260,
           height: 210,
-          //fit: BoxFit.cover,
         ),
         SizedBox(height: 3),
         Text(
@@ -287,6 +273,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _drawerKey,
+      endDrawer: settingsDrawer(),
       body: Stack(
         children: <Widget>[
           Container(
@@ -313,51 +300,37 @@ class _HomeState extends State<Home> {
                 child: Container(
                   height: 230,
                   color: Color(0xFF103A3E),
-                  child: Column(
-                      //crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        SizedBox(
-                          height: 10.0,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(20, 0, 10, 0),
-                          child: Row(
-                            children: <Widget>[
-                              SizedBox(
-                                width: 50.0,
-                              ),
-                              Spacer(),
-                              Image.asset(
-                                "images/logo.png",
-                                width: 220,
-                                height: 220,
-                              ),
-                              /*
-                              Text(
-                                  "Protect Species",
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 35.0,
-                                    fontWeight: FontWeight.bold,
-                                    fontFamily: 'RobotoMono-Bold',
-                                  ),
-
-                              ),
-                              */
-                              Spacer(),
-                              IconButton(
-                                icon: Icon(
-                                  Icons.settings,
-                                  color: Colors.white,
-                                  size: 30,
-                                ),
-                                onPressed: () =>
-                                    _drawerKey.currentState.openEndDrawer(),
-                              ),
-                            ],
+                  child: Column(children: <Widget>[
+                    SizedBox(
+                      height: 10.0,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(20, 0, 10, 0),
+                      child: Row(
+                        children: <Widget>[
+                          SizedBox(
+                            width: 50.0,
                           ),
-                        )
-                      ]),
+                          Spacer(),
+                          Image.asset(
+                            "images/logo.png",
+                            width: 220,
+                            height: 220,
+                          ),
+                          Spacer(),
+                          IconButton(
+                            icon: Icon(
+                              Icons.settings,
+                              color: Colors.white,
+                              size: 30,
+                            ),
+                            onPressed: () =>
+                                _drawerKey.currentState.openEndDrawer(),
+                          ),
+                        ],
+                      ),
+                    )
+                  ]),
                 ),
               ),
               SizedBox(height: 35),
@@ -416,8 +389,6 @@ class _HomeState extends State<Home> {
                   ],
                 ),
                 onPressed: () async {
-                  int score = await Future.delayed(
-                      const Duration(milliseconds: 100), () => 42);
                   return Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => AboutUs()),
@@ -428,7 +399,6 @@ class _HomeState extends State<Home> {
           ),
         ],
       ),
-      endDrawer: settingsDrawer(),
     );
   }
 }

@@ -92,8 +92,6 @@ class AuthanticateServ {
     return logincred;
   }
 
-
-
 }
 
 

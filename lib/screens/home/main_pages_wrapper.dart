@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterapp/screens/home/home.dart';
 import 'package:flutterapp/screens/home/identify.dart';
@@ -32,7 +34,9 @@ Widget settingsDrawer() {
           onTap: () {},
         ),
         ListTile(title: Text('Item 3'), onTap: () {}),
+
         SizedBox(height: 300.0),
+
         TextButton.icon(
           icon: Icon(Icons.person),
           onPressed: () async {
@@ -67,9 +71,8 @@ class _MyHomeState extends State<MyHome> {
     setState(() {
       selectedIndex = index;
       selectedIndex2 = index;
-
-      print(selectedIndex.toString() + 'up');
-    });
+      }
+    );
   }
 
   PageController pageController = PageController(
@@ -97,10 +100,6 @@ class _MyHomeState extends State<MyHome> {
       selectedIndex = index;
       selectedIndex2 = index;
       pageController.jumpToPage(index);
-
-      print(selectedIndex.toString() + 'bottom');
-      // pageController.animateToPage(index,
-      //     duration: Duration(milliseconds: 500), curve: Curves.ease);
     });
   }
 

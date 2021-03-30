@@ -201,8 +201,6 @@ class AboutUs extends StatelessWidget {
                             MaterialStateProperty.all<Color>(Color(0xFF103A3E)),
                       ),
                       onPressed: () async {
-                        int score = await Future.delayed(
-                            const Duration(milliseconds: 1500), () => 42);
                         return Navigator.pop(
                           context,
                           MaterialPageRoute(builder: (context) => AboutUs()),

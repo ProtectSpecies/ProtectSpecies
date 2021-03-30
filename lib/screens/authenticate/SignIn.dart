@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterapp/services/auth.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
@@ -54,7 +55,6 @@ class _SignInState extends State<SignIn> {
                       width: 350,
                       height: 350,
                     ),
-
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
@@ -105,9 +105,7 @@ class _SignInState extends State<SignIn> {
                         ),
                       ],
                     ),
-
                     SizedBox(height: 20.0),
-
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
@@ -173,9 +171,6 @@ class _SignInState extends State<SignIn> {
                         fontSize: 15.0,
                       ),
                     ),
-
-                    //SizedBox(height: 10),
-
                     SignInButton(Buttons.Google, text: "Sign in with Google",
                         onPressed: () async {
                       dynamic result = await _auth.signInWithGoogle();
@@ -185,9 +180,7 @@ class _SignInState extends State<SignIn> {
                         });
                       }
                     }),
-
                     SizedBox(height: 20),
-
                     GestureDetector(
                       onTap: () {
                         return widget.changeView();
