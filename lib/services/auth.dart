@@ -92,23 +92,6 @@ class AuthanticateServ {
     return logincred;
   }
 
-  /// Updating Profile //
- /*
-  Future updateUserData() async {
-    var userNow = FirebaseAuth.instance.currentUser;
-    userNow.updateProfile({
-      newDisplayName : newDisplayName,
-      }).then(function() {
-    var displayName = userNow.displayName;
-    var photoURL = userNow.photoURL;
-    }, function(error) {
-
-    });
-  }
-
-  */
-
-
 }
 
 

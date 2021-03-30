@@ -37,12 +37,18 @@ class _ProfileState extends State<Profile> {
 
   GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
 
+  String getName(String userName ) {
+    return userName != null ? (FirebaseAuth.instance.currentUser.displayName): "";
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         key: _drawerKey,
+        endDrawer: settingsDrawer(),
         body: Stack(
             children: [
           Container(
@@ -91,7 +97,9 @@ class _ProfileState extends State<Profile> {
                               color: Colors.white,
                               size: 30,
                             ),
-                            onPressed: () => _drawerKey.currentState.openEndDrawer(),
+                            onPressed: () {
+                              _drawerKey.currentState.openEndDrawer();
+                            },
                           ),
                         ],
                       ),
@@ -100,8 +108,7 @@ class _ProfileState extends State<Profile> {
               ),
             ),
           ),
-          SingleChildScrollView(
-            child: Padding(
+          Padding(
               padding: EdgeInsets.fromLTRB(30.0, 140.0, 30.0, 0.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -124,7 +131,7 @@ class _ProfileState extends State<Profile> {
                   ),
                   SizedBox(height: 10.0),
                   Text(
-                    FirebaseAuth.instance.currentUser.displayName,
+                    getName(FirebaseAuth.instance.currentUser.displayName),
                     style: TextStyle(
                       color: Colors.white,
                       letterSpacing: 2.0,
@@ -168,9 +175,7 @@ class _ProfileState extends State<Profile> {
                 ],
               ),
             ),
-          ),
         ]),
-        endDrawer: settingsDrawer(),
       ),
     );
   }

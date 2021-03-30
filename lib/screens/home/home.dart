@@ -45,7 +45,6 @@ class _HomeState extends State<Home> {
           "images/arctic_fox",
           width: 260,
           height: 218,
-          //fit: BoxFit.cover,
         ),
         SizedBox(height: 3),
         Text(
@@ -65,7 +64,6 @@ class _HomeState extends State<Home> {
           "images/tiger.jpg",
           width: 260,
           height: 210,
-          //fit: BoxFit.cover,
         ),
         SizedBox(height: 3),
         Text(
@@ -85,7 +83,6 @@ class _HomeState extends State<Home> {
           "images/snow_leopard",
           width: 600,
           height: 210,
-          //fit: BoxFit.cover,
         ),
         SizedBox(height: 3),
         Text(
@@ -105,7 +102,6 @@ class _HomeState extends State<Home> {
           "images/panda",
           width: 260,
           height: 210,
-          //fit: BoxFit.cover,
         ),
         SizedBox(height: 3),
         Text(
@@ -125,7 +121,6 @@ class _HomeState extends State<Home> {
           "images/orangutan",
           width: 260,
           height: 210,
-          //fit: BoxFit.cover,
         ),
         SizedBox(height: 3),
         Text(
@@ -145,7 +140,6 @@ class _HomeState extends State<Home> {
           "images/Marco_Polo_Sheap",
           width: 260,
           height: 210,
-          //fit: BoxFit.cover,
         ),
         SizedBox(height: 3),
         Text(
@@ -165,7 +159,6 @@ class _HomeState extends State<Home> {
           "images/jaguar",
           width: 260,
           height: 210,
-          //fit: BoxFit.cover,
         ),
         SizedBox(height: 3),
         Text(
@@ -185,7 +178,6 @@ class _HomeState extends State<Home> {
           "images/hyena",
           width: 260,
           height: 210,
-          //fit: BoxFit.cover,
         ),
         SizedBox(height: 3),
         Text(
@@ -205,7 +197,6 @@ class _HomeState extends State<Home> {
           "images/chimpanzee",
           width: 260,
           height: 210,
-          //fit: BoxFit.cover,
         ),
         SizedBox(height: 3),
         Text(
@@ -225,7 +216,6 @@ class _HomeState extends State<Home> {
           "images/cheetah",
           width: 260,
           height: 210,
-          //fit: BoxFit.cover,
         ),
         SizedBox(height: 3),
         Text(
@@ -245,7 +235,6 @@ class _HomeState extends State<Home> {
           "images/amur_leopard",
           width: 260,
           height: 210,
-          //fit: BoxFit.cover,
         ),
         SizedBox(height: 3),
         Text(
@@ -265,7 +254,6 @@ class _HomeState extends State<Home> {
           "images/African_Elephant.jpg",
           width: 260,
           height: 210,
-          //fit: BoxFit.cover,
         ),
         SizedBox(height: 3),
         Text(
@@ -285,6 +273,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _drawerKey,
+      endDrawer: settingsDrawer(),
       body: Stack(
         children: <Widget>[
           Container(
@@ -312,7 +301,6 @@ class _HomeState extends State<Home> {
                   height: 230,
                   color: Color(0xFF103A3E),
                   child: Column(
-                      //crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         SizedBox(
                           height: 10.0,
@@ -330,18 +318,6 @@ class _HomeState extends State<Home> {
                                 width: 220,
                                 height: 220,
                               ),
-                              /*
-                              Text(
-                                  "Protect Species",
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 35.0,
-                                    fontWeight: FontWeight.bold,
-                                    fontFamily: 'RobotoMono-Bold',
-                                  ),
-
-                              ),
-                              */
                               Spacer(),
                               IconButton(
                                 icon: Icon(
@@ -349,8 +325,7 @@ class _HomeState extends State<Home> {
                                   color: Colors.white,
                                   size: 30,
                                 ),
-                                onPressed: () =>
-                                    _drawerKey.currentState.openEndDrawer(),
+                                onPressed: () => _drawerKey.currentState.openEndDrawer(),
                               ),
                             ],
                           ),
@@ -424,7 +399,6 @@ class _HomeState extends State<Home> {
           ),
         ],
       ),
-      endDrawer: settingsDrawer(),
     );
   }
 }

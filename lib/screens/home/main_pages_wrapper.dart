@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutterapp/screens/home/home.dart';
 import 'package:flutterapp/screens/home/identify.dart';
 import 'package:flutterapp/screens/home/profile.dart';
-import 'package:flutterapp/screens/home/updateProfile.dart';
 import 'package:flutterapp/services/auth.dart';
 import 'package:tflite/tflite.dart';
 
@@ -27,13 +26,8 @@ Widget settingsDrawer() {
           ),
         ),
         ListTile(
-          title: Text('Update Profile'),
-          onTap: () async {
-            return Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => UpdateProfile()),
-            );
-          },
+          title: Text('Item 1'),
+          onTap: () {},
         ),
         ListTile(
           title: Text('Item 2'),
