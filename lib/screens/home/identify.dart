@@ -289,8 +289,6 @@ class _Page1CameraState extends State<Page1Camera> {
       threshold: 0.5,
     );
     this.setState(() {
-      print(output);
-      print('DENEMEEEE');
       if (output.length == 1) {
         if (output[0]['confidence'] > 0) {
           _output = output;

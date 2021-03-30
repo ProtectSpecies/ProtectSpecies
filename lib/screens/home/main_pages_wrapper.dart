@@ -1,7 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterapp/screens/home/home.dart';
 import 'package:flutterapp/screens/home/identify.dart';
 import 'package:flutterapp/screens/home/profile.dart';
+import 'package:flutterapp/screens/home/updateProfile.dart';
 import 'package:flutterapp/services/auth.dart';
 import 'package:tflite/tflite.dart';
 
@@ -24,15 +27,22 @@ Widget settingsDrawer() {
           ),
         ),
         ListTile(
-          title: Text('Item 1'),
-          onTap: () {},
+          title: Text('Update Profile'),
+          onTap: () async {
+            return Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => UpdateProfile()),
+            );
+          },
         ),
         ListTile(
           title: Text('Item 2'),
           onTap: () {},
         ),
         ListTile(title: Text('Item 3'), onTap: () {}),
+
         SizedBox(height: 300.0),
+
         TextButton.icon(
           icon: Icon(Icons.person),
           onPressed: () async {
@@ -67,9 +77,8 @@ class _MyHomeState extends State<MyHome> {
     setState(() {
       selectedIndex = index;
       selectedIndex2 = index;
-
-      print(selectedIndex.toString() + 'up');
-    });
+      }
+    );
   }
 
   PageController pageController = PageController(
@@ -97,10 +106,6 @@ class _MyHomeState extends State<MyHome> {
       selectedIndex = index;
       selectedIndex2 = index;
       pageController.jumpToPage(index);
-
-      print(selectedIndex.toString() + 'bottom');
-      // pageController.animateToPage(index,
-      //     duration: Duration(milliseconds: 500), curve: Curves.ease);
     });
   }
 
