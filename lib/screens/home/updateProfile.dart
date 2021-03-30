@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutterapp/screens/home/main_pages_wrapper.dart';
 import 'package:flutterapp/screens/home/profile.dart';
 
 class UpdateProfile extends StatefulWidget {
@@ -109,8 +110,10 @@ class _UpdateProfileState extends State<UpdateProfile> {
                         await FirebaseAuth.instance.currentUser
                             .updateProfile(displayName: newDisplayName);
                         await FirebaseAuth.instance.currentUser.reload();
-                        return Navigator.pushReplacement(context,
-                            MaterialPageRoute(builder: (context) => Profile()));
+                        Navigator.of(context).pop();
+                        selectedIndex2 = 2;
+                        Navigator.pushReplacement(context,
+                            MaterialPageRoute(builder: (context) => MyHome()));
                       }),
                 ],
               ),
