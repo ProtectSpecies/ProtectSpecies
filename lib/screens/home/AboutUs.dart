@@ -63,7 +63,7 @@ class AboutUs extends StatelessWidget {
 
     Widget aboutUsText7() {
       return Text(
-        '1) We know that data on some endangered animals have been collected in some way. However, since these data are accumulated in different places, they cause confusion and lack of information. Therefore, instead of collecting these data separately, we want to combine them under a single roof ,and  to do this information collcting stage with the support of not only experts in the field but also the public.',
+        '1) We know that data on some endangered animals have been collected in some way. However, since these data are accumulated in different places, they cause confusion and lack of information. Therefore, instead of collecting these data separately, we want to combine them under a single roof ,and we want to do this information collecting stage with the support of not only experts in the field but also the public.',
         style: TextStyle(fontSize: 17),
       );
     }

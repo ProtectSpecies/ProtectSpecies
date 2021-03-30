@@ -417,7 +417,7 @@ class _HomeState extends State<Home> {
                 ),
                 onPressed: () async {
                   int score = await Future.delayed(
-                      const Duration(milliseconds: 1500), () => 42);
+                      const Duration(milliseconds: 100), () => 42);
                   return Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => AboutUs()),

@@ -2,30 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:flutterapp/screens/home/main_pages_wrapper.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-
-
 class CustomContainerShaper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
     Path newPath = new Path();
 
-    newPath.lineTo(0, size.height) ;
+    newPath.lineTo(0, size.height);
 
-    newPath.quadraticBezierTo(size.width/4, size.height-40, size.width/2, size.height-20) ;
-    newPath.quadraticBezierTo(3/4 * size.width, size.height, size.width, size.height - 20) ;
+    newPath.quadraticBezierTo(
+        size.width / 4, size.height - 40, size.width / 2, size.height - 20);
+    newPath.quadraticBezierTo(
+        3 / 4 * size.width, size.height, size.width, size.height - 20);
 
-    newPath.lineTo(size.width, 0) ;
+    newPath.lineTo(size.width, 0);
 
-    return newPath ;
+    return newPath;
   }
 
   @override
-
   bool shouldReclip(CustomClipper oldClipper) => true;
-
 }
-
-
 
 class Profile extends StatefulWidget {
   @override
@@ -33,7 +29,6 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
-
   GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
 
   @override
@@ -42,8 +37,7 @@ class _ProfileState extends State<Profile> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         key: _drawerKey,
-        body: Stack(
-            children: [
+        body: Stack(children: [
           Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
@@ -66,37 +60,34 @@ class _ProfileState extends State<Profile> {
             child: Container(
               height: 175,
               color: Color(0xFF103A3E),
-              child: Column(
-                  children: <Widget>[
-                    SizedBox(
-                      height: 60.0,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(20,10,10,10),
-                      child: Row(
-                        children: <Widget>[
-                          Text(
-                              "Protect Species",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 35.0,
-                                fontWeight: FontWeight.bold,
-                              )
-                          ),
-                          Spacer(),
-                          IconButton(
-                            icon: Icon(
-                              Icons.settings,
-                              color: Colors.white,
-                              size: 30,
-                            ),
-                            onPressed: () => _drawerKey.currentState.openEndDrawer(),
-                          ),
-                        ],
+              child: Column(children: <Widget>[
+                SizedBox(
+                  height: 60.0,
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 10, 10, 10),
+                  child: Row(
+                    children: <Widget>[
+                      Text("Protect Species",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 35.0,
+                            fontWeight: FontWeight.bold,
+                          )),
+                      Spacer(),
+                      IconButton(
+                        icon: Icon(
+                          Icons.settings,
+                          color: Colors.white,
+                          size: 30,
+                        ),
+                        onPressed: () =>
+                            _drawerKey.currentState.openEndDrawer(),
                       ),
-                    )
-                  ]
-              ),
+                    ],
+                  ),
+                )
+              ]),
             ),
           ),
           Padding(
