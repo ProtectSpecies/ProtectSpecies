@@ -106,6 +106,9 @@ class _UpdateProfileState extends State<UpdateProfile> {
                           ),
                           onPressed: () async {
                             await FirebaseAuth.instance.currentUser.updateProfile(displayName:newDisplayName);
+                            await FirebaseAuth.instance.currentUser.reload();
+                            return
+                              Navigator.pop(context, MaterialPageRoute(builder: (context) => UpdateProfile()));
                           }
                       ),
                     ],
