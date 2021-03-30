@@ -47,12 +47,13 @@ class _RegisterState extends State<Register> {
                 height: 850,
                 padding: EdgeInsets.fromLTRB(40.0,00.0,40.0,0.0),
                 child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
+                      SizedBox(height: 15),
                       Image.asset(
                         "images/logo_transparent.png",
-                        width: 270,
-                        height: 270,
+                        width: 350,
+                        height: 350,
                       ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
