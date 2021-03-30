@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutterapp/screens/home/main_pages_wrapper.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutterapp/screens/home/updateProfile.dart';
 
 class CustomContainerShaper extends CustomClipper<Path> {
   @override
@@ -31,12 +32,19 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
 
+  String getName(String userName) {
+    return userName != null
+        ? (FirebaseAuth.instance.currentUser.displayName)
+        : "";
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         key: _drawerKey,
+        endDrawer: settingsDrawer(),
         body: Stack(children: [
           Container(
             decoration: BoxDecoration(
@@ -81,8 +89,9 @@ class _ProfileState extends State<Profile> {
                           color: Colors.white,
                           size: 30,
                         ),
-                        onPressed: () =>
-                            _drawerKey.currentState.openEndDrawer(),
+                        onPressed: () {
+                          _drawerKey.currentState.openEndDrawer();
+                        },
                       ),
                     ],
                   ),
@@ -105,13 +114,15 @@ class _ProfileState extends State<Profile> {
                 Text(
                   "Name",
                   style: TextStyle(
+                    fontSize: 17,
                     color: Colors.black,
+                    fontWeight: FontWeight.bold,
                     letterSpacing: 2.0,
                   ),
                 ),
                 SizedBox(height: 10.0),
                 Text(
-                  FirebaseAuth.instance.currentUser.displayName,
+                  getName(FirebaseAuth.instance.currentUser.displayName),
                   style: TextStyle(
                     color: Colors.white,
                     letterSpacing: 2.0,
@@ -134,11 +145,27 @@ class _ProfileState extends State<Profile> {
                         )),
                   ],
                 ),
+                SizedBox(height: 30.0),
+                ElevatedButton(
+                  child: Text(
+                    "Update Profile",
+                  ),
+                  style: ButtonStyle(
+                    //padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.fromLTRB(20, 20, 25,0)),
+                    backgroundColor:
+                        MaterialStateProperty.all<Color>(Colors.black12),
+                  ),
+                  onPressed: () async {
+                    return Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => UpdateProfile()),
+                    );
+                  },
+                ),
               ],
             ),
           ),
         ]),
-        endDrawer: settingsDrawer(),
       ),
     );
   }
