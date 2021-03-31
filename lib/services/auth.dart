@@ -44,6 +44,7 @@ class AuthanticateServ {
        User user = result.user;
        var account = {
          'email': user.email,
+         'photosTaken': 0
        };
        FirebaseFirestore.instance.collection('accounts').doc(user.uid).set(account);
        return _fUserFromUserClass(user);
@@ -83,6 +84,7 @@ class AuthanticateServ {
 
     var account = {
       'email': googleUser.email,
+      'photosTaken': 0
     };
 
     // Once signed in, return the UserCredential

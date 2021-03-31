@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutterapp/screens/home/main_pages_wrapper.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutterapp/screens/home/updateProfile.dart';
@@ -29,7 +30,37 @@ class Profile extends StatefulWidget {
   _ProfileState createState() => _ProfileState();
 }
 
+class GetPhotosTaken extends StatelessWidget {
+  final String documentId;
+
+  GetPhotosTaken(this.documentId);
+
+  @override
+  Widget build(BuildContext context) {
+    CollectionReference users = FirebaseFirestore.instance.collection('accounts');
+
+    return FutureBuilder<DocumentSnapshot>(
+      future: users.doc(this.documentId).get(),
+      builder:
+          (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+
+        if (snapshot.hasError) {
+          return Text("Something went wrong");
+        }
+
+        if (snapshot.connectionState == ConnectionState.done) {
+          Map<String, dynamic> data = snapshot.data.data();
+          return Text("${data['photosTaken']}");
+        }
+
+        return Text("loading");
+      },
+    );
+  }
+}
+
 class _ProfileState extends State<Profile> {
+
   GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
 
   String getName(String userName) {
@@ -143,6 +174,16 @@ class _ProfileState extends State<Profile> {
                           fontSize: 15.0,
                           letterSpacing: 1.0,
                         )),
+                  ],
+                ),
+                SizedBox(height: 10.0),
+                Row(
+                  children: <Widget>[
+                    Icon(
+                      Icons.camera,
+                    ),
+                    SizedBox(width: 10.0),
+                    GetPhotosTaken(FirebaseAuth.instance.currentUser.uid),
                   ],
                 ),
                 SizedBox(height: 30.0),

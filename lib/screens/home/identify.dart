@@ -1,6 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
@@ -77,6 +77,8 @@ class _Page1CameraState extends State<Page1Camera> {
       .doc(_currUID)
       .collection('images')
       .doc();
+  DocumentReference userInfo = FirebaseFirestore.instance.collection('accounts').doc(_currUID);
+  var increment = FieldValue.increment(1);
   File selectedFile;
   final picker = ImagePicker();
   int screenchanger = 0;
@@ -93,6 +95,9 @@ class _Page1CameraState extends State<Page1Camera> {
       UploadTask uploadTask = ref.putFile(_image);
 
       var url = await (await uploadTask).ref.getDownloadURL();
+      await userInfo.update({
+        "photosTaken": increment
+      });
       return url;
     }
 
