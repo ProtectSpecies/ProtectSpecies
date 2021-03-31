@@ -45,15 +45,33 @@ class GetPhotosTaken extends StatelessWidget {
           (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
 
         if (snapshot.hasError) {
-          return Text("Something went wrong");
+          return Text("Something went wrong",
+            style: TextStyle(
+            color: Colors.white,
+            letterSpacing: 1.0,
+            fontSize: 15.0,
+            ),
+          );
         }
 
         if (snapshot.connectionState == ConnectionState.done) {
           Map<String, dynamic> data = snapshot.data.data();
-          return Text("${data['photosTaken']}");
+          return Text("${data['photosTaken']}",
+            style: TextStyle(
+              color: Colors.white,
+              letterSpacing: 1.0,
+              fontSize: 15.0,
+            ),
+          );
         }
 
-        return Text("loading");
+        return Text("loading",
+          style: TextStyle(
+            color: Colors.white,
+            letterSpacing: 1.0,
+            fontSize: 15.0,
+          ),
+        );
       },
     );
   }
