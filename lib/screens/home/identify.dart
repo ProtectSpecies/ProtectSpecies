@@ -77,7 +77,8 @@ class _Page1CameraState extends State<Page1Camera> {
       .doc(_currUID)
       .collection('images')
       .doc();
-  DocumentReference userInfo = FirebaseFirestore.instance.collection('accounts').doc(_currUID);
+  DocumentReference userInfo =
+      FirebaseFirestore.instance.collection('accounts').doc(_currUID);
   var increment = FieldValue.increment(1);
   File selectedFile;
   final picker = ImagePicker();
@@ -95,9 +96,7 @@ class _Page1CameraState extends State<Page1Camera> {
       UploadTask uploadTask = ref.putFile(_image);
 
       var url = await (await uploadTask).ref.getDownloadURL();
-      await userInfo.update({
-        "photosTaken": increment
-      });
+      await userInfo.update({"photosTaken": increment});
       return url;
     }
 
@@ -178,7 +177,7 @@ class _Page1CameraState extends State<Page1Camera> {
           compressFormat: ImageCompressFormat.jpg,
           androidUiSettings: AndroidUiSettings(
               toolbarColor: Colors.deepOrangeAccent,
-              toolbarTitle: 'AnimalPicker',
+              toolbarTitle: 'Protect Species',
               statusBarColor: Colors.deepPurpleAccent,
               backgroundColor: Colors.white30));
 
@@ -261,7 +260,7 @@ class _Page1CameraState extends State<Page1Camera> {
           return AlertDialog(
             title: Text('Information'),
             content: Text('With this feature, you send us the information' +
-                ' of the photo you took and post the photo in your profile, so that other' +
+                ' of the photo you took and share the photo, so that other' +
                 ' people can see the animals you have found and your contribution' +
                 ' to their rescue.If you want to do this, press yes.'),
             actions: [
@@ -277,6 +276,7 @@ class _Page1CameraState extends State<Page1Camera> {
                   elevation: 5,
                   onPressed: () {
                     saveImagesWidget();
+                    shareImageWidget();
                     Navigator.of(context)
                         .pushReplacement(MaterialPageRoute(builder: (context) {
                       return MyHome();
@@ -388,262 +388,273 @@ class _Page1CameraState extends State<Page1Camera> {
           width: double.infinity,
         ),
         selectedIndex2 == 0
-            ? Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  getImageWidget(context),
-                  _output[0].length == 3
-                      ? Stack(alignment: Alignment.center, children: [
-                          Container(
-                            alignment: Alignment.center,
-                            height: MediaQuery.of(context).size.height * 0.45,
-                            width: MediaQuery.of(context).size.width * 1,
-                            color: Color(0xFF103A3E),
-                          ),
-                          Container(
-                            height: MediaQuery.of(context).size.height * 0.23,
-                            width: MediaQuery.of(context).size.width * 0.83,
-                            alignment: Alignment.center,
-                            margin: new EdgeInsets.only(left: 0.0),
-                            decoration: new BoxDecoration(
-                              color: new Color(0xFFBDE2C8),
-                              shape: BoxShape.rectangle,
-                              borderRadius: new BorderRadius.circular(8.0),
+            ? SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    getImageWidget(context),
+                    _output[0].length == 3
+                        ? Stack(alignment: Alignment.center, children: [
+                            Container(
+                              alignment: Alignment.center,
+                              height: MediaQuery.of(context).size.height * 0.45,
+                              width: MediaQuery.of(context).size.width * 1,
+                              color: Color(0xFF103A3E),
                             ),
-                          ),
-                          Container(
-                            child: Column(
-                              children: [
-                                Text(
-                                    _output.length != null
-                                        ? "${_output[0]["label"]}"
-                                        : '',
-                                    style: TextStyle(
-                                        color: Colors.black, fontSize: 24)),
-                                SizedBox(
-                                  height: 23,
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    FloatingActionButton(
-                                        backgroundColor: Color(0xFF103A3E),
-                                        onPressed: () {
-                                          Navigator.of(context).pushReplacement(
-                                              MaterialPageRoute(
-                                                  builder: (context) {
-                                            return MyHome();
-                                          }));
-                                          selectedIndex2 = 1;
-                                        },
-                                        child: Icon(
-                                          Icons.close,
-                                          color: Colors.white,
-                                          size: 40,
-                                        )),
-                                    FloatingActionButton(
-                                        backgroundColor: Color(0xFF103A3E),
-                                        onPressed: () {
-                                          myAlertDialog(context)
-                                              .then((onValue) {
-                                            print(onValue);
-                                          });
-                                        },
-                                        child: Icon(
-                                          Icons.send,
-                                          color: Colors.white,
-                                          size: 36,
-                                        )),
-                                    FloatingActionButton(
-                                        backgroundColor: Color(0xFF103A3E),
-                                        onPressed: () {
-                                          mySecondAlertDialog(
-                                            context,
-                                          );
-                                        },
-                                        child: Icon(
-                                          Icons.share,
-                                          color: Colors.white,
-                                          size: 36,
-                                        ))
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: 5,
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: output2 == 5
-                                      ? [Text('')]
-                                      : [
-                                          Text(
-                                            '    Cancel',
-                                            style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 17),
-                                          ),
-                                          Text(
-                                            '    Send Us',
-                                            style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 17),
-                                          ),
-                                          Text(
-                                            '  Share on\nyour profile',
-                                            style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 17),
-                                          )
-                                        ],
-                                )
-                              ],
+                            Container(
+                              height: MediaQuery.of(context).size.height * 0.23,
+                              width: MediaQuery.of(context).size.width * 0.83,
+                              alignment: Alignment.center,
+                              margin: new EdgeInsets.only(left: 0.0),
+                              decoration: new BoxDecoration(
+                                color: new Color(0xFFBDE2C8),
+                                shape: BoxShape.rectangle,
+                                borderRadius: new BorderRadius.circular(8.0),
+                              ),
                             ),
-                          )
-                        ])
-                      : Container(),
-                  // SizedBox(
-                  //   height: 23,
-                  // // ),
-                  // Text(_output.length != null ? "${_output[0]["label"]}" : '',
-                  //     style: TextStyle(color: Colors.white)),
-                  // SizedBox(
-                  //   height: 23,
-                  // ),
-                  selectedFile != null
-                      ? (Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: output2 == 5
-                              ? [
-                                  Stack(
-                                    alignment: Alignment.center,
+                            Container(
+                              child: Column(
+                                children: [
+                                  Text(
+                                      _output.length != null
+                                          ? "${_output[0]["label"]}"
+                                          : '',
+                                      style: TextStyle(
+                                          color: Colors.black, fontSize: 24)),
+                                  SizedBox(
+                                    height: 23,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
                                     children: [
-                                      Container(
-                                        alignment: Alignment.center,
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                0.45,
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                1,
-                                        color: Color(0xFF103A3E),
-                                      ),
-                                      Container(
-                                        alignment: Alignment.center,
-                                        child: Padding(
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                "Thanks for trying :), However this doesn't look like an endangered animal.",
-                                                style: TextStyle(fontSize: 18),
-                                              ),
-                                              SizedBox(
-                                                height: 5,
-                                              ),
-                                              Text(
-                                                "Please take another photo and try again.",
-                                                style: TextStyle(fontSize: 18),
-                                              ),
-                                              SizedBox(
-                                                height: 60,
-                                              ),
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceEvenly,
-                                                children: [
-                                                  FloatingActionButton(
-                                                      backgroundColor:
-                                                          Color(0xFF103A3E),
-                                                      child: Icon(
-                                                        Icons.home,
-                                                        size: 35,
-                                                      ),
-                                                      onPressed: () {
-                                                        Navigator.of(context)
-                                                            .pushReplacement(
-                                                                MaterialPageRoute(
-                                                                    builder:
-                                                                        (context) {
-                                                          return MyHome();
-                                                        }));
-                                                        selectedIndex2 = 1;
-                                                      }),
-                                                  FloatingActionButton(
-                                                      backgroundColor:
-                                                          Color(0xFF103A3E),
-                                                      onPressed: () {
-                                                        Navigator.of(context)
-                                                            .pushReplacement(
-                                                                MaterialPageRoute(
-                                                                    builder:
-                                                                        (context) {
-                                                          return Page1Camera();
-                                                        }));
-                                                      },
-                                                      child: Icon(
-                                                        Icons
-                                                            .camera_alt_rounded,
-                                                        size: 35,
-                                                        color: Colors.redAccent,
-                                                      )),
-                                                  SizedBox(
-                                                    width: 22,
-                                                  )
-                                                ],
-                                              )
-                                            ],
-                                          ),
-                                          padding: EdgeInsets.fromLTRB(
-                                              30, 30, 2, 30),
-                                        ),
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                0.45,
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                0.6,
-                                        margin: new EdgeInsets.only(left: 0.0),
-                                        decoration: new BoxDecoration(
-                                          color: new Color(0xFF65AB8C),
-                                          shape: BoxShape.rectangle,
-                                          borderRadius:
-                                              new BorderRadius.circular(8.0),
-                                          boxShadow: <BoxShadow>[
-                                            new BoxShadow(
-                                              // color: Colors.white,
-                                              blurRadius: 10.0,
-                                              offset: new Offset(0.0, 10.0),
-                                            ),
-                                          ],
-                                        ),
-                                      )
+                                      FloatingActionButton(
+                                          backgroundColor: Color(0xFF103A3E),
+                                          onPressed: () {
+                                            Navigator.of(context)
+                                                .pushReplacement(
+                                                    MaterialPageRoute(
+                                                        builder: (context) {
+                                              return MyHome();
+                                            }));
+                                            selectedIndex2 = 1;
+                                          },
+                                          child: Icon(
+                                            Icons.close,
+                                            color: Colors.white,
+                                            size: 40,
+                                          )),
+                                      FloatingActionButton(
+                                          backgroundColor: Color(0xFF103A3E),
+                                          onPressed: () {
+                                            myAlertDialog(context)
+                                                .then((onValue) {
+                                              print(onValue);
+                                            });
+                                          },
+                                          child: Icon(
+                                            Icons.send,
+                                            color: Colors.white,
+                                            size: 36,
+                                          )),
+                                      FloatingActionButton(
+                                          backgroundColor: Color(0xFF103A3E),
+                                          onPressed: () {
+                                            mySecondAlertDialog(
+                                              context,
+                                            );
+                                          },
+                                          child: Icon(
+                                            Icons.share,
+                                            color: Colors.white,
+                                            size: 36,
+                                          ))
                                     ],
                                   ),
+                                  SizedBox(
+                                    height: 5,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: output2 == 5
+                                        ? [Text('')]
+                                        : [
+                                            Text(
+                                              '    Cancel',
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 17),
+                                            ),
+                                            Text(
+                                              '    Send Us',
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 17),
+                                            ),
+                                            Text(
+                                              '  Share on\nyour profile',
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 17),
+                                            )
+                                          ],
+                                  )
+                                ],
+                              ),
+                            )
+                          ])
+                        : Container(),
+                    // SizedBox(
+                    //   height: 23,
+                    // // ),
+                    // Text(_output.length != null ? "${_output[0]["label"]}" : '',
+                    //     style: TextStyle(color: Colors.white)),
+                    // SizedBox(
+                    //   height: 23,
+                    // ),
+                    selectedFile != null
+                        ? (Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: output2 == 5
+                                ? [
+                                    Stack(
+                                      alignment: Alignment.center,
+                                      children: [
+                                        Container(
+                                          alignment: Alignment.center,
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.45,
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              1,
+                                          color: Color(0xFF103A3E),
+                                        ),
+                                        Container(
+                                          alignment: Alignment.center,
+                                          child: Padding(
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                                Text(
+                                                  "Thanks for trying :), However this doesn't look like an endangered animal.",
+                                                  style:
+                                                      TextStyle(fontSize: 18),
+                                                ),
+                                                SizedBox(
+                                                  height: 5,
+                                                ),
+                                                Text(
+                                                  "Please take another photo and try again.",
+                                                  style:
+                                                      TextStyle(fontSize: 18),
+                                                ),
+                                                SizedBox(
+                                                  height: 60,
+                                                ),
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceEvenly,
+                                                  children: [
+                                                    FloatingActionButton(
+                                                        backgroundColor:
+                                                            Color(0xFF103A3E),
+                                                        child: Icon(
+                                                          Icons.home,
+                                                          size: 35,
+                                                        ),
+                                                        onPressed: () {
+                                                          Navigator.of(context)
+                                                              .pushReplacement(
+                                                                  MaterialPageRoute(
+                                                                      builder:
+                                                                          (context) {
+                                                            return MyHome();
+                                                          }));
+                                                          selectedIndex2 = 1;
+                                                        }),
+                                                    FloatingActionButton(
+                                                        backgroundColor:
+                                                            Color(0xFF103A3E),
+                                                        onPressed: () {
+                                                          Navigator.of(context)
+                                                              .pushReplacement(
+                                                                  MaterialPageRoute(
+                                                                      builder:
+                                                                          (context) {
+                                                            return Page1Camera();
+                                                          }));
+                                                        },
+                                                        child: Icon(
+                                                          Icons
+                                                              .camera_alt_rounded,
+                                                          size: 35,
+                                                          color:
+                                                              Colors.redAccent,
+                                                        )),
+                                                    SizedBox(
+                                                      width: 22,
+                                                    )
+                                                  ],
+                                                )
+                                              ],
+                                            ),
+                                            padding: EdgeInsets.fromLTRB(
+                                                30, 30, 2, 30),
+                                          ),
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.45,
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.6,
+                                          margin:
+                                              new EdgeInsets.only(left: 0.0),
+                                          decoration: new BoxDecoration(
+                                            color: new Color(0xFF65AB8C),
+                                            shape: BoxShape.rectangle,
+                                            borderRadius:
+                                                new BorderRadius.circular(8.0),
+                                            boxShadow: <BoxShadow>[
+                                              new BoxShadow(
+                                                // color: Colors.white,
+                                                blurRadius: 10.0,
+                                                offset: new Offset(0.0, 10.0),
+                                              ),
+                                            ],
+                                          ),
+                                        )
+                                      ],
+                                    ),
 
-                                  // Container(
-                                  //   color: Colors.white,
-                                  //   child: Text(
-                                  //     'Herhangi bir Hayvan Fotoğrafı Çekilmemiş, Bu sayfa düzenlecek',
-                                  //     style: TextStyle(fontSize: 9),
-                                  //   ),
-                                  // )
-                                ]
-                              : [],
-                        ))
-                      : Container(
-                          child: Center(
-                            child: CircularProgressIndicator(),
+                                    // Container(
+                                    //   color: Colors.white,
+                                    //   child: Text(
+                                    //     'Herhangi bir Hayvan Fotoğrafı Çekilmemiş, Bu sayfa düzenlecek',
+                                    //     style: TextStyle(fontSize: 9),
+                                    //   ),
+                                    // )
+                                  ]
+                                : [],
+                          ))
+                        : Container(
+                            child: Center(
+                              child: CircularProgressIndicator(),
+                            ),
                           ),
-                        ),
-                  SizedBox(
-                    height: 1,
-                  ),
-                  selectedFile != null ? Row() : Container()
-                ],
+                    SizedBox(
+                      height: 1,
+                    ),
+                    selectedFile != null ? Row() : Container()
+                  ],
+                ),
               )
             : (inProcess)
                 ? Container(
