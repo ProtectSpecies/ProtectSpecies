@@ -34,13 +34,12 @@ class GetPhotosTaken extends StatelessWidget {
   final String documentId;
 
   GetPhotosTaken(this.documentId);
-
   @override
   Widget build(BuildContext context) {
     CollectionReference users = FirebaseFirestore.instance.collection('accounts');
 
-    return FutureBuilder<DocumentSnapshot>(
-      future: users.doc(this.documentId).get(),
+    return StreamBuilder<DocumentSnapshot>(
+      stream: users.doc(this.documentId).snapshots(),
       builder:
           (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
 
@@ -54,9 +53,8 @@ class GetPhotosTaken extends StatelessWidget {
           );
         }
 
-        if (snapshot.connectionState == ConnectionState.done) {
-          Map<String, dynamic> data = snapshot.data.data();
-          return Text("${data['photosTaken']}",
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Text("loading",
             style: TextStyle(
               color: Colors.white,
               letterSpacing: 1.0,
@@ -65,14 +63,17 @@ class GetPhotosTaken extends StatelessWidget {
           );
         }
 
-        return Text("loading",
-          style: TextStyle(
-            color: Colors.white,
-            letterSpacing: 1.0,
-            fontSize: 15.0,
-          ),
-        );
-      },
+
+      Map<String, dynamic> data = snapshot.data.data();
+      return Text("${data['photosTaken']}",
+              style: TextStyle(
+                color: Colors.white,
+                letterSpacing: 1.0,
+                fontSize: 15.0,
+              ),
+            );
+
+          },
     );
   }
 }
