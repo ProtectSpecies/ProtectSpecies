@@ -1,16 +1,16 @@
-# flutterapp
+# Protect Species
 
-A new Flutter application.
+## Introduction
 
-## Getting Started
+This application identifies species under threat of extinction and then stores a picture alongside its location on cloud. 
 
-This project is a starting point for a Flutter application.
+## How To Run
 
-A few resources to get you started if this is your first Flutter project:
+1. Install Flutter and Android Studio.
+2. Clone this repository.
+3. Open the repository on Android Studio.
+4. Run "flutter pub get" on Android Studio terminal
+6. Run the project. You may also have to launch an Android Emulator (which can be done within Android Studio) beforehand.
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Demo
+[Demo Video](https://youtu.be/qKjePi-4BmU)
