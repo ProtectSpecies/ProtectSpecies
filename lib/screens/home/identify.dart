@@ -277,7 +277,6 @@ class _Page1CameraState extends State<Page1Camera> {
                   child: Text('Yes'),
                   elevation: 5,
                   onPressed: () {
-
                     saveImagesWidget();
                     shareImageWidget();
                     Navigator.of(context)
@@ -484,19 +483,19 @@ class _Page1CameraState extends State<Page1Camera> {
                                         ? [Text('')]
                                         : [
                                             Text(
-                                              '    Cancel',
+                                              'Cancel',
                                               style: TextStyle(
                                                   color: Colors.black,
                                                   fontSize: 17),
                                             ),
                                             Text(
-                                              '    Send Us',
+                                              'Send Us',
                                               style: TextStyle(
                                                   color: Colors.black,
                                                   fontSize: 17),
                                             ),
                                             Text(
-                                              '  Share on\nyour profile',
+                                              'Share ',
                                               style: TextStyle(
                                                   color: Colors.black,
                                                   fontSize: 17),

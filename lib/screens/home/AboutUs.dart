@@ -35,7 +35,7 @@ class AboutUs extends StatelessWidget {
 
     Widget aboutUsText3() {
       return Text(
-        "In the Identify section of the application, users can take photos of animals that they see rarely in nature. Currently, the artificial intelligence we have developed can identify 12 of the most critical animals from the list of endangered animals shared by worldwildlife.org. You can see these 12 animals with their photos on the application's home page. \nIf the photo taken by the user is one of these 12 animals, the artificial intelligence detects the animal and informs the user about which animal it has found. In this way, we keep the data of this animal. In addition, the user can submit any extra information or comments via the comment section when sending this information to us. Apart from these, if users want to hold the photo of the animal they took, access it later and show it to other people, they can send the photo to us with the option to share it on their profile and share it on their own profile.",
+        "In the Identify section of the application, users can take photos of animals that they see rarely in nature. Currently, the artificial intelligence we have developed can identify 12 of the most critical animals from the list of endangered animals shared by worldwildlife.org. You can see these 12 animals with their photos on the application's home page. \nIf the photo taken by the user is one of these 12 animals, the artificial intelligence detects the animal and informs the user about which animal it has found. In this way, we keep the data of this animal. In addition, the user can submit any extra information or comments via the comment section when sending this information to us. Apart from these, if users want to hold the photo of the animal they took, access it later and show it to other people, they can use share option.",
         style: TextStyle(fontSize: 17),
       );
     }
@@ -98,8 +98,7 @@ class AboutUs extends StatelessWidget {
 
     return Scaffold(
       key: _drawerKey,
-      body: Stack(
-          children: [
+      body: Stack(children: [
         SingleChildScrollView(
           child: Container(
             child: SingleChildScrollView(
