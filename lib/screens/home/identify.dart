@@ -83,6 +83,7 @@ class _Page1CameraState extends State<Page1Camera> {
   File selectedFile;
   final picker = ImagePicker();
   int screenchanger = 0;
+  String _userFeedback;
 
   Future<void> saveImages(_image, DocumentReference reference) async {
     Position position = await _determinePosition();
@@ -105,7 +106,8 @@ class _Page1CameraState extends State<Page1Camera> {
       "imageURL": imageURL,
       "type": _output != null ? _output[0]["label"] : '',
       "latitude": position.latitude,
-      "longitude": position.longitude
+      "longitude": position.longitude,
+      "comment": _userFeedback
     });
   }
 
@@ -275,6 +277,7 @@ class _Page1CameraState extends State<Page1Camera> {
                   child: Text('Yes'),
                   elevation: 5,
                   onPressed: () {
+
                     saveImagesWidget();
                     shareImageWidget();
                     Navigator.of(context)
@@ -335,8 +338,8 @@ class _Page1CameraState extends State<Page1Camera> {
                   child: Text('Yes'),
                   elevation: 5,
                   onPressed: () {
+                    _userFeedback = customController.text.toString();
                     saveImagesWidget();
-
                     Navigator.of(context).pop(customController.text.toString());
                     Navigator.of(context).pushReplacement(_createRoute());
                     selectedIndex2 = 1;
