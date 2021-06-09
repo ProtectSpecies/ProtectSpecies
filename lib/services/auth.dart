@@ -10,7 +10,7 @@ class AuthanticateServ {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
 
-  /// create user obj based on User class ///
+  /// create user obj based on User class tst///
 
   FbUser _fUserFromUserClass(User user) {
     return user != null ? FbUser(uid: user.uid ): null;
