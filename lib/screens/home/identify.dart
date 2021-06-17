@@ -107,7 +107,7 @@ class _Page1CameraState extends State<Page1Camera> {
       "type": _output != null ? _output[0]["label"] : '',
       "latitude": position.latitude,
       "longitude": position.longitude,
-      "comment": _userFeedback
+      "comment": _userFeedback != null ? _userFeedback : ''
     });
   }
 
