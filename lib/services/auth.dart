@@ -46,7 +46,7 @@ class AuthanticateServ {
          'email': user.email,
          'photosTaken': 0
        };
-       FirebaseFirestore.instance.collection('accounts').doc(user.uid).set(account);
+       FirebaseFirestore.instance.collection('accounts').doc(user.uid).set(account, SetOptions(merge: true));
        return _fUserFromUserClass(user);
     } catch(e){
       print(e.toString());
@@ -82,15 +82,23 @@ class AuthanticateServ {
       idToken: googleAuth.idToken,
     );
 
-    var account = {
-      'email': googleUser.email,
-      'photosTaken': 0
-    };
+    var logincred = await FirebaseAuth.instance.signInWithCredential(credential);
+    
+    // Initialize account details only if the user hasn't logged in before
+    var userDoc = FirebaseFirestore.instance.collection('accounts').doc(FirebaseAuth.instance.currentUser.uid);
+    DocumentSnapshot doc = await userDoc.get();
+
+    if (!doc.exists) {
+      var account = {
+        'email': googleUser.email,
+        'photosTaken': 0
+      };
+
+      userDoc.set(account, SetOptions(merge: true));
+    }
+
 
     // Once signed in, return the UserCredential
-    var logincred = await FirebaseAuth.instance.signInWithCredential(credential);
-    FirebaseFirestore.instance.collection('accounts').doc(FirebaseAuth.instance.currentUser.uid).set(account);
-
     return logincred;
   }
 
