@@ -273,7 +273,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _drawerKey,
-      endDrawer: settingsDrawer(),
+      endDrawer: settingsDrawer(context),
       body: Stack(
         children: <Widget>[
           Container(

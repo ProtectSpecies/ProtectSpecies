@@ -6,8 +6,11 @@ import 'package:flutterapp/screens/home/identify.dart';
 import 'package:flutterapp/screens/home/profile.dart';
 import 'package:flutterapp/services/auth.dart';
 import 'package:tflite/tflite.dart';
+import './organizatinal_page.dart';
 
-Widget settingsDrawer() {
+import 'package:provider/provider.dart';
+
+Widget settingsDrawer(BuildContext context) {
   final AuthanticateServ _auth = AuthanticateServ();
 
   return Drawer(
@@ -26,17 +29,22 @@ Widget settingsDrawer() {
           ),
         ),
         ListTile(
-          title: Text('Item 1'),
-          onTap: () {},
+          title: Text('Deneme Sayfası'),
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => OrgAccount(),
+              ),
+            );
+          },
         ),
         ListTile(
           title: Text('Item 2'),
           onTap: () {},
         ),
         ListTile(title: Text('Item 3'), onTap: () {}),
-
         SizedBox(height: 300.0),
-
         TextButton.icon(
           icon: Icon(Icons.person),
           onPressed: () async {
@@ -71,8 +79,7 @@ class _MyHomeState extends State<MyHome> {
     setState(() {
       selectedIndex = index;
       selectedIndex2 = index;
-      }
-    );
+    });
   }
 
   PageController pageController = PageController(

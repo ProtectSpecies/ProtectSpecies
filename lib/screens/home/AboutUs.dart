@@ -220,7 +220,7 @@ class AboutUs extends StatelessWidget {
           ),
         ),
       ]),
-      endDrawer: settingsDrawer(),
+      endDrawer: settingsDrawer(context),
     );
   }
 }
