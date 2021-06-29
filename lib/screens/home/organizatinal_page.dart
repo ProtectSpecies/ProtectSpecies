@@ -27,7 +27,9 @@ class _OrgAccountState extends State<OrgAccount> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(
+          backgroundColor: Color(0xFF103A3E),
+        ),
         body: Column(
           children: [
             Stack(

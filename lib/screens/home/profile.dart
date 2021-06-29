@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutterapp/screens/home/home.dart';
 import 'package:flutterapp/screens/home/main_pages_wrapper.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutterapp/screens/home/updateProfile.dart';
-import './organizatinal_page.dart';
 
 class CustomContainerShaper extends CustomClipper<Path> {
   @override
@@ -38,27 +36,25 @@ class GetPhotosTaken extends StatelessWidget {
   GetPhotosTaken(this.documentId);
   @override
   Widget build(BuildContext context) {
-    CollectionReference users =
-        FirebaseFirestore.instance.collection('accounts');
+    CollectionReference users = FirebaseFirestore.instance.collection('accounts');
 
     return StreamBuilder<DocumentSnapshot>(
       stream: users.doc(this.documentId).snapshots(),
       builder:
           (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+
         if (snapshot.hasError) {
-          return Text(
-            "Something went wrong",
+          return Text("Something went wrong",
             style: TextStyle(
-              color: Colors.white,
-              letterSpacing: 1.0,
-              fontSize: 15.0,
+            color: Colors.white,
+            letterSpacing: 1.0,
+            fontSize: 15.0,
             ),
           );
         }
 
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Text(
-            "loading",
+          return Text("loading",
             style: TextStyle(
               color: Colors.white,
               letterSpacing: 1.0,
@@ -67,22 +63,23 @@ class GetPhotosTaken extends StatelessWidget {
           );
         }
 
-        Map<String, dynamic> data = snapshot.data.data();
 
-        return Text(
-          "${data['photosTaken']}",
-          style: TextStyle(
-            color: Colors.white,
-            letterSpacing: 1.0,
-            fontSize: 15.0,
-          ),
-        );
-      },
+      Map<String, dynamic> data = snapshot.data.data();
+      return Text("${data['photosTaken']}",
+              style: TextStyle(
+                color: Colors.white,
+                letterSpacing: 1.0,
+                fontSize: 15.0,
+              ),
+            );
+
+          },
     );
   }
 }
 
 class _ProfileState extends State<Profile> {
+
   GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
 
   String getName(String userName) {
