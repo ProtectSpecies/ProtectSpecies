@@ -164,6 +164,13 @@ class _SignInState extends State<SignIn> {
                           }
                         }),
                     SizedBox(height: 5.0),
+                    Text(
+                      error,
+                      style: TextStyle(
+                        color: Colors.red,
+                        fontSize: 15.0,
+                      ),
+                    ),
 
                     SignInButton(Buttons.Google, text: "Sign in with Google",
                         onPressed: () async {

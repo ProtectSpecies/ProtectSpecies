@@ -6,6 +6,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'main_pages_wrapper.dart';
 
 class OrgAccount extends StatefulWidget {
+
   const OrgAccount({Key key}) : super(key: key);
 
   @override
@@ -28,7 +29,26 @@ populateUsers() {
   FirebaseFirestore.instance.collection('accounts').doc();
 }
 
+
+Future<String> getMapLocations() async {
+  var allImages = FirebaseFirestore.instance.collectionGroup('images');
+  var i = 0;
+  QuerySnapshot querySnapshot = await allImages.get();
+    for (var doc in querySnapshot.docs) {
+
+        print('OK');
+        i++;
+    }
+
+    return 'abc';
+
+}
+
+var q = getMapLocations();
+
 class _OrgAccountState extends State<OrgAccount> {
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,6 +75,7 @@ class _OrgAccountState extends State<OrgAccount> {
   }
 
   void onMapCreated(controller) {
+    getMapLocations();
     setState(() {
       mapController = controller;
     });

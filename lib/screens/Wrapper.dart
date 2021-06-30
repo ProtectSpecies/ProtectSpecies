@@ -31,6 +31,7 @@ class _WrapperState extends State<Wrapper>{
   @override
   Widget build(BuildContext context) {
 
+    print(user);
     // return either home page or authentication page
     if (user == null){
       return Authenticate();
