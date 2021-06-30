@@ -40,7 +40,7 @@ class _OrgAccountState extends State<OrgAccount> {
                   child: GoogleMap(
                     onMapCreated: onMapCreated,
                     initialCameraPosition:
-                        CameraPosition(target: center, zoom: 10),
+                    CameraPosition(target: center, zoom: 10),
                   ),
                 )
               ],

@@ -38,13 +38,14 @@ class AuthanticateServ {
 
   /// register with email & password ///
 
-  Future registerWithEmail(String email,String password) async {
+  Future registerWithEmail(String email,String password, var _role) async {
     try{
        UserCredential result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
        User user = result.user;
        var account = {
          'email': user.email,
-         'photosTaken': 0
+         'photosTaken': 0,
+         'role': _role
        };
        FirebaseFirestore.instance.collection('accounts').doc(user.uid).set(account, SetOptions(merge: true));
        return _fUserFromUserClass(user);
@@ -69,7 +70,7 @@ class AuthanticateServ {
 
   /// Sign in with Google ///
 
-  Future<UserCredential> signInWithGoogle() async {
+  Future<UserCredential> signInWithGoogle(var _role) async {
     // Trigger the authentication flow
     final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
 
@@ -91,7 +92,8 @@ class AuthanticateServ {
     if (!doc.exists) {
       var account = {
         'email': googleUser.email,
-        'photosTaken': 0
+        'photosTaken': 0,
+        'role': _role
       };
 
       userDoc.set(account, SetOptions(merge: true));

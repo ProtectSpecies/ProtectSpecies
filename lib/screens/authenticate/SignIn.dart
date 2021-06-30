@@ -164,16 +164,10 @@ class _SignInState extends State<SignIn> {
                           }
                         }),
                     SizedBox(height: 5.0),
-                    Text(
-                      error,
-                      style: TextStyle(
-                        color: Colors.red,
-                        fontSize: 15.0,
-                      ),
-                    ),
+
                     SignInButton(Buttons.Google, text: "Sign in with Google",
                         onPressed: () async {
-                      dynamic result = await _auth.signInWithGoogle();
+                      dynamic result = await _auth.signInWithGoogle('user');
                       if (result == null) {
                         setState(() {
                           error = "Problem with signing in!";

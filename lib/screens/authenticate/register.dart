@@ -148,7 +148,27 @@ class _RegisterState extends State<Register> {
                           ),
                           onPressed: () async {
                             dynamic result = await _auth.registerWithEmail(
-                                email, password);
+                                email, password, 'user');
+                            if (result == null) {
+                              setState(() {
+                                error = "please enter a valid email";
+                              });
+                            }
+                          }
+                      ),
+                      SizedBox(height: 5.0),
+                      ElevatedButton(
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all<Color>(Color(0xFF103A3E)),
+                            elevation: MaterialStateProperty.all<double>(20.0),
+                          ),
+                          child: Text(
+                            'Organization',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          onPressed: () async {
+                            dynamic result = await _auth.registerWithEmail(
+                                email, password, 'org');
                             if (result == null) {
                               setState(() {
                                 error = "please enter a valid email";
