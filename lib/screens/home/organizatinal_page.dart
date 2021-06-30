@@ -32,8 +32,8 @@ populateUsers() {
 
 
 class _OrgAccountState extends State<OrgAccount> {
-  List <Marker> markers = new List();
-  bool done = false;
+  List <Marker> markers = [];
+  bool done;
 
   Future<void> getMapLocations() async {
     var allImages = FirebaseFirestore.instance.collectionGroup('images');
@@ -63,40 +63,56 @@ class _OrgAccountState extends State<OrgAccount> {
       done = true;
     }
 
+    return () => done;
+
   }
   @override
   void initState() {
     super.initState();
-    getMapLocations().whenComplete(() => print("done"));
+    done = false;
   }
 
 
   @override
   Widget build(BuildContext context) {
     print("end");
-    return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Color(0xFF103A3E),
-        ),
-        body: Column(
-          children: [
-            Stack(
+        return Scaffold(
+            appBar: AppBar(
+              backgroundColor: Color(0xFF103A3E),
+            ),
+            body: Column(
               children: [
-                Container(
-                  height: MediaQuery.of(context).size.height * 0.8,
-                  width: double.infinity,
-                  child: GoogleMap(
-                    onMapCreated: onMapCreated,
-                    initialCameraPosition:
-                        CameraPosition(target: center, zoom: 4),
-                    markers: Set.from(markers),
-                  ),
+                Stack(
+                  children: [
+                    Container(
+                      height: MediaQuery
+                          .of(context)
+                          .size
+                          .height * 0.8,
+                      width: double.infinity,
+                      child: FutureBuilder(
+                        future: getMapLocations(),
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            return GoogleMap(
+                              onMapCreated: onMapCreated,
+                              initialCameraPosition:
+                              CameraPosition(target: center, zoom: 4),
+                              markers: Set.from(markers),
+                            );
+
+                        }
+
+                        }
+                      )
+                    )
+                  ],
                 )
               ],
-            )
-          ],
-        ));
-  }
+            ));
+      }
+
+
 
   void onMapCreated(controller) {
     setState(() {
