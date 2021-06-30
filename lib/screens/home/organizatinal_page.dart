@@ -30,27 +30,50 @@ populateUsers() {
 }
 
 
-Future<String> getMapLocations() async {
-  var allImages = FirebaseFirestore.instance.collectionGroup('images');
-  var i = 0;
-  QuerySnapshot querySnapshot = await allImages.get();
-    for (var doc in querySnapshot.docs) {
-
-        print('OK');
-        i++;
-    }
-
-    return 'abc';
-
-}
-
-var q = getMapLocations();
 
 class _OrgAccountState extends State<OrgAccount> {
+  List <Marker> markers = new List();
+  bool done = false;
+
+  Future<void> getMapLocations() async {
+    var allImages = FirebaseFirestore.instance.collectionGroup('images');
+    QuerySnapshot querySnapshot = await allImages.get();
+    Marker resultMarker;
+    for (var doc in querySnapshot.docs) {
+      try {
+        double lat = doc.data()['latitude'];
+        double lng = doc.data()['longitude'];
+
+        if (lat != null && lng != null) {
+          resultMarker = Marker(
+          markerId: MarkerId(doc['type']),
+          infoWindow: InfoWindow(
+            title: doc.data()['type'],
+
+          ),
+          position: LatLng(lat, lng),
+        );
+        markers.add(resultMarker);
+
+        }
+      }
+      catch(e) {
+        print(e);
+      }
+      done = true;
+    }
+
+  }
+  @override
+  void initState() {
+    super.initState();
+    getMapLocations().whenComplete(() => print("done"));
+  }
 
 
   @override
   Widget build(BuildContext context) {
+    print("end");
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Color(0xFF103A3E),
@@ -65,7 +88,8 @@ class _OrgAccountState extends State<OrgAccount> {
                   child: GoogleMap(
                     onMapCreated: onMapCreated,
                     initialCameraPosition:
-                        CameraPosition(target: center, zoom: 3),
+                        CameraPosition(target: center, zoom: 4),
+                    markers: Set.from(markers),
                   ),
                 )
               ],
@@ -75,7 +99,6 @@ class _OrgAccountState extends State<OrgAccount> {
   }
 
   void onMapCreated(controller) {
-    getMapLocations();
     setState(() {
       mapController = controller;
     });
