@@ -38,8 +38,8 @@ Widget settingsDrawer(BuildContext context) {
           ),
         ),
         ListTile(
-          title: Text('Deneme Sayfası'),
-          onTap: () async {
+          title: Text('Item 1'),
+          onTap: () {} /*async {
             if (await CheckRole(userData) == 'org') {
               Navigator.push(
               context,
@@ -48,7 +48,7 @@ Widget settingsDrawer(BuildContext context) {
                 ),
               );
             }
-          },
+          },*/
         ),
         ListTile(
           title: Text('Item 2'),
