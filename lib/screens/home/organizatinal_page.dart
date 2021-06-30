@@ -41,11 +41,7 @@ class _OrgAccountState extends State<OrgAccount> {
                   child: GoogleMap(
                     onMapCreated: onMapCreated,
                     initialCameraPosition:
-<<<<<<< Updated upstream
                     CameraPosition(target: center, zoom: 10),
-=======
-                        CameraPosition(target: center, zoom: 3),
->>>>>>> Stashed changes
                   ),
                 )
               ],

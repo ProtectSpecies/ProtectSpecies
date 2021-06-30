@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:circular_profile_avatar/circular_profile_avatar.dart';
-
 import 'package:flutter_polygon/flutter_polygon.dart';
 
 class LeaderBoardPage extends StatefulWidget {
