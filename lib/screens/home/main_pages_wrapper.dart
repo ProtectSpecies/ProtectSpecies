@@ -6,6 +6,7 @@ import 'package:flutterapp/screens/home/Leaderboard.dart';
 import 'package:flutterapp/screens/home/home.dart';
 import 'package:flutterapp/screens/home/identify.dart';
 import 'package:flutterapp/screens/home/profile.dart';
+
 import 'package:flutterapp/services/auth.dart';
 import 'package:tflite/tflite.dart';
 import './organizatinal_page.dart';
@@ -15,12 +16,13 @@ import 'package:provider/provider.dart';
 Future<String> CheckRole(DocumentReference user) async {
   String role = (await user.get())['role'];
   return role;
-
 }
 
 Widget settingsDrawer(BuildContext context) {
   final AuthanticateServ _auth = AuthanticateServ();
-  final userData = FirebaseFirestore.instance.collection('accounts').doc(FirebaseAuth.instance.currentUser.uid);
+  final userData = FirebaseFirestore.instance
+      .collection('accounts')
+      .doc(FirebaseAuth.instance.currentUser.uid);
 
   return Drawer(
     child: ListView(
@@ -38,8 +40,9 @@ Widget settingsDrawer(BuildContext context) {
           ),
         ),
         ListTile(
-          title: Text('Item 1'),
-          onTap: () {} /*async {
+            title: Text('Item 1'),
+            onTap:
+                () {} /*async {
             if (await CheckRole(userData) == 'org') {
               Navigator.push(
               context,
@@ -49,7 +52,7 @@ Widget settingsDrawer(BuildContext context) {
               );
             }
           },*/
-        ),
+            ),
         ListTile(
           title: Text('Item 2'),
           onTap: () {},
@@ -152,7 +155,9 @@ class _MyHomeState extends State<MyHome> {
   var selectBottomNav;
 
   void initState() {
-    final userData = FirebaseFirestore.instance.collection('accounts').doc(FirebaseAuth.instance.currentUser.uid);
+    final userData = FirebaseFirestore.instance
+        .collection('accounts')
+        .doc(FirebaseAuth.instance.currentUser.uid);
     super.initState();
     isloading = true;
     loadModel().then((value) {
@@ -161,16 +166,22 @@ class _MyHomeState extends State<MyHome> {
       });
     });
     (CheckRole(userData)).then((val) => setState(() {
-      print(val);
-       selectPageView = (selectedIndex < 4 && val == 'org') ? buildPageView2() : buildPageView();
-       selectBottomNav = (selectedIndex < 4 && val == 'org') ? BottomNavigationBarItem2 : BottomNavigationBarItem1;
-    }));
+          print(val);
+
+          selectPageView = (selectedIndex < 4 && val == 'org')
+              ? buildPageView2()
+              : buildPageView();
+          selectBottomNav = (selectedIndex < 4 && val == 'org')
+              ? BottomNavigationBarItem2
+              : BottomNavigationBarItem1;
+        }));
   }
 
-  var BottomNavigationBarItem1 = [BottomNavigationBarItem(
-    icon: Icon(Icons.camera_alt_outlined),
-    label: 'Identify',
-  ),
+  var BottomNavigationBarItem1 = [
+    BottomNavigationBarItem(
+      icon: Icon(Icons.camera_alt_outlined),
+      label: 'Identify',
+    ),
     BottomNavigationBarItem(
       icon: Icon(Icons.home),
       label: 'Home',
@@ -183,30 +194,28 @@ class _MyHomeState extends State<MyHome> {
       icon: Icon(Icons.account_circle),
       label: 'Profile',
     ),
- ];
+  ];
 
-
-  var BottomNavigationBarItem2 = [BottomNavigationBarItem(
-  icon: Icon(Icons.camera_alt_outlined),
-  label: 'Identify',
-  ),
-  BottomNavigationBarItem(
-  icon: Icon(Icons.home),
-  label: 'Home',
-  ),
-  BottomNavigationBarItem(
-  icon: Icon(Icons.leaderboard_sharp),
-  label: 'Leader Board',
-  ),
-  BottomNavigationBarItem(
-  icon: Icon(Icons.account_circle),
-  label: 'Profile',
-  ),
-  BottomNavigationBarItem(
-  icon: Icon(Icons.pin_drop_outlined),
-  label: 'Locations'
-  ), ];
-
+  var BottomNavigationBarItem2 = [
+    BottomNavigationBarItem(
+      icon: Icon(Icons.camera_alt_outlined),
+      label: 'Identify',
+    ),
+    BottomNavigationBarItem(
+      icon: Icon(Icons.home),
+      label: 'Home',
+    ),
+    BottomNavigationBarItem(
+      icon: Icon(Icons.leaderboard_sharp),
+      label: 'Leader Board',
+    ),
+    BottomNavigationBarItem(
+      icon: Icon(Icons.account_circle),
+      label: 'Profile',
+    ),
+    BottomNavigationBarItem(
+        icon: Icon(Icons.pin_drop_outlined), label: 'Locations'),
+  ];
 
   @override
   Widget build(BuildContext context) {
