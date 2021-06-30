@@ -25,6 +25,7 @@ dependencies:
   firebase_storage: "8.0.1"
   image_gallery_saver: '^1.6.8'
   provider: "5.0.0"
+  
   path_provider: ^2.0.1
   path: ^1.8.0
   image_picker: ^0.7.2+1
@@ -37,10 +38,15 @@ dependencies:
   carousel_slider: 3.0.0
   flutter_progress_button: '1.0.0'
   flutter_launcher_icons: ^0.7.5
-  rxdart:
+  circular_profile_avatar: ^1.0.8
+  flutter_custom_clippers: ^2.0.0
+  clippy_flutter: ^1.1.1
+  flutter_polygon: ^0.2.0
+  
+  
  
-  geoflutterfire:
-  google_maps_flutter:
+  
+  google_maps_flutter: ^2.0.6
   
 
 

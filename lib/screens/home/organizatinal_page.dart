@@ -3,6 +3,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'main_pages_wrapper.dart';
 
 class OrgAccount extends StatefulWidget {
   const OrgAccount({Key key}) : super(key: key);
@@ -35,12 +36,16 @@ class _OrgAccountState extends State<OrgAccount> {
             Stack(
               children: [
                 Container(
-                  height: MediaQuery.of(context).size.height * 0.6,
+                  height: MediaQuery.of(context).size.height * 0.8,
                   width: double.infinity,
                   child: GoogleMap(
                     onMapCreated: onMapCreated,
                     initialCameraPosition:
+<<<<<<< Updated upstream
                     CameraPosition(target: center, zoom: 10),
+=======
+                        CameraPosition(target: center, zoom: 3),
+>>>>>>> Stashed changes
                   ),
                 )
               ],

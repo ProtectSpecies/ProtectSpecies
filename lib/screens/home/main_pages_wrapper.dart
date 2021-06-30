@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutterapp/screens/home/Leaderboard.dart';
 import 'package:flutterapp/screens/home/home.dart';
 import 'package:flutterapp/screens/home/identify.dart';
 import 'package:flutterapp/screens/home/profile.dart';
@@ -97,7 +98,25 @@ class _MyHomeState extends State<MyHome> {
       children: <Widget>[
         Page1Camera(),
         Home(),
+        LeaderBoardPage(),
         Profile(),
+      ],
+    );
+  }
+
+  Widget buildPageView2() {
+    return PageView(
+      physics: NeverScrollableScrollPhysics(),
+      controller: pageController,
+      onPageChanged: (index) {
+        pageChanged(index);
+      },
+      children: <Widget>[
+        Page1Camera(),
+        Home(),
+        LeaderBoardPage(),
+        Profile(),
+        OrgAccount()
       ],
     );
   }
@@ -132,7 +151,7 @@ class _MyHomeState extends State<MyHome> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: buildPageView(),
+      body: selectedIndex < 4 ? buildPageView() : buildPageView2(),
       bottomNavigationBar: (selectedIndex != 0)
           ? Theme(
               data: Theme.of(context).copyWith(
@@ -144,6 +163,7 @@ class _MyHomeState extends State<MyHome> {
                 currentIndex: selectedIndex,
                 onTap: (index) {
                   bottomTapped(index);
+                  print(selectedIndex);
                 },
                 items: const <BottomNavigationBarItem>[
                   BottomNavigationBarItem(
@@ -155,8 +175,16 @@ class _MyHomeState extends State<MyHome> {
                     label: 'Home',
                   ),
                   BottomNavigationBarItem(
+                    icon: Icon(Icons.leaderboard_sharp),
+                    label: 'Leader Board',
+                  ),
+                  BottomNavigationBarItem(
                     icon: Icon(Icons.account_circle),
                     label: 'Profile',
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.pin_drop_outlined),
+                    label: 'Locations',
                   ),
                 ],
               ),

@@ -63,6 +63,7 @@ class GetPhotosTaken extends StatelessWidget {
           );
         }
 
+<<<<<<< Updated upstream
 
       Map<String, dynamic> data = snapshot.data.data();
       return Text("${data['photosTaken']}",
@@ -74,6 +75,18 @@ class GetPhotosTaken extends StatelessWidget {
             );
 
           },
+=======
+        Map<String, dynamic> data = snapshot.data.data();
+        return Text(
+          "${data['photosTaken']}",
+          style: TextStyle(
+            color: Colors.white,
+            letterSpacing: 1.0,
+            fontSize: 15.0,
+          ),
+        );
+      },
+>>>>>>> Stashed changes
     );
   }
 }
