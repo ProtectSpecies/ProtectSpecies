@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -11,8 +12,15 @@ import './organizatinal_page.dart';
 
 import 'package:provider/provider.dart';
 
+Future<String> CheckRole(DocumentReference user) async {
+  String role = (await user.get())['role'];
+  return role;
+
+}
+
 Widget settingsDrawer(BuildContext context) {
   final AuthanticateServ _auth = AuthanticateServ();
+  final userData = FirebaseFirestore.instance.collection('accounts').doc(FirebaseAuth.instance.currentUser.uid);
 
   return Drawer(
     child: ListView(
@@ -31,13 +39,15 @@ Widget settingsDrawer(BuildContext context) {
         ),
         ListTile(
           title: Text('Deneme Sayfası'),
-          onTap: () {
-            Navigator.push(
+          onTap: () async {
+            if (await CheckRole(userData) == 'org') {
+              Navigator.push(
               context,
               MaterialPageRoute(
                 builder: (context) => OrgAccount(),
-              ),
-            );
+                ),
+              );
+            }
           },
         ),
         ListTile(
