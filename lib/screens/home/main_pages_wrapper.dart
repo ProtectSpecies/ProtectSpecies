@@ -149,6 +149,7 @@ class _MyHomeState extends State<MyHome> {
   }
 
   Widget selectPageView;
+  var selectBottomNav;
 
   void initState() {
     final userData = FirebaseFirestore.instance.collection('accounts').doc(FirebaseAuth.instance.currentUser.uid);
@@ -162,8 +163,49 @@ class _MyHomeState extends State<MyHome> {
     (CheckRole(userData)).then((val) => setState(() {
       print(val);
        selectPageView = (selectedIndex < 4 && val == 'org') ? buildPageView2() : buildPageView();
+       selectBottomNav = (selectedIndex < 4 && val == 'org') ? BottomNavigationBarItem2 : BottomNavigationBarItem1;
     }));
   }
+
+  var BottomNavigationBarItem1 = [BottomNavigationBarItem(
+    icon: Icon(Icons.camera_alt_outlined),
+    label: 'Identify',
+  ),
+    BottomNavigationBarItem(
+      icon: Icon(Icons.home),
+      label: 'Home',
+    ),
+    BottomNavigationBarItem(
+      icon: Icon(Icons.leaderboard_sharp),
+      label: 'Leader Board',
+    ),
+    BottomNavigationBarItem(
+      icon: Icon(Icons.account_circle),
+      label: 'Profile',
+    ),
+ ];
+
+
+  var BottomNavigationBarItem2 = [BottomNavigationBarItem(
+  icon: Icon(Icons.camera_alt_outlined),
+  label: 'Identify',
+  ),
+  BottomNavigationBarItem(
+  icon: Icon(Icons.home),
+  label: 'Home',
+  ),
+  BottomNavigationBarItem(
+  icon: Icon(Icons.leaderboard_sharp),
+  label: 'Leader Board',
+  ),
+  BottomNavigationBarItem(
+  icon: Icon(Icons.account_circle),
+  label: 'Profile',
+  ),
+  BottomNavigationBarItem(
+  icon: Icon(Icons.pin_drop_outlined),
+  label: 'Locations'
+  ), ];
 
 
   @override
@@ -183,28 +225,7 @@ class _MyHomeState extends State<MyHome> {
                   bottomTapped(index);
                   print(selectedIndex);
                 },
-                items: const <BottomNavigationBarItem>[
-                  BottomNavigationBarItem(
-                    icon: Icon(Icons.camera_alt_outlined),
-                    label: 'Identify',
-                  ),
-                  BottomNavigationBarItem(
-                    icon: Icon(Icons.home),
-                    label: 'Home',
-                  ),
-                  BottomNavigationBarItem(
-                    icon: Icon(Icons.leaderboard_sharp),
-                    label: 'Leader Board',
-                  ),
-                  BottomNavigationBarItem(
-                    icon: Icon(Icons.account_circle),
-                    label: 'Profile',
-                  ),
-                  BottomNavigationBarItem(
-                    icon: Icon(Icons.pin_drop_outlined),
-                    label: 'Locations',
-                  ),
-                ],
+                items: selectBottomNav,
               ),
             )
           : null,
