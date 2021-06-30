@@ -148,7 +148,10 @@ class _MyHomeState extends State<MyHome> {
     );
   }
 
+  Widget selectPageView;
+
   void initState() {
+    final userData = FirebaseFirestore.instance.collection('accounts').doc(FirebaseAuth.instance.currentUser.uid);
     super.initState();
     isloading = true;
     loadModel().then((value) {
@@ -156,12 +159,17 @@ class _MyHomeState extends State<MyHome> {
         isloading = false;
       });
     });
+    (CheckRole(userData)).then((val) => setState(() {
+      print(val);
+       selectPageView = (selectedIndex < 4 && val == 'org') ? buildPageView2() : buildPageView();
+    }));
   }
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: selectedIndex < 4 ? buildPageView() : buildPageView2(),
+      body: selectPageView,
       bottomNavigationBar: (selectedIndex != 0)
           ? Theme(
               data: Theme.of(context).copyWith(
