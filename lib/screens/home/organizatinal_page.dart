@@ -12,11 +12,15 @@ class OrgAccount extends StatefulWidget {
   _OrgAccountState createState() => _OrgAccountState();
 }
 
+bool mapToggle = false;
 GoogleMapController mapController;
 const LatLng center = const LatLng(38.521563, 33.677433);
 
 void initState() {
   populateUsers();
+  setState() {
+    mapToggle = true;
+  }
 }
 
 populateUsers() {
@@ -41,7 +45,7 @@ class _OrgAccountState extends State<OrgAccount> {
                   child: GoogleMap(
                     onMapCreated: onMapCreated,
                     initialCameraPosition:
-                    CameraPosition(target: center, zoom: 10),
+                        CameraPosition(target: center, zoom: 3),
                   ),
                 )
               ],

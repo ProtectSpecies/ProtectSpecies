@@ -36,25 +36,16 @@ class GetPhotosTaken extends StatelessWidget {
   GetPhotosTaken(this.documentId);
   @override
   Widget build(BuildContext context) {
-    CollectionReference users = FirebaseFirestore.instance.collection('accounts');
+    CollectionReference users =
+        FirebaseFirestore.instance.collection('accounts');
 
     return StreamBuilder<DocumentSnapshot>(
       stream: users.doc(this.documentId).snapshots(),
       builder:
           (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
-
         if (snapshot.hasError) {
-          return Text("Something went wrong",
-            style: TextStyle(
-            color: Colors.white,
-            letterSpacing: 1.0,
-            fontSize: 15.0,
-            ),
-          );
-        }
-
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Text("loading",
+          return Text(
+            "Something went wrong",
             style: TextStyle(
               color: Colors.white,
               letterSpacing: 1.0,
@@ -63,24 +54,32 @@ class GetPhotosTaken extends StatelessWidget {
           );
         }
 
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Text(
+            "loading",
+            style: TextStyle(
+              color: Colors.white,
+              letterSpacing: 1.0,
+              fontSize: 15.0,
+            ),
+          );
+        }
 
-      Map<String, dynamic> data = snapshot.data.data();
-      return Text("${data['photosTaken']}",
-              style: TextStyle(
-                color: Colors.white,
-                letterSpacing: 1.0,
-                fontSize: 15.0,
-              ),
-            );
-
-          },
-
+        Map<String, dynamic> data = snapshot.data.data();
+        return Text(
+          "${data['photosTaken']}",
+          style: TextStyle(
+            color: Colors.white,
+            letterSpacing: 1.0,
+            fontSize: 15.0,
+          ),
+        );
+      },
     );
   }
 }
 
 class _ProfileState extends State<Profile> {
-
   GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
 
   String getName(String userName) {
