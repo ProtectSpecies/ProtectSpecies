@@ -14,7 +14,7 @@ class OrgAccount extends StatefulWidget {
 
 bool mapToggle = false;
 GoogleMapController mapController;
-const LatLng center = const LatLng(38.521563, 33.677433);
+const LatLng center = const LatLng(36.521563, 36.277433);
 
 void initState() {
   populateUsers();
@@ -68,7 +68,6 @@ class _OrgAccountState extends State<OrgAccount> {
 
   @override
   Widget build(BuildContext context) {
-    print("end");
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Color(0xFF103A3E),
@@ -87,7 +86,7 @@ class _OrgAccountState extends State<OrgAccount> {
                             return GoogleMap(
                               onMapCreated: onMapCreated,
                               initialCameraPosition:
-                                  CameraPosition(target: center, zoom: 4),
+                                  CameraPosition(target: center, zoom: 10),
                               markers: Set.from(markers),
                             );
                           }

@@ -41,7 +41,7 @@ class _LeaderBoardPageState extends State<LeaderBoardPage> {
                           dene: StackItem(
                             number: "1",
                             userID: "User 1",
-                            points: "700",
+                            points: "7",
                             color: Colors.red,
                           ),
                         ),
@@ -58,7 +58,7 @@ class _LeaderBoardPageState extends State<LeaderBoardPage> {
                           dene: StackItem(
                             number: "2",
                             userID: "User 2",
-                            points: "500",
+                            points: "5",
                             color: Colors.blue,
                           ),
                         ),
@@ -67,7 +67,7 @@ class _LeaderBoardPageState extends State<LeaderBoardPage> {
                           dene: StackItem(
                             number: "3",
                             userID: "User 3",
-                            points: "300",
+                            points: "3",
                             color: Colors.green,
                           ),
                         )
@@ -87,7 +87,7 @@ class _LeaderBoardPageState extends State<LeaderBoardPage> {
                     text: 'Total Score',
                   ),
                   Tab(
-                    text: 'Taken Photos',
+                    text: '',
                   )
                 ]),
             Expanded(
@@ -135,7 +135,7 @@ class TopUsers extends StatelessWidget {
                   sides: 6,
                   borderRadius: 8,
                   child: CircularProfileAvatar(
-                      "https://pbs.twimg.com/profile_images/1223702174133174272/4cFG8h_Z.jpg"),
+                      "https://lh3.googleusercontent.com/proxy/pPIm8_8uF4gPUR2FozIFwU1roXPhYsZ-_zkm5MkiIP0hMDQ8YdD2YtPZehLdlJ3esg-fqoyrePuquJu-l-kOS_EFOK4Uv10pwvdtJheDE_ZZMPbvRiCSXQXAcmQf6KQtcFBF2odVdIM1qA"),
                 ),
               ),
             ),
@@ -222,7 +222,7 @@ class UserItem extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(12.0),
             child: CircularProfileAvatar(
-              "https://pbs.twimg.com/profile_images/1223702174133174272/4cFG8h_Z.jpg",
+              "https://lh3.googleusercontent.com/proxy/pPIm8_8uF4gPUR2FozIFwU1roXPhYsZ-_zkm5MkiIP0hMDQ8YdD2YtPZehLdlJ3esg-fqoyrePuquJu-l-kOS_EFOK4Uv10pwvdtJheDE_ZZMPbvRiCSXQXAcmQf6KQtcFBF2odVdIM1qA",
               radius: 20,
             ),
           ),
@@ -246,5 +246,5 @@ class UserItem extends StatelessWidget {
   }
 }
 
-List foto = ["user 1 ", "user 2", "hasan", "mehmet", "sadık", "hamdi"];
-List points = [300, 100, 200, 500, 200, 500];
+List foto = ["User 1 ", "User 2", "User 3", "User 4", "User 5", "User 6"];
+List points = [7, 5, 3, 3, 2, 1];
