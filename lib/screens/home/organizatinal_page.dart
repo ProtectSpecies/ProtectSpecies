@@ -36,16 +36,16 @@ class _OrgAccountState extends State<OrgAccount> {
     var allImages = FirebaseFirestore.instance.collectionGroup('images');
     QuerySnapshot querySnapshot = await allImages.get();
     Marker resultMarker;
-    for (var doc in querySnapshot.docs) {
+    for (DocumentSnapshot doc in querySnapshot.docs) {
       try {
-        double lat = doc.data()['latitude'];
-        double lng = doc.data()['longitude'];
+        double lat = (doc.data() as Map)["latitude"];
+        double lng = (doc.data() as Map)["longitude"];
 
         if (lat != null && lng != null) {
           resultMarker = Marker(
             markerId: MarkerId(doc['type']),
             infoWindow: InfoWindow(
-              title: doc.data()['type'],
+              title: (doc.data() as Map)['type'],
             ),
             position: LatLng(lat, lng),
           );
